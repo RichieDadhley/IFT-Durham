@@ -1,0 +1,297 @@
+\chapter{Introduction \& Motivation}
+
+\section{The Battle Between Quantum Mechanics \& Special Relativity}
+
+The first question we should ask ourselves is "why does quantum field theory (QFT) even exist and what is it used for?" The answer to this question comes from the fact that special relativity and quantum mechanics (QM) don't get along, and we need some method to make them consistent. Let's see why.
+
+\subsection{Causality}
+
+In the pre-Einstein ages, we often just had formulae for the forces between objects and just got on with using them. For example, let's say we have two particles of charges $q_1$ and $q_2$. Let's plonk them down somewhere and label their separation by $d$. Then the rules of electromagnetism tell us that the force between these two particles is given by 
+\be 
+\label{eqn:EMForce}
+    F_{EM} \propto \frac{q_1q_2}{d^2}.
+\ee
+We were happy with this, until Einstein came along and told us about a little thing called \textit{causality}. This is basically the statement that information cannot travel faster than the speed of light. In the language of special relativity that is `information cannot travel between two spacelike separated points'. This wreaks havoc for \Cref{eqn:EMForce}. Why? Well because there is no time dependence! Therefore if we were to move one of the charges, $q_1$ say, then the value of $d$ would change, and \Cref{eqn:EMForce} tells us that $q_2$ would feel this change in force \textit{instantly}. In other words, the information contained in the fact that we have moved $q_1$ is transmitted to $q_2$ (which could be arbitrarily far away) instantaneously; not good! We can fix this problem if instead we think of the force being mediated by some field that travels at the speed of light, and this is exactly what we do.
+
+\br 
+    Note that when $q_1$ and $q_2$ are close by, the fact that light travels so fast means that the difference between the result obtained by \Cref{eqn:EMForce} and the field theory description will be negligible. This is the usual story of non-relativistic vs. relativistic theories. 
+\er 
+
+Ok, that's all very well and good, but what on earth does that have to do with QM? Well in quantum mechanics we have operators which act on the states of our Hilbert space and do something to them. This is information! If we couple this idea with the fact that we want to be able to act with operators at any point in space and time\footnote{From now on I shall only say spacetime, and not `space and time' as the latter tends to promote the idea of thinking of space and time as different things.} we see that we are in a very similar situation to the electromagnetism case. 
+
+Recall that one of the weird and wonderful things about QM is that it is not always possible to simultaneously measure two observables. Mathematically we write this as the statement that their commutator is non-vanishing:
+\bse 
+    [\hat{\cO}_A,\hat{\cO}_B] \neq 0
+\ese 
+for non-compatible operators. This essentially tells us that the action of $\cO_A$ on our state speaks to $\cO_B$ and alters its action and visa versa. However if we are going to preserve causality, it is important that two spacelike separated operators must not speak to each other. In terms of our commutator relations, this is\footnote{We are working with a field theorist signature of $(+,-,-,-)$.}
+\be
+\label{eqn:CausualOperators}
+    [\hat{\cO}_A(x),\hat{\cO}_B(y)] = 0  \qquad \text{if } (x-y)^2<0,
+\ee 
+for \textit{any} two operators $\cO_A$ and $\cO_B$. To emphasise, the above condition holds even if $\cO_A$ and $\cO_B$ are non-compatible. 
+
+The collection of observables form a quantum field in spacetime and signals propagate as disturbances in this field. We interpret these disturbances as \textit{particles}.\footnote{On a technical note, the particle interpretation in QFT is actually much more subtle. A global notion of particle requires a global notion of time. As we are working in Minkowski spacetime we of course have a global time coordinate and so this is not a problem. However for a curved spacetime things become more subtle and you get some highly non-trivial results, namely that black holes have temperature; Hawking Radiation.}
+
+\subsection{Multiparticle States}
+
+Another problem that arises when trying to marry QM with special relativity is the conservation of particle number. In regular quantum mechanics, we work hard to define our Hilbert space\footnote{For \textit{a lot} more info on this see Simon Rea and my joint \href{https://richie291.wixsite.com/theoreticalphysics/post/dr-frederic-schuller-s-course-of-quantum-theory}{notes on Dr. Frederic Schuller's Quantum Theory course}.} and then we simply act on it. The game is a bit different in QFT, though. 
+
+Recall that in QM we have the famous \textit{Heisenberg uncertainty relation}, which tells us that you cannot know both the position and momentum to arbitrary accuracy, and that the lower bound is 
+\be 
+\label{eqn:UncertaintyRelation}
+    \Delta L \Delta \mathbf{p} \geq \frac{\hbar}{2} \qquad \implies \qquad \Delta \mathbf{p} \geq \frac{\hbar}{2\Delta L}.
+\ee 
+This tells us that if we constrain a particle to a small region of space (say by putting it into a really small box) then the uncertainty in momentum goes through the roof. 
+
+Recall separately that special relativity tells us that energy and mass are essentially the same thing $E=mc^2$, and that in a general frame the energy of a particle is given by its mass and 3-momentum:
+\bse 
+    E^2 = m^2c^4 + \mathbf{p}^2 c^2.
+\ese 
+If we consider a very light particle, this relation can be approximated as 
+\be
+\label{eqn:E=pc}
+    E \approx |\mathbf{p}|c
+\ee
+
+Now we have a problem! Imagine constraining the particle into a box of size $L = \hbar/2mc$ then \Cref{eqn:UncertaintyRelation} tells us that the uncertainty in the momentum is 
+\bse 
+    \Delta \mathbf{p} \geq mc,
+\ese 
+and then \Cref{eqn:E=pc} tells us that the uncertainty in energy is 
+\bse 
+    \Delta E \geq mc^2.
+\ese 
+This is enough energy to create a new particle!
+
+So we see that in QFT we need to adapt our Hilbert space so that it accounts for these multiparticle states. This construction is known as a Fock space, and mathematically can be written as 
+\be 
+\label{eqn:FockSpace}
+    \cF = \bigoplus_{n=0}^{\infty} \cH^{\otimes n},
+\ee
+where $\cH$ is our `one particle state'. To make the above seem a little less abstract, the two particle state is an element of the space $\cH^{\otimes 2} := \cH \otimes \cH$, and so each $n$ above corresponds to allowing $n$-particle states. The $\oplus$ symbol just means we need to `sum over' these different combinations to account for the fact that our system can transition from a $n$-particle state to a $(n+1)$-particle state.\footnote{For more info on the symbols used, see either the QM notes mentioned in footnote 4 or any decent linear algebra textbook.}
+
+\br 
+    Anyone familiar with the basic idea of QFT will know that what we never really just create a single particle in this way, but instead they always appear is so-called \textit{pair production}. This is essentially just the statement that a particle is always produced with its antiparticle, but we'll return to this later. 
+\er 
+
+QFT will allow us to study how such particle creation processes occur and interpret them in terms of interacting field. Being a quantum theory, what we will obtain is the \textit{probability} that such a process occurs, known as \textit{cross sections}. 
+
+\subsection{Fields, Not Particles}
+
+The above argument should actually give us a reasonably intuitive idea to why we want to consider fields instead of particles. We have just seen that even in the simple case of Minkowski spacetime where the notion of a particle makes sense (see footnote 3), the notion of how many particles we have is very blurred. This is not something that lends well to our understanding, and so we would really like to think of things differently, and this is where the fields come in. As mentioned above, the fields are the fundamental objects and we obtain a particle interpretation by the disturbances in the field. To quote Weinberg:
+
+\begin{center}
+    "Quantum fields are the basic ingredients of the Universe, particles are just bundles of energy and momentum made out of them."
+\end{center}
+
+So QFT theory is, as the name suggests, a study of \textit{fields}, not particles. This might seem like a pedantic point to make, however this switch in mentality is actually very important for a solid understanding of the material that is about to come.
+
+\section{Units \& Range}
+
+\subsection{Units}
+
+Experienced physicists will know that physical units (or dimensions) are important, and must be kept track of. As you may be aware, it turns out that \textit{all} physical units can be characterised by seven others, known as SI units. The three most commonly encountered (and the only ones used in this course) are mass, length and time. We write the dimensions of a quantity by square brackets and use the letters $[M]$, $[L]$ and $[T]$ for the three units, respectively.
+
+The constants that appear in our equations will, of course, sometimes carry units. The three dimensionful constants in particle physics are: the reduced Planck's constant, $\hbar$; the speed of light $c$; and Newton's gravitational constant $G_N$. These have dimensions
+\bse 
+    [c] = \frac{[L]}{[T]}, \qquad [\hbar] = \frac{[M][L]^2}{[T]}, \qand [G_N] = \frac{[L]^3}{[M][T]^2}.
+\ese 
+It is the former two that will show up a lot (as they already have above) and particle physicists decided one day they had had enough of writing them out and so decided to switch to a different set of units, known as \textit{natural units}. These are defined by setting $\hbar=1=c$. From the above relation this results in 
+\bse 
+    [L] = [T] = [M]^{-1}.
+\ese 
+We can therefore just characterise everything in terms of one of these three units. It is standard to give this privilege to mass, and we obtain \textit{mass dimensions}. These are just numbers, and correspond to the power of $[M]$ appearing. For example 
+\bse 
+    [G_N] = [M]^{-3} [M]^{-1} [M]^{2} = -2.
+\ese 
+
+Now recall \Cref{eqn:UncertaintyRelation}. This tells us that position (which has length dimension) has the opposite dimension to 3-momentum. Then \Cref{eqn:E=pc} tells us that energy has the same dimension as 3-momentum. We therefore have 
+\be 
+    [E] = 1.
+\ee 
+This result is also trivially obtained from $E=m$ (as $c=1$). We can therefore express these dimensions in units of energy. Due to the energy scales that appear in particle physics, we do not choose to use the Joule but instead use the much more convenient electron volt, eV. These often appear with the prefixes M, G, T for `mega', `tera' and `giga', respectively.
+
+\bex 
+    As an example, the mass of an electron in these units is 
+    \bse 
+        m_{e} = 0.511 MeV.
+    \ese
+\eex 
+
+\subsection{Range}
+
+Perhaps an obvious question to now ask is "what energy scale does QFT apply to?" 
+
+%\textcolor{red}{Fill this in later. Maybe just reference Tong.}
+
+\section{Classical Particle Mechanics}
+
+In order to make the discussion of QFT easier, let's first look at classical field theory. 
+
+\subsection{Configuration Space \& Generalised Coordinates}
+
+We can describe the configuration of a system by a set of parameters. For example, the position of a particle on $\R^2$ is simply given by its coordinates $(x,y)$, say. Perhaps a less obvious example is the colour of something. This is described by its RGB value, and so is parameterised by 3 numbers. We can think of these parameters as coordinates for our system. This coordinate space need not be continuous, as it would be for both the above examples, but could form a lattice. For example if we whether something is `right way up' or 'upside down' would form two points on a configuration space. 
+
+The question is, do constraints on the system effect the parameters, and therefore effect the coordinate systems? The answer is yes. To see why lets contrast a free particle with one constrained to some surface, a circle, say. The free particle can have any position and so we need to consider the entirety of $\R^2$, that is it can have any $(x,y)$ values. The constrained particle, however, can only take values such that $x^2+y^2=r^2$. If instead we used polar coordinates, we could completely specify the particle's position just by its angle around the circle. So this constraint has reduced the number of parameters needed, and thus altered our configuration space. A similar example for the colour of an object would be if we fixed the R value but allowed G and B to vary still. 
+
+Note all of these constructions were made relative to some `reference point': for the particle's position we reference the values to the origin; for the colours we reference it to white, which has RGB=$000$.
+
+\bd[Generalised Coordinates]
+    We call the minimum number of independent parameters needed to describe a system relative to some reference point the \textbf{generalised coordinates}. We often denote these with a $\{q_a\}$.
+\ed 
+
+We use the name `generalised' coordinates, because, as we have seen, we don't need the same number of generalised coordinates as we do `real' coordinates (i.e. those used to define a coordinate system). Note that the configuration space is given by the span of the generalised coordinates. 
+
+\bex 
+    The generalised coordinates for the free particle are $(x,y)$, whereas for the constrained particle we just have one, $\theta$.
+\eex 
+
+\bex 
+    The values $(q_1,q_2,q_3)$ could be the generalised coordinates for either a single particle in 3-dimensions or for 3 particles in 1-dimension. This example highlights that in order to differentiate two systems, we need to know how the configuration space is constructed.
+\eex 
+
+\subsection{Principle Of Least Action \& Euler-Lagrange}
+
+The configuration space tells us the configuration of a system, but in physics we also want to know about the \textit{dynamics} of a system. That is, we want to know how the configuration varies through time. For the case of a particle's position, this corresponds to knowing its momentum. In the language of generalised coordinates, we call these momenta the \textit{generalised velocities}. We often denote these by $\{\dot{q}_a\}$. The span of $\{q_a\}\cup\{\dot{q}_a\}$ is called the \textit{phase space}. Points in the phase space correspond to \textit{states} of the system, and the evolution of states are given by paths on phase space.
+
+In classical physics, the dynamics of a particle is given by a phase space where $q_a$ and $p_i$ are the position and momentum of the particle. For non-accelerating particles, we know that we can simply specify the position and momentum of a particle at some point and from that extract out its evolution. In other words, each point in phase space only has one path going through it, and so by specifying the state of a system we know its evolution. 
+
+The question is "how do we find this evolution?" The answer comes from the \textit{principle of least action}. These tell us the equations of motion for a system (i.e. how it evolves through time) and so will give us exactly what we want.
+
+The procedure is as follows: we obtain the \textit{Lagrangian} $L$ for our system in terms of $q$ and $\dot{q}$, integrate it from initial to final time to obtain the \textit{action}, then we extremise this action under the constraint that the start and end points remain fixed, and obtain the shortest path between those points. The calculation is as follows: 
+
+\bse 
+    \begin{split}
+        \del S & = \int_{t_i}^{t_f} dt \del L\big(q_a(t),\dot{q}_a(t)\big) \\
+        & = \int_{t_i}^{t_f} dt \bigg( \frac{\p L}{\p q_a} \del q_a + \frac{\p L}{\p \dot{q}_a} \del \dot{q}_a \bigg) \\
+        & = \int_{t_i}^{t_f} dt \bigg[ \frac{\p L}{\p q_a} - \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\bigg)\bigg] \del q_a + \bigg[\frac{\p L}{\p \dot{q}_a} \del q_a\bigg]^{t_f}_{t_i} \\
+        & = \int_{t_i}^{t_f} dt \bigg[ \frac{\p L}{\p q_a} + \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\bigg)\bigg] \del q_a,
+    \end{split}
+\ese 
+where we have used 
+\bse 
+    \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\del q_a \bigg) = \frac{\p L}{\p \dot{q}_a} \del \dot{q}_a + \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\bigg)\del q_a,
+\ese 
+integrated by parts, and used the fact that $\del q_a =0$ at $t_i$ and $t_f$. Now setting the variation to zero, and using the fact that $\del q_a$ was arbitrary (up the constraints) we can conclude 
+\be 
+\label{eqn:EulerLagrange}
+    \frac{\p L}{\p q_a} - \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\bigg) = 0,
+\ee 
+known as the \textit{Euler-Lagrange equations}. These are exactly the equations of motion of the system we set out to obtain. 
+
+Practically speaking, the Lagrangian is given by the kinetic energy, $T$, minus the potential energy, $U$. We shall now give a few examples to show that \Cref{eqn:EulerLagrange} does indeed give us the expected equations of motion.
+
+\bex 
+    Consider the motion of single particle in 1-dimension with a potential $U(x)$. The Lagrangian is 
+    \bse 
+        L(x,\dot{x}) = \frac{1}{2}m \dot{x}^2 - U(x),
+    \ese 
+    and so out Euler-Lagrange equations are:
+    \bse 
+        m\ddot{x} = -U'(x),
+    \ese 
+    which is exactly Newton's law of motion.
+\eex 
+
+\section{Lagrangian Field Theory}
+
+The above example was to do with a single \textit{particle}, but what we're trying to study here are \textit{field} theories. We therefore need to adapt the above procedure to this case. 
+
+The first change we need to make is to the generalised coordinates. For the particle case, $a$ was an index which labelled the different $q(t)$s. However in field theory, we must also introduce a label for the position spatial of the field, and so our generalised coordinates are replaced by 
+\bse 
+    q_a(t) \longrightarrow \phi(x) := \phi_a(\vec{x},t),
+\ese 
+where $\vec{x}$ is a treated as a label. Note that for the field, we are dealing with a system with an infinite number of degrees of freedom: one for each value of $\vec{x}$.
+
+We can also show by considering a chain of connected springs \textcolor{red}{(Do this later from his notes)} that we must also replace the Lagrangian with a Lagrangian \textit{density}, $\cL$, related by 
+\be 
+\label{eqn:LtocL}
+    L(t) = \int d^3\vec{x} \, \cL\big(\phi_a(x),\p_{\mu}\phi_a(x)\big).
+\ee 
+Our Euler-Lagrange equations then become
+\mybox{ 
+    \be 
+    \label{eqn:EulerLagrangeDensity}
+        \frac{\p \cL}{\p \phi_a} - \p_{\mu}\bigg(\frac{\p \cL}{\p(\p_{\mu}\phi_a)}\bigg) = 0
+    \ee 
+}
+
+The symmetries of the physics are inserted at the Lagrangian level, by which we mean if we want a theory that is spatial-rotationally invariant then we require 
+\bse 
+    R(\varphi_x,\varphi_y,\varphi_z) \cL = \cL,
+\ese
+where $R(\varphi_x,\varphi_y,\varphi_z)$ is a general spatial rotation. 
+
+In this course we will only consider Lagrangians that obey the following conditions
+\ben[label=(\roman*)]
+    \item Lorentz invariance; i.e. $\cL(\Lambda x) = \cL(x)$ where $\Lambda$ is a general Lorentz transformation,
+    \item Local Lagrangians; i.e. all of our fields will be evaluated at the same event in spacetime,
+    \item Only contain single derivatives of the fields; i.e. we don't want anything of the form $\p_{\mu}\p_{\nu}\phi$, 
+    \item Renormalisable Lagrangians; this is something that will not really be covered explained in this course, but basically the coefficients in our Lagrangian must have positive dimension. This essentially amounts to not having more than $d$ powers of the field, where $d$ is the dimension of the spacetime. 
+\een 
+These four conditions will actually massively reduce the number of possible Lagrangians we can consider. We now give a brief justification for each: 
+\ben[label=(\roman*)]
+    \item We are considering relativistic particles and so we really want our theories to be Lorentz invariant, 
+    \item This massively helps with avoiding non-causal theories, 
+    \item There are two reasons: one is that we would need to alter our Euler-Lagrange equations to account for higher derivatives, and also adapt our phase space\footnote{Basically you get equations of motion that contain second order derivatives, and so it is not enough to just specify $q$ and $\dot{q}$ on an initial time surface, but we must also specify $\ddot{q}$.}; secondly because we are fundamentally interested in 4-dimensional spacetime, a Lagrangian that included a $\p_{\mu}\p_{\nu}\phi$ term would be non-renormalisable. This comes from the fact that the action has vanishing mass dimension\footnote{Basically because $S \sim \hbar$.} and so, in order to cancel the $[d^dx]=-d$\footnote{Note that integration increases the dimension and so has units of length.} contribution from the integral we require $[\cL]=d$. Now if we want to study kinematics, we need a kinetic energy term in the Lagrangian, this takes the form
+    \bse 
+        \cL = (\p_{\mu}\phi)(\p^{\mu}\phi) + ...,
+    \ese
+    but the derivatives have dimension $[\p_{\mu}]=1$\footnote{They take away length dimension.} and so we get $4 = 2 + 2[\phi]$, or $[\phi]=1$. If we were then to include a second order derivative term, Lorentz invariance would require it appears as
+    \bse 
+        \cL = a(\p_{\mu}\p_{\nu}\phi)(\p^{\mu}\p^{\nu}\phi),
+    \ese 
+    but this would then require $[a]=-2$, which gives a non-renormalisable theory. 
+    \item We don't need to understand this here, but basically it causes a huge pain in perturbation theory. 
+\een 
+
+\bnn 
+    As we have just seen in the explanation of (iii) above, Lorentz invariance requires that any derivative term comes with the corresponding `raised' derivative term. It is therefore very useful to introduce a common notion to simply the expressions. We define 
+    \bse 
+        (\p_{\mu}\phi)^2 := \p_{\mu}\phi\p^{\mu}\phi = \eta^{\mu\nu}\p_{\mu}\phi\p_{\nu}\phi. 
+    \ese 
+    This notation can appear a bit confusion because it appears to break Einstein summation convention (the left-hand side seems to have a $\mu$ index but on the right-hand side it is summed over). For this reason some people (and I am one of these people) prefer to define the notation
+    \be 
+    \label{eqn:PartialSquaredNotation}
+        (\p\phi)^2 := \p_{\mu}\phi\p^{\mu}\phi.
+    \ee
+    This is the notation that will be used in these notes from now on, unless some potential confusion might arise, in which case we shall write the full expression (i.e. like the right-hand side above). Similarly we shall use 
+    \be
+    \label{eqn:ClassicalKleinGordan}
+        \p^2 := \p_{\mu}\p^{\mu}.
+    \ee 
+\enn 
+
+\bex 
+    One of the simplest Lagrangians that meets the above conditions is 
+    \be 
+    \label{eqn:KleinGordanLagrangian}
+        \begin{split}
+            \cL & = \frac{1}{2}(\p\phi)^2 - \frac{1}{2} m^2\phi^2 \\
+            & = \frac{1}{2} \dot{\phi}^2 - \frac{1}{2}\nabla^2\phi - \frac{1}{2}m^2\phi^2,
+        \end{split}
+    \ee 
+    where $\phi = \phi(x)$ is a real scalar field. The Euler-Lagrange equations for this are simply 
+    \bse 
+        (\p^2 - m^2)\phi = 0.
+    \ese 
+    This is known as the \textit{Klein-Gordan equation}. It is very important to note here that this is the \textit{classical} Klein-Gordan equation, not the quantum version. As we will see later it has an quantum analogue (which looks exactly the same) which gives the equations of motion of spineless particles, i.e. quantum scalars.
+\eex 
+
+\bex 
+    The Klein-Gordan equation above takes the form of a wave equation (i.e. it is second order in both temporal and spatial derivatives). This is nice,but we know in QM that the wave equation is replaced by the Schr\"{o}dinger equation, which is linear in time derivatives and quadratic is spatial derivatives. We can get a \textit{classical} analogue to this by considering a complex scalar field $\psi$. The Lagrangian is
+    \bse 
+        \cL = \frac{i}{2}(\psi^*\dot{\psi} -\dot{\psi}^*\psi) - \nabla\psi^*\cdot\nabla\psi - m\psi^*\psi.
+    \ese 
+    You treat $\psi$ and $\psi^*$ as independant fields. For the $\psi^*$ field we have,
+    \bse 
+        \frac{\p\cL}{\p\psi^*} = \frac{i}{2}\dot{\psi} - m\psi, \qquad \frac{\p\cL}{\p\dot{\psi}^*} = -\frac{i}{2}\psi, \qand \frac{\p\cL}{\p\nabla\psi^*} = -\nabla\psi,
+    \ese 
+    and so the equation of motion for this field is 
+    \bse 
+        i\frac{\p\psi}{\p t} = -\nabla\psi + m\psi.
+    \ese 
+    The $\psi$ field gives a similar equation of motion. 
+    
+    This \textit{looks} a lot like the Schr\"{o}dinger equation, but as was emphasised above this is a \textit{classical} theory. It does not have any of properties of the Schr\"{o}dinger equation, e.g. it doesn't have a probabilistic interpretation, as is the key to quantum theory. 
+\eex 

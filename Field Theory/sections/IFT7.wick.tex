@@ -1,0 +1,476 @@
+\chapter{Wick's Theorem}
+
+Last lecture we showed how we could use Dyson's formula to find the S-matrix for a simple decay and simple scattering. We made a comment about how would could have got a scattering in the scalar Yakawa theory, but that it would involve a quadratic term from Dyson's formula, and so would be very hard to do in the manner above. However, obviously we want to be able to calculate such terms (otherwise we never pass first order in perturbation theory, and we loose \textit{a lot} of information), so how do we do it? The answer is we be smart about how we write things. 
+
+\section{Normal Ordering}
+
+Ok we just said we "be smart", but what does that actually entail? We shall use the scalar Klein-Gordan field to explain. Recall that we can write this field as the expansion 
+\bse 
+    \phi(x) = \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\Vec{p}}}} \Big( a_{\vec{p}}\, e^{-ipx} + a_{\vec{p}}^{\dagger} \, e^{ipx} \Big).
+\ese 
+Well let's define 
+\be 
+\label{eqn:phi+-}
+    \begin{split}
+        \phi^+(x) & = \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\Vec{p}}}} a_{\vec{p}}\, e^{-ipx} \\
+        \phi^-(x) & = \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\Vec{p}}}} a_{\vec{p}}^{\dagger} \, e^{ipx},
+    \end{split}
+\ee 
+so that we simply have 
+\bse 
+    \phi(x) = \phi^+(x) + \phi^-(x).
+\ese 
+
+\br 
+    It might seem strange that we define $\phi^+(x)$ to be the one that has the negative exponential. The reason for this is that $e^{-ipx}$ corresponds to a mode with positive frequency, and so we use $\phi^+(x)$. Also note that the dagger does \textit{not} come with $\phi^+(x)$, as you might think. This is actually important because it is fact that $\phi^{\pm}(x)$ correspond to annihilation/creation operators, respectively, that we will use. 
+\er 
+
+Now, as we just mentioned in the remark above, $\phi^+(x)$ comes with an annihilation operator, so if it were to appear to the far right in a vacuum expectation value, the result would be zero. The same thing is true for $\phi^-(x)$ being to the far left. That is 
+\bse 
+    \phi^+(x)\ket{0} = 0 = \bra{0}\phi^-(x).
+\ese 
+Similarly, we can see that 
+\bse 
+    \phi^+(x)\ket{\vec{p}} = e^{-ipx} \ket{0}, \qand \bra{\vec{p}}\phi^-(x) = e^{ipx}\bra{0}.
+\ese 
+
+We call the procedure of putting all the annihilation operators to the right \textit{normal ordering}. 
+
+\mybox{
+    \bd[Normal Ordering]
+        We denote the \textit{normal ordered} string of operators $\cO_1(x_1)...\cO_n(x_n)$ as 
+        \be 
+        \label{eqn:NormalOrdering}
+            \cl \cO_1(x_1) ... \cO_n(x_n) \cl,
+        \ee 
+        which tells us to put all the annihilation operators to the right.
+    \ed 
+}
+
+\br
+    Normal ordering is `linear' in the sense that 
+    \bse 
+        \cl AB + CD \cl = \cl AB \cl + \cl CD \cl.
+    \ese 
+\er 
+
+\br 
+    Note we could have introduced this (as Prof. Tong does) when talking about the energy of the ground state being infinite. That is we could write the Hamiltonian for the single free scalar field as 
+    \bse 
+        \cl H \cl = \int \frac{d^3\vec{p}}{(2\pi)^3} E_{\vec{p}} a_{\vec{p}}^{\dagger} \, a_{\vec{p}},
+    \ese 
+    so that
+    \bse 
+        \cl H \cl \ket{0} = 0.
+    \ese 
+\er 
+
+\bnn 
+    The colon notation used here for normal ordering is very common, however some authors, including Peskin and Schroeder, denote normal ordering by an $N$. So \Cref{eqn:NormalOrdering} would be written $N(\cO_1(x_1)...\cO_n(x_n))$. 
+\enn 
+
+\section{Wick's Theorem}
+
+Ok normal ordering seems great, but Dyson's formula comes in the form of time ordered products, not normal ordered ones. So the question becomes "can we convert one into the other?" Well let's look at an example and see. 
+
+\subsection{Recovering The Propagator}
+
+Let's use \Cref{eqn:phi+-} to try investigate the link. Let's start with the simple case of the product of two fields. Let's define 
+\bse 
+    \phi^{\pm}(x_i) = \phi^{\pm}_i,
+\ese 
+and let's consider $x_1^0>x_2^0$. Then the time ordered product is\footnote{Be careful not to confuse the colon in $:=$, which means "is defined to be equal to" to the colons for normal ordering. I considered using another type font for the colon, but decided against it.}
+\bse 
+    \begin{split}
+        \cT\big(\phi_1\phi_2\big) & :=  \phi_1\phi_2 \\
+        & = (\phi_1^+\phi_1^-) (\phi_2^+\phi_2^-) \\
+        & = \phi_1^+\phi_2^+ + \phi_1^+\phi_2^- + \phi_1^-\phi_2^+ + \phi_1^-\phi_2^- \\
+        & = \phi_1^+\phi_2^+ + \phi_2^-\phi_1^+ + [\phi_1^+,\phi_2^-] + \phi_1^-\phi_2^+ + \phi_1^-\phi_2^- \\
+        & = \cl \phi_1\phi_2 \cl + [\phi_1^+,\phi_2^-] \\
+        & = \cl \phi_1\phi_2\cl + D(x_1-x_2),
+    \end{split}
+\ese 
+where we have used the commutator to make every term have a $\phi^+$ to the far right and the definition of the propagator $D(x-y)$.
+
+\bbox 
+    Following a similar method to the above, show that if $x_2^0 > x_1^0$, then
+    \bse 
+        \cT(\phi_1\phi_2) = \cl \phi_1\phi_2 \cl + D(x_2-x_1).
+    \ese
+\ebox
+
+So together with the result of the above exercise, we conclude that 
+\bse 
+    \cT(\phi_1\phi_2) = \cl \phi_1\phi_2 \cl + \begin{cases}
+        D(x_1-x_2) & \text{if } x_1^0>x_2^0 \\
+        D(x_2-x_1) & \text{if } x_2^0>x_1^0
+    \end{cases}.
+\ese 
+Hang on, this looks familiar... the cases term is just the Feynman propagator, \Cref{eqn:FeynmanPropagator}. So we get 
+\be
+\label{eqn:TimeOrderdNormalOrderedTwoRealFields}
+    \cT(\phi_1\phi_2) = \cl \phi_1\phi_2\cl + \Delta_F(x_1-x_2).
+\ee 
+
+\br 
+    Note that once again we have an expression that mixes operators and $\C$-numbers: both $\cT(\phi_1\phi_2)$ and $\cl \phi_1\phi_2 \cl$ are operators, but the Feynman propagator is a $\C$-number. We have made this comment several times throughout this course, but make it here again to keep us on our toes.
+\er
+
+\subsection{Wick Contractions \& Wick's Theorem}
+
+So we obtained a really nice expression relating the time ordering and normal ordering for two real scalar fields, and their difference was the Feynman propagator. We now want to try and generalise this result to a general relation between time ordering and normal ordering. In order to do that, it is convenient to introduce a notation for \textit{Wick contractions}. 
+
+\mybox{
+    \bd[Wick Contraction]
+        We define the \textit{Wick contraction}, or just \textit{contraction}, of a pair of fields, $\phi_i$ and $\phi_j$, in a string of $n$-operators, $\phi_1...\phi_i... \phi_j...\phi_n$, to mean "replace those operators with the Feynman propagator, and leave everything else alone." We use the following notation.
+        \be 
+        \label{eqn:WickContraction}
+            \contraction{\phi_1...}{\phi_i}{...}{\phi_j}
+            \phi_1...\phi_i...\phi_j...\phi_n = \Delta_F(x_i-x_j) \phi_1...\phi_n,
+        \ee 
+        where the $...$ on the right hand side does \textit{not} include $\phi_i$ and $\phi_j$.\footnote{If you like, in standard "this element is missing" notation, we could write the right hand side as $\Delta_F(x_i-x_j) \phi_1...\hat{\phi_i}...,\hat{\phi_j}...\phi_n$, but I thought this would be confusing, as hats are used for operators in QFT.} 
+    \ed 
+}
+\bex 
+    So we can write \Cref{eqn:TimeOrderdNormalOrderedTwoRealFields} simply as 
+    \bse
+        \cT(\phi_1\phi_2) = \cl \phi_1\phi_2\cl +  \contraction{}{\phi_1}{}{\phi_2} \phi_1\phi_2.
+    \ese 
+\eex
+
+\bcl 
+    A similar argument/proof can be made for complex fields, where we have
+    \bse 
+        \contraction{}{\psi_1}{}{\psi_2^{\dagger}} \psi_1\psi_2^{\dagger} = \Delta_F(x_1-x_2), \qand \contraction{}{\psi_1}{}{\psi_2} \psi_1\psi_2 = 0 = \contraction{}{\psi_1^{\dagger}}{}{\psi_2^{\dagger}} \psi_1^{\dagger}\psi_2^{\dagger},
+    \ese 
+    so that 
+    \bse 
+        \cT(\psi_1\psi_2^{\dagger}) = \cl \psi_a\psi^{\dagger}_2 \cl + \contraction{}{\psi_1}{}{\psi_2^{\dagger}} \psi_1\psi_2^{\dagger}.
+    \ese
+\ecl 
+
+So we see that for the case of two real scalar fields, and claimed it for two complex scalar field, the difference between the time ordered and normal ordered products is a Wick contraction, but what about if we have more than two fields? Well this is where Wick's theorem comes in. 
+
+\mybox{
+    \bt[Wick's Theorem] 
+       For any collection of fields $\phi_1,...,\phi_n$ the following holds 
+       \be 
+        \cT(\phi_1...\phi_n) = \cl \phi_1...\phi_n \cl + \cl \text{all possible contractions} \cl.
+       \ee 
+    \et
+}
+
+\bq 
+    We do not prove Wick's theorem here, but an explanation of the proof (its an inductive proof) is given in Prof. Tong's notes, page 58.
+\eq 
+
+It is often very useful to break a calculation using Wick's theorem into categories, given by the number of contractions done. Every calculation will have the $0$-contraction term, which is just the fully normal ordered term, and then you consider the terms in increasing number of contractions.\footnote{Well it depends what you want to do. In string theory it is often the term which is fully contracted that contains most of the useful information. For more details, see my notes on Dr. Shiraz Minwalla's string theory course.}
+
+\bex
+    Let's consider 4 real Klein-Gordan fields. Then we can have either $0$-contractions, $1$-contraction or $2$-contractions. The respective terms are:
+    \begin{itemize}
+        \item $0$-contractions
+            \bse 
+                \cl \phi_1\phi_2\phi_3\phi_4 \cl, 
+            \ese 
+        \item $1$-contraction:
+            \bse 
+                \cl \contraction{}{\phi_1}{}{\phi_2} \phi_1\phi_2\phi_3\phi_4 + \contraction{}{\phi_1}{\phi_2}{\phi_3} \phi_1\phi_2\phi_3\phi_4 + \contraction{}{\phi_1}{\phi_2\phi_3}{\phi_4} \phi_1\phi_2\phi_3\phi_4 + \contraction{\phi_1}{\phi_2}{}{\phi_3} \phi_1\phi_2\phi_3\phi_4 + \contraction{\phi_1}{\phi_2}{\phi_3}{\phi_4} \phi_1\phi_2\phi_3\phi_4 + \contraction{\phi_1\phi_2}{\phi_3}{}{\phi_4} \phi_1\phi_2\phi_3\phi_4 \cl 
+            \ese 
+        \item $2$-contractions
+            \bse 
+                \cl \contraction{}{\phi_1}{}{\phi_2} \contraction{\phi_1\phi_2}{\phi_3}{}{\phi_4} \phi_1\phi_2\phi_3\phi_4 + \contraction{}{\phi_1}{\phi_2}{\phi_3} \contraction[2ex]{\phi_1}{\phi_2}{\phi_3}{\phi_4} \phi_1\phi_2\phi_3\phi_4 + \contraction[2ex]{}{\phi_1}{\phi_2\phi_3}{\phi_4} \contraction{\phi_1}{\phi_2}{}{\phi_3} \phi_1\phi_2\phi_3\phi_4 \cl 
+            \ese 
+    \end{itemize}
+    This result implies that 
+    \bse 
+        \bra{0}\cT(\phi_1\phi_2\phi_3\phi_4)\ket{0} = \Delta_F(x_1-x_2)\Delta_F(x_3-x_4) + \Delta_F(x_1-x_3)\Delta_F(x_2-x_4) + \Delta_F(x_1-x_4)\Delta_F(x_2-x_3),
+    \ese 
+    which is a Green's function for the Klein-Gordan operator (recall that the Feynman integral is a Green's function).
+\eex 
+
+\subsection{Wick's Theorem For Matrix Elements}
+
+Wick's theorem is defined for time ordered products of operators, but we can adapt it to allow us to contract with states. We do this by defining 
+\mybox{
+    \be 
+    \label{eqn:WickContractionOnStates}
+        \contraction{}{\phi(x)}{}{\ket{\vec{p}}} \phi(x)\ket{\vec{p}} = e^{-ipx}, \qand \contraction{}{\bra{\vec{p}}}{}{\phi(x)} \bra{\vec{p}}\phi(x) = e^{ipx},
+    \ee 
+}
+\noindent and then Wick's theorem is simply adapted to include contractions between fields and states. This allows us to calculate the S-matrix completely using Wick's theorem. 
+
+\section{Scalar Yakawa Scattering}
+
+We can now return to the problem of trying to find the $\cO(g^2)$ term in scalar Yakawa theory. Recall the Lagrangian is,\footnote{Using $\psi^\dagger$ now instead of $\psi^*$ because we will only consider the quantum theory from now on.}
+\bse 
+    \cL = \frac{1}{2}(\p\phi)^2 - \frac{1}{2}m^2\phi^2 + \frac{1}{2}\p_{\mu}\psi^{\dagger}\p^{\mu}\psi - M^2\psi^{\dagger}\psi - g\phi\psi^{\dagger}\psi. 
+\ese 
+Similarly to \Cref{eqn:phi+-} we define 
+\bse 
+    \begin{split}
+        \phi_b^+(x) & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} b_{\vec{p}} \, e^{-ipx}, \qand \phi_b^-(x) = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} b_{\vec{p}}^{\dagger} \, e^{ipx} \\
+        \phi_c^+(x) & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} c_{\vec{p}} \, e^{-ipx} \qand \phi_c^-(x) = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} c_{\vec{p}}^{\dagger} \, e^{ipx}
+    \end{split}
+\ese 
+so that 
+\bse 
+    \psi(x) = \phi_b^+(x) + \phi_c^-(x), \qand \psi^{\dagger}(x) = \phi_c^+(x) + \phi_b^-(x),
+\ese 
+where we note that each term contains a $b$ and a $c$, in correspondance with \Cref{eqn:ComplexFieldExpansion}. Then, we recalling the definitions 
+\bse 
+    \ket{\psi(p)} := \sqrt{2E_{\vec{p}}} \, b^{\dagger}_{\vec{p}}\ket{0}, \qand \ket{\overline{\psi}(p)} := \sqrt{2E_{\vec{p}}} \, c^{\dagger}_{\vec{p}}\ket{0},
+\ese 
+our Wick contractions are
+\bse 
+    \contraction{}{\psi(x)}{}{\ket{\psi(p)}} \psi(x)\ket{\psi(p)} = \contraction{}{\psi^{\dagger}(x)}{}{\ket{\overline{\psi}(p)}} \psi^{\dagger}(x)\ket{\overline{\psi}(p)} = e^{-ipx}, \qand \contraction{}{\bra{\psi(p)}}{}{\psi^{\dagger}(x)} \bra{\psi(p)}\psi^{\dagger}(x) = \contraction{}{\bra{\overline{\psi}(p)}}{}{\psi(x)} \bra{\overline{\psi}(p)}\psi(x) = e^{ipx},
+\ese 
+and all others vanishing. 
+
+So what we're looking at is $\psi\psi \to \phi \to \psi \psi$, so our initial and final states are 
+\bse 
+    \ket{i} = \ket{\psi(p_1)\psi(p_2)}, \qand \bra{f} = \bra{\overline{\psi}(p_3)\overline{\psi}(p_4)}.
+\ese 
+The transition matrix is then 
+\bse
+    \begin{split}
+        T_{fi} = & -ig \bra{\overline{\psi}(p_3)\overline{\psi}(p_4)} \int d^4 x \, \psi^{\dagger}_x\psi_x\phi_x \ket{\psi(p_1)\psi(p_2)} \\
+        & + \frac{(-ig)^2}{2!} \bra{\overline{\psi}(p_3)\overline{\psi}(p_4)} \cT \bigg( \int d^4x \, d^4y \,  \psi^{\dagger}_x\psi_x \phi_x \psi^{\dagger}_y\psi_y\phi_y \bigg) \ket{\psi(p_1)\psi(p_2)} + \cO(g^3).
+    \end{split}
+\ese 
+We can use Wick's theorem to evaluate this. First we note that the first term vanishes. Why? Well because we have nothing to contract the $\phi_x$ with, so we have to leave it as a normal ordered term, which then acts on the vacuum giving a vanishing result. We will see in terms of Feynman diagrams soon why such a term can't exist. Now what about the second term? Well we get three different types of contractions which are conceptually different they are 
+\ben[label=(\roman*)]
+    \item Fully Connected,
+    \item Connected, and 
+    \item Disconnected.
+\een 
+
+We shall consider the fully connected diagrams in this lecture and derive the corresponding Feynman rules, and then talk about connected and disconnected diagrams next lecture.\footnote{Just because that's what happened on the course.}
+
+\subsection{Fully Connected}
+
+There are two unique types of fully connected contractions for the term above, they are 
+\bse 
+    -\frac{g^2}{2!} \int d^4x \, d^4y \,  \contraction{}{\overline{\psi}(p_3)}{\overline{\psi}(p_4)\cl \,\,\, \psi_x}{psi^{\dagger}_y} \bcontraction[2ex]{\psi(p_3)}{\overline{\psi}(p_4)}{ \cl\quad }{\psi^{\dagger}_x} \bra{\overline{\psi}(p_3)\overline{\psi}(p_4)} \cl  \psi^{\dagger}_x \psi^{\dagger}_y \contraction{}{\phi_x}{}{\phi_y} \phi_x\phi_y \contraction{}{\psi_x}{\psi_y\cl }{\ket{\psi(p)}} \bcontraction[2ex]{\psi_x}{\psi_y}{\cl\psi(p) \,}{\psi(p)} \psi_x\psi_y \cl  \ket{\psi(p_1)\psi(p_2)}  + (x\longleftrightarrow y),
+\ese 
+and 
+\bse 
+    -\frac{g^2}{2!} \int d^4x \, d^4y \,  \contraction{}{\overline{\psi}(p_3)}{\ket{\overline{\psi}(p_4)}}{psi^{\dagger}_x} \bcontraction[2ex]{\psi(p_3)}{\overline{\psi}(p_4)}{ \cl \psi_x \quad }{\psi^{\dagger}_y} \bra{\overline{\psi}(p_3)\overline{\psi}(p_4)} \cl  \psi^{\dagger}_x \psi^{\dagger}_y \contraction{}{\phi_x}{}{\phi_y} \phi_x\phi_y \contraction{}{\psi_x}{\psi_y\cl }{\ket{\psi(p)}} \bcontraction[2ex]{\psi_x}{\psi_y}{\cl\psi(p) \,}{\psi(p)} \psi_x\psi_y \cl  \ket{\psi(p_1)\psi(p_2)}  + (x\longleftrightarrow y).
+\ese 
+The $(x\longleftrightarrow y)$ terms are symmetries factors that will remove the $1/2$ factors, just like ones we mentioned before that got rid of the $1/4$ in $\phi^4$ theory. We will see soon in terms of Feynman diagrams why they are symmetry factors.
+
+Evaluating the contractions using the rules we have above, these two terms become, respectively
+\be 
+\label{eqn:ScalarYakawaFullyConnectedA}
+    \int d^4 x \, d^4 y \, \Big[ e^{i(p_3-p_1)x} \,  (-ig) \Delta_F^{\phi}(x-y) (-ig) \, e^{i(p_4-p_2)y} \Big],
+\ee 
+and 
+\be 
+\label{eqn:ScalarYakawaFullyConnectedB}
+    \int d^4 x \, d^4 y \, \Big[ e^{i(p_4-p_1)x} \,  (-ig) \Delta_F^{\phi}(x-y) (-ig) \, e^{i(p_3-p_2)y} \Big].
+\ee 
+ 
+
+\bbox 
+    Check that the Wick contractions do indeed result in the above two expressions.
+\ebox 
+
+\subsection{Feynman Rules --- Position Space}
+
+We are finally at a place to draw a Feynman diagram and derive the corresponding Feynman rules. Really its a flip of a coin which you do first (draw the diagram or define the rules), here I've decided to present the rules and then use them to draw the diagram as I think this is perhaps more instructive. 
+
+The Feynman rules are a set of instructions on how to draw the different terms in the transition matrix, so that you can manipulate the expressions diagrammatically, and then at the end convert them back to equations should you need to. 
+
+\mybox{
+The \textit{position space} Feynman rules for scalar Yakawa scattering $\psi\psi\to \phi \to \psi\psi$ are:
+\begin{center}
+	\begin{tabular}{@{} C{4cm} C{4cm} C{4cm} @{}}
+		\toprule
+		 Type & Diagram & Math Expression \\
+		\midrule 
+		Incoming Particle & \btik 
+            \midarrow (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$p$};
+            \draw[fill=black] (2,0) circle [radius=0.07];
+            \node at (2.3,0) {$x$};
+        \etik & $e^{-ipx} = \contraction{}{\psi_x}{}{\ket{\vec{p}}} \psi_x\ket{\vec{p}}$ \\
+        Outgoing Particle & \btik 
+            \midarrow (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$p$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \node at (-0.3,0) {$x$};
+        \etik & $e^{ipx} = \contraction{}{\bra{\vec{p}}}{}{\psi_x} \bra{\vec{p}}\psi_x$ \\ \\
+        Propagator & \btik 
+            \draw[thick, dashed] (0,0) -- (2,0);
+            %\draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$k$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw[fill=black] (2,0) circle [radius=0.07];
+            \node at (-0.3,0) {$x$};
+            \node at (2.3,0) {$y$};
+        \etik & $\Delta_F^{\phi}(x-y) = \contraction{}{\phi_x}{}{\phi_y} \phi_x\phi_y$ \\
+        Vertex & \btik 
+            \midarrow (0,0) -- (1,0);
+            \midarrow (1,0) -- (2,0);
+            \draw[thick, dashed] (1,0) -- (1,-0.8);
+            \draw[fill=black] (1,0) circle [radius=0.07];
+            \node at (1,0.3) {$x$};
+        \etik & $ig\int d^4x$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+}
+\noindent Let's clarify the notation/terminology of the rules.
+\begin{itemize}
+    \item We take time to run from left to right. So the initial state is to the far left and final state is to the far right. Note, though, that some authors choose to have time run vertically. Peskin and Schroeder use this latter convention.
+    \item We use solid lines to indicate complex fields (or nucleons) and dotted lines to indicate real fields (or mesons).
+    \item We use a filled in circle to indicate a vertex, and we label it by its integration variable.
+    \item The arrow above the lines indicate the value of the 4-momentum and the direction it flows.
+    \item The arrows on the nucleon line tells us about the flow of the charge (e.g. Fermion number), if the line points in the same direction as the momentum arrow we have a particle, and if they point oppositely, then we have an antiparticle. This is why we don't draw an arrow on the dotted line; a real scalar field is its own antiparticle. 
+    \item The arrows for a charge must always be conserved at a vertex. By this we mean one must always go in and one must always leave. 
+    \item  The incoming and outgoing particles are known as \textit{external line} because they only connect to one vertex, whereas the propagator is called an \textit{internal line} because it is connected to two vertices. 
+    \item We usually denote the 4-momentum on the external lines with $p_i$, and in the position space picture we don't need to label the momentum of the internal lines.  
+    \item Sometimes we also include the symbols of the particles next to the lines. This is particularly the case when we have multiple different species particle of the same type (e.g. electrons and muons) in the same diagram.
+\end{itemize}
+
+\noindent Using these rules, we can construct the Feynman diagrams for \Cref{eqn:ScalarYakawaFullyConnectedA,eqn:ScalarYakawaFullyConnectedB}. They are, respectively:
+\begin{center}
+    \btik 
+        \begin{scope}[xshift=-3.5cm]
+            \midarrow (-2,0) -- (0,0);
+            \draw[->] (-1.5,0.2) -- (-0.5,0.2) node [midway, above] {$p_1$};
+            \draw[fill=black] (0,0) circle [radius=0.07] node [above] {$x$};
+            \midarrow (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$p_3$};
+            \draw[thick, dashed] (0,0) -- (0,-2);
+            \midarrow (-2,-2) -- (0,-2);
+            \draw[->] (-1.5,-2.2) -- (-0.5,-2.2) node [midway, below] {$p_2$};
+            \draw[fill=black] (0,-2) circle [radius=0.07] node [below] {$y$};
+            \midarrow (0,-2) -- (2,-2);
+            \draw[->] (0.5,-2.2) -- (1.5,-2.2) node [midway, below] {$p_4$};
+            \node at (-2.3,0) {$\psi$};
+            \node at (-2.3,-2) {$\psi$};
+            \node at (2.3,0) {$\psi$};
+            \node at (2.3,-2) {$\psi$};
+            \node at (-0.3,-1) {$\phi$};
+        \end{scope}
+        \begin{scope}[xshift=3.5cm]
+            \midarrow (-2,0) -- (0,0);
+            \draw[->] (-1.5,0.2) -- (-0.5,0.2) node [midway, above] {$p_1$};
+            \draw[fill=black] (0,0) circle [radius=0.07] node [above] {$x$};
+            \aftermidarrow (0,0) -- (2,-2);
+            \draw[->, rotate around={-45:(0,0)}] (0.2,0.2) -- (1.2,0.2);
+            \node at (0.9,-0.2) {$p_3$};
+            \draw[thick, dashed] (0,0) -- (0,-2);
+            \midarrow (-2,-2) -- (0,-2);
+            \draw[->] (-1.5,-2.2) -- (-0.5,-2.2) node [midway, below] {$p_2$};
+            \draw[fill=black] (0,-2) circle [radius=0.07] node [below] {$y$};
+            \aftermidarrow (0,-2) -- (2,0);
+            \draw[->, rotate around={45:(0,-2)}] (0.2,-2.2) -- (1.2,-2.2);
+            \node at (0.9,-1.8) {$p_4$};
+            \node at (-2.3,0) {$\psi$};
+            \node at (-2.3,-2) {$\psi$};
+            \node at (2.3,0) {$\psi$};
+            \node at (2.3,-2) {$\psi$};
+            \node at (-0.3,-1) {$\phi$};
+        \end{scope}
+    \etik 
+\end{center}
+
+\br
+    The symmetry factor $x\longleftrightarrow y$ in terms of the Feynman diagrams is seen by the fact that if we relabel $x\longleftrightarrow y$ then the diagram looks exactly the same apart from the relabelling. So there is a symmetry in the diagram, hence the name. 
+\er 
+
+\br 
+    Note that we can see from the Feynman diagrams that the order $g$ term wont contribute, as we said before. That's just because there is no way to start with two $\psi$ lines and end up with two $\psi$ lines using only one vertex.\footnote{If you don't see this, try and do it and you'll quickly see what I mean.} This illustrates one of the incredible powers of Feynman diagrams: it allows us to see almost instantly which terms do not contribute to the transition matrix. 
+\er 
+
+\bbox 
+    Convince yourself that these diagrams are correct. \textit{Hint: This exercise should make it clear why we collected the terms in \Cref{eqn:ScalarYakawaFullyConnectedA,eqn:ScalarYakawaFullyConnectedB}  ad we did.}
+\ebox 
+
+\subsection{Feynman Rules --- Momentum Space}
+
+As it says in the box above, the above rules are in position space (our integrals are over $x$ and $y$), but the Feynman propagator is given by \Cref{eqn:FeynmanPropagatorIntegral},
+\bse 
+    \Delta_F(x-y) = \int \frac{d^4 p}{(2\pi)^4} \frac{i e^{-ip(x-y)}}{p^2-m^2 + i\epsilon} ,
+\ese 
+and so we can replace the position integrals with momentum ones. This gives us the \textit{momentum space} Feynman rules. Let's do this explicitly for \Cref{eqn:ScalarYakawaFullyConnectedA}. Plugging the Feynman propagator in, and using $k$ as the momentum variable in correspondance with the rules above, we have 
+\bse 
+    \int d^4 x \, d^4 y \, \Big[ e^{i(p_3-p_1)x} \,  (-ig) \int \frac{d^4 k}{(2\pi)^4} \frac{i e^{-ik(x-y)}}{k^2-m^2 + i\epsilon} (-ig) \, e^{i(p_4-p_2)y} \Big],
+\ese 
+combining the $x$ and $y$ exponentials and then integrating over $x$ and $y$ gives us two delta functions, that is we get 
+\bse 
+    \int \frac{d^4k}{(2\pi)^4} (2\pi)^4 \del^{(4)}\big(p_1 - p_3 - k\big) (-ig)\frac{i}{k^2-m^2+i\epsilon}(-ig) (2\pi)^4 \del^{(4)}\big(p_2 - p_4 + k\big),
+\ese 
+and then integrating over $k$ leaves us with\footnote{Note we could also use $(p_2-p_4)^2$ in the denominator.} 
+\bse 
+    (2\pi)^4 \del^{(4)}\big(p_1+p_2 - p_3-p_4\big) \bigg[ (-ig) \frac{i}{(p_1-p_3)^2 - m^2 +i\epsilon}(-ig) \bigg],
+\ese 
+which, comparing to \Cref{eqn:TransitionMatrixMatrixElements}, tells us 
+\bse 
+    iM = (-ig) \frac{i}{(p_1-p_3)^2 - m^2 +i\epsilon}(-ig).
+\ese 
+
+\bbox 
+    Show that \Cref{eqn:ScalarYakawaFullyConnectedB} leads to 
+    \bse 
+        (2\pi)^4 \del^{(4)}\big(p_1+p_2 - p_3-p_4\big) \bigg[ (-ig) \frac{i}{(p_1-p_4)^2 - m^2 +i\epsilon}(-ig) \bigg],
+    \ese 
+    but note the difference of the intermediate steps. \textit{Hint: Be careful about delta functions.}
+\ebox 
+
+So how do the Feynman rules change? Well we note now that $x$ and $y$ don't appear in the final expression so we don't need to label the nodes any more. Then we note in the second step, the two delta functions simply correspond to conservation of 4-momentum at the vertices, i.e. $\del^{(4)}(p_1-p_3-k)$ is the momentum flowing into the $x$ vertex above. Then to get the final answer to integrated over the internal momentum $k$, which gave use the final delta function. 
+
+\mybox{
+The \textit{momentum space} Feynman rules for scalar Yakawa scattering $\psi\psi\to \phi \to \psi\psi$ are:
+\begin{center}
+	\begin{tabular}{@{} C{4cm} C{4cm} C{4cm} @{}}
+		\toprule
+		 Type & Diagram & Math Expression \\
+		\midrule 
+		External lines & \btik 
+            \midarrow (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$p$};
+            \draw[fill=black] (2,0) circle [radius=0.07];
+            \node at (1,-0.5) {and};
+            \midarrow (0,-1) -- (2,-1);
+            \draw[->] (0.5,-1.2) -- (1.5,-1.2) node [midway, below] {$p$};
+            \draw[fill=black] (0,-1) circle [radius=0.07];
+        \etik & $1$ \\
+        Propagator & \btik 
+            \draw[thick, dashed] (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$k$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw[fill=black] (2,0) circle [radius=0.07];
+        \etik & \bse \int \frac{d^4k}{(2\pi)^4} \frac{i}{k^2 - m^2 +i\epsilon}\ese  \\ 
+        Vertex & \btik 
+            \midarrow (0,0) -- (1,0);
+            \midarrow (1,0) -- (2,0);
+            \draw[thick, dashed] (1,0) -- (1,-0.8);
+            \draw[fill=black] (1,0) circle [radius=0.07] node [above] {$-ig$};
+        \etik & $-(ig)$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+}
+
+
+So we have the rough\footnote{We will need to be more clear for the case of spin-1/2 particles later.} following procedure to obtain the maths expression from a momentum-space Feynman diagram:
+\begin{itemize}
+    \item Take the position space Feynman diagram, and given every internal line a momentum labelled by $k_i$.
+    \item Next to each vertex write down the coupling strength (in the case of scalar Yakawa this is $-ig$).
+    \item Impose momentum conservation at each vertex with a factor of the coupling strength, i.e. write $(-ig)(2\pi)^4\del^{(4)}(\sum_i k_i)$, where the sum is taken over the momentum flowing \textit{into} the vertex. That is, if the momentum flows out, put a minus sign in the sum, as we did in $\del^{(4)}(p_1-p_3-k)$ and $\del^{(4)}(p_2-p_4+k)$.
+    \item Include a factor of 
+    \bse 
+        \int \frac{d^4k}{(2\pi)^4}\frac{i}{k_i^2 - m^2 +i\epsilon}
+    \ese 
+    for all the internal $\phi$ lines, and the same for internal $\psi$ lines but now with $m\to M$.
+\end{itemize}
+
+\br 
+    Some authors do not include the integral factor $\int\frac{d^4k}{(2\pi)^4}$ in the propagator term expression, but instead add another step at the end that says "finally integrate over all internal momentum". Of course this amounts to exactly the same thing, but this remark is just included to avoid confusion when comparing to other literature. 
+\er 
+
+\bbox 
+    Draw the scalar Yakawa scattering Feynman diagrams above in momentum space.
+\ebox 

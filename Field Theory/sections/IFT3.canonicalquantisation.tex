@@ -1,0 +1,369 @@
+\chapter{Canonical Quantisation \& Free Klein Gordan Field}
+
+\section{Canonical Quantisation}
+
+Recall the idea behind quantisation in QM is to promote the generalised coordinates in the classical theory and `promote' them to operators acting on the Hilbert space of the quantum theory. This recipe is called \textit{canonical quantisation}. The Poisson bracket\footnote{\textcolor{red}{Note to self: maybe put something about Poisson brackets above when discussing generalised coordinates.}} relation between the generalised coordinates magically transformed into a commutation relation between the operators. That is\footnote{There are factors of $\hbar$s in these equations, but in natural units they go bye-bye.} 
+\begin{equation*}
+    \begin{split}
+        \{q_a,a_b\} = \{p^a,p^b\} = 0 \qquad & \longrightarrow \qquad [\hat{q}_a,\hat{q}_b] = [\hat{p}^a,\hat{p}^b] = 0 \\
+        \{q_a,p^b\} = \del^b_a \qquad & \longrightarrow \qquad [\hat{q}_a,\hat{p}^b] = i\del^b_a
+    \end{split}
+\end{equation*} 
+As we are working in Minkowski spacetime, we can lower the indices on the $p$s easily and obtain 
+\bse 
+    [\hat{q}_a,\hat{q}_b] = [\hat{p}_a,\hat{p}_b] = 0 \qand [\hat{q}_a,\hat{p}_b] = i\del_{ab}.
+\ese 
+
+We adopt the same philosophy for fields, and promote them to \textit{operator valued functions}. However we have a small problem: for the particle mechanics case we just had a finite number of generalised coordinates and so it was easy to do, whereas for the fields there's an infinite number, one for each point $\Vec{x}$ in space. We treat this spatial dependence as a label and so need something analogous to the $\del_{ab}$ above. The answer is obviously the usual delta function.  We use the Schr\"{o}dinger picture, where all time dependence appears in the states $\ket{\psi}$ which obey the Schr\"{o}dinger equation
+\bse 
+    i\frac{d\ket{\psi}}{dt} = H\ket{\psi},
+\ese 
+and the operators themselves are time independent, and write\footnote{You can work in the Heisenberg picture and define what are known as `equal time' commutation relations.}
+\be 
+\label{eqn:FieldsCommutation}
+    [\phi_a(\Vec{x}),\phi_b(\Vec{y})] = [\pi_a(\Vec{x}),\pi_b(\Vec{y})] = 0, \qand [\phi_a(\Vec{x}), \pi_b(\Vec{y})] = i \del^{(3)}(\Vec{x}-\Vec{y}) \del_{ab}.
+\ee 
+
+\br 
+\label{rem:ButcheredLorentzInv}
+    Note we have really butchered our manifest Lorentz invariance here: we completely separated space and time and made the operators only functions of space! Of course it must be true that we're alright to do this and still get a Lorentz invariant theory, otherwise we wouldn't be doing it in these notes. However this choice of doing things will introduce some factors here and there (e.g. to the measures in integrals) to ensure Lorentz invariance.
+\er 
+
+\section{Free Theories}
+
+Recall that the typical goal of QM is to find the spectrum (i.e. eigenvalues) of operators, in particular the Hamiltonian. We now want to do a similar thing for QFTs, however this turns out to be an incredibly hard thing to do, as we now have an uncountably infinite number of degrees of freedom (one for each $\Vec{x}$ value)! The question is "can we somehow get around this?" The answer is "yes, but it restricts the type of theories we consider." What we do is consider theories in which each degree of freedom evolved independently to all others. This is essentially the statement that $\phi(\vec{x})$ and $\phi(\vec{y})$ don't talk to each other unless $\vec{x}=\vec{y}$. For a reasonably self explanatory reason, we call these theories \textit{free theories}.
+
+\br
+    Of course free theories are boring from a physical perspective (as nothing interacts so there are essentially no forces!), and we want to study interacting theories. We will return to these later, and study them as perturbations using Feynman diagrams, but first we need to develop the mathematical tools of free theory. So hold tight, more interesting stuff is coming. 
+\er 
+
+Ok, so how do we go about quantising the free fields and finding their spectrum? Well the answer is to consider our lovely friend the classical free Klein-Gordan field. Recall that the Euler-Lagrange equations gave us the Klein-Gordan equation, \Cref{eqn:ClassicalKleinGordan}:
+\bse 
+    (\p^2 + m^2)\phi = 0.
+\ese 
+As we are working in Minkowski spacetime, we have a global notion of time\footnote{Again this comment is just made because things are different in general spacetimes, see footnote 3 from the first lecture.} and so we can decompose these fields in terms of their Fourier transform
+\bse 
+    \begin{split}
+        \phi(\vec{x},t) & = \int \frac{d^3\vec{p}}{(2\pi)^3} \, \frac{1}{2}\Big[  \widetilde{\phi}(\vec{p},t)e^{i\vec{p}\cdot\vec{x}} + \widetilde{\phi}^*(\vec{p},t)e^{-i\vec{p}\cdot\vec{x}}\Big] \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3} \, \widetilde{\phi}(\vec{p},t)e^{i\vec{p}\cdot\vec{x}},
+    \end{split}
+\ese 
+where to get to the second line we have identified $\widetilde{\phi}^*(-\vec{p},t) = \widetilde{\phi}(\vec{p},t)$. Using this coordinate system, our Klein-Gordan equation reduces to (dropping the tilde and using the argument to indicate which function it is)
+\bse 
+    \bigg( \frac{\p^2}{\p t^2} + (\vec{p}+m^2)\bigg)\phi(\vec{p},t) = 0.
+\ese
+
+Then the keen-eyed person notes that \textit{for each value} of $\vec{p}$ this corresponds to its own harmonic oscillator with frequency 
+\be
+\label{eqn:KGHarmonicFrequency}
+    \omega_{\vec{p}} = \sqrt{\vec{p}^2+m^2}.
+\ee 
+To stress the point, we get a harmonic oscillator each \textit{every single} value of $\vec{p}$ independently from any other value. The general field $\phi(\vec{x},t)$ is then simply given by a linear superposition of (an infinite number of) harmonic oscillators. We therefore have, at least classically, achieved the goal above to frame the theory in such a way that each degree of freedom (each $\vec{p}$) evolves independently from the others. Now what we want to do is quantise it. 
+
+\br 
+    Note that in order to take the Fourier expansion above we need to assume that the field $\phi(\vec{x},t)$ die off sufficiently quickly as $|\vec{x}|\to \infty$. In order to guarantee this, we use fields from the so-called \textit{Schwartz space}. A precise definition (with a lot more context for why they're useful in QM) can be found in Simon Rea and my \href{https://richie291.wixsite.com/theoreticalphysics/post/dr-frederic-schuller-s-course-of-quantum-theory}{notes on Dr. Schuller's course on quantum theory}, but for here we shall just say they are functions that die off at infinity as do their derivatives. 
+\er 
+
+\subsection{A Quantum Field Theorist's Best Friend: The Harmonic Oscillator}
+
+\bnn 
+    In this section, and most likely in everything to follow from now on, I am going to drop the hats on quantum operators. I might reinstate them at some points for clarity, but we shall see. 
+\enn 
+
+As we have been doing above, let's forget about field theory for a minute and study regular old quantum mechanics. Recall that the quantum harmonic oscillator (QHO) has the Hamiltonian (in 1-dimension)
+\be
+\label{eqn:QHOHamiltonian}
+    H = \frac{1}{2}p^2 + \frac{1}{2}\omega^2q^2,
+\ee 
+where $p$ and $q$ are the canonical operators obeying 
+\be 
+\label{eqn:pqcommutator}
+    [q,p]=i.
+\ee 
+We can rewrite this Hamiltonian in a nicer form by introducing the \textit{creation} and \textit{annihilation operators}: $a^{\dagger}$ and $a$, respectively. These are defined such that 
+\be 
+\label{eqn:qpcreationannihilation}
+    q = \frac{1}{\sqrt{2\omega}}\big( a + a^{\dagger} \big), \qand p = -i\sqrt{\frac{\omega}{2}}\big( a - a^{\dagger} \big).
+\ee 
+
+\bbox
+    Show that \Cref{eqn:pqcommutator} and \Cref{eqn:qpcreationannihilation} give 
+    \be 
+    \label{eqn:creationqpcreationannihilationcommutator}
+        [a,a^{\dagger}] = 1.
+    \ee 
+    Then using this result show that the Hamiltonian \Cref{eqn:QHOHamiltonian} can be rewritten as 
+    \be
+    \label{eqn:QHOHamiltonianaadagger}
+        H = \omega\bigg(a^{\dagger}a + \frac{1}{2}\bigg).
+    \ee 
+    Finally show that 
+    \be 
+    \label{eqn:HaadaggerCommutation}
+        [H,a^{\dagger}] = \omega a^{\dagger}, \qand [H,a] = -\omega a.
+    \ee 
+\ebox
+
+We can now begin to look at the spectrum of the QHO. The \textit{ground state} $\ket{0}$ is defined via 
+\be 
+\label{eqn:QHOGroundState}
+    a\ket{0} = 0
+\ee 
+and so we see from \Cref{eqn:QHOHamiltonianaadagger} that the ground state has energy 
+\bse 
+    E_0 = \frac{\omega}{2}.
+\ese 
+Now using \Cref{eqn:HaadaggerCommutation}, we see that 
+\bse 
+    \begin{split}
+        H(a^{\dagger}\ket{0}) & = a^{\dagger}(H\ket{0}) + \omega (a^{\dagger}\ket{0}) \\
+        & = (E_0+\omega)(a^{\dagger}\ket{0}),
+    \end{split}
+\ese 
+and so we see that $a^{\dagger}\ket{0}$ is an eigenvector of $H$ with energy $E=E_0+\omega$. We therefore define \textit{excited states} as\footnote{We're ignoring normalisation here, i.e. $\braket{n}{n}\neq 1$. This is not important for our present discussion.} 
+\be 
+\label{eqn:QHOExcitedStates}
+    \ket{n} := (a^{\dagger})^n\ket{0}.
+\ee 
+Extending the calculation above, these states have energy 
+\be 
+\label{eqn:QHOEn}
+    E_n = \bigg(n+\frac{1}{2}\bigg)\omega,
+\ee 
+and so we build a spectrum for our theory as integer steps in $\omega$, as indicated pictorially below. 
+\begin{center}
+    \btik 
+        \draw[thick] (0,0) -- (3,0);
+        \node at (-0.5,0) {\large{$\ket{0}$}};
+        \node at (3.5,0) {\large{$\frac{1}{2}\omega$}};
+        \draw[thick] (0,1) -- (3,1);
+        \node at (-0.5,1) {\large{$\ket{1}$}};
+        \node at (3.5,1) {\large{$\frac{3}{2}\omega$}};
+        \draw[thick] (0,2) -- (3,2);
+        \node at (-0.5,2) {\large{$\ket{2}$}};
+        \node at (3.5,2) {\large{$\frac{5}{2}\omega$}};
+        \node at (1.5,2.75) {\Huge{$\mathbf{\vdots}$}};
+    \etik 
+\end{center}
+
+As the notation suggests (and as can easily be seen from \Cref{eqn:qpcreationannihilation}) the creation and annihilation operators are Hermitian conjugates to each other. This translates into bra-ket notation in terms of left and right actions: 
+\be 
+\label{eqn:HermitionLeftRightAction}
+    \big(a\ket{\psi}\big)^{\dagger} = \bra{\psi}a^{\dagger}.
+\ee 
+
+\subsection{Spectrum Of Quantum Klein-Gordan Field}
+
+Ok so we now know how to get the spectrum of a single QHO. We have also seen that the Klein-Gordan field is essentially an infinite sum (i.e. an integral) of QHOs, so now all we need to do to get the spectrum of the Hamiltonian is integrate over an infinite number of creation and annihilation operators, labelled by $\vec{p}$ --- $a^{\dagger}_{\vec{p}}$ and $a_{\vec{p}}$. To do this we express $\phi$ and $\pi$ as
+\be 
+\label{eqn:phipicreationannihilation}
+    \begin{split}
+        \phi(\vec{x}) & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2\omega_{\vec{p}}}} \Big[ a_{\vec{p}} \, e^{i\vec{p}\cdot\vec{x}} + a^{\dagger}_{\vec{p}} \, e^{-i\vec{p}\cdot\vec{x}}\Big] \\
+        \pi(\vec{x}) & = \int \frac{d^3\vec{p}}{(2\pi)^3} (-i)\sqrt{\frac{\omega_{\vec{p}}}{2}} \Big[ a_{\vec{p}} \, e^{i\vec{p}\cdot\vec{x}} - a^{\dagger}_{\vec{p}} \, e^{-i\vec{p}\cdot\vec{x}}\Big],
+    \end{split}
+\ee 
+where the form of these expressions makes sense when comparing to \Cref{eqn:qpcreationannihilation}.
+
+\br 
+    Note that it is only at this point that we are now considering the \textit{quantum} Klein-Gordan field. This is in contrast why I was careful to emphasise before that we were considering the classical Klein-Gordan field. The equations of motion are still the same, but now they are quantum expressions. 
+\er 
+
+This looks nice, but what about the commutators? 
+\bcl 
+\label{claim:FieldCommutator}
+    \Cref{eqn:FieldsCommutation} hold, if and only if, 
+    \be 
+    \label{eqn:FieldCreationAnnihilationCommutator}
+        [a_{\vec{p}} \, , a_{\vec{q}}] = \Big[a^{\dagger}_{\vec{p}} \, , a^{\dagger}_{\vec{q}}\Big] = 0, \qand \Big[a_{\vec{p}} \, , a^{\dagger}_{\vec{q}}\Big] = (2\pi)^3 \del^{(3)}(\vec{p}-\vec{q}).
+    \ee 
+\ecl 
+This claim is not complicated to prove, but a bit of a pain to write out and so I, lovingly, decided to set them as an exercise.
+
+\bbox 
+    Prove \Cref{claim:FieldCommutator}. Note it is an if and only if statement so you need to show it both ways, i.e. the $\phi/\pi$ commutators imply the $a/a^{\dagger}$ ones and visa versa. \textit{Hint: If you get very stuck, Prof. Tong sketches one on page 24 of his notes.}
+\ebox 
+
+\br
+\label{rem:Sandwiching}
+    \Cref{eqn:FieldCreationAnnihilationCommutator} seem strange: the left-hand side is a commutator between operators whereas the right-hand side is a delta distribution? The way we wrap our heads around this is to remember that any physical results in QM appear in inner products $\bra{\psi}A\ket{\psi}$, which can be written as integrals and so the delta function makes sense. 
+    
+    Using \Cref{eqn:HermitionLeftRightAction}, and the fact that our states are orthogonal, we see that it is only the terms that contain $a_{\vec{p}}\, a^{\dagger}_{\vec{p}}$ or $a^{\dagger}_{\vec{p}} \,  a_{\vec{p}}$ that contribute to expectation values. We will see an example of this below when finding the momentum of the first excited state. 
+    
+    This idea, and similar ones where we get $\C$-numbers on the right-hand side, comes up again and again in QFT. What we have to keep telling ourselves is that "remember we're sandwiching this between states!" and then go from there.
+\er 
+
+Ok, so we have already derived that the Hamiltonian for this system is 
+\bse 
+    H = \frac{1}{2}\int d^3\vec{x} \, \big(\pi^2 + (\nabla\phi)^2 + m^2\phi^2\big).
+\ese 
+We can substitute \Cref{eqn:phipicreationannihilation} in and obtain 
+\be 
+\label{eqn:KGHamiltonian}
+    \begin{split}
+        H & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{\omega_{\vec{p}}}{2}\Big[ a_{\vec{p}} \, a^{\dagger}_{\vec{p}} + a^{\dagger}_{\vec{p}} \, a_{\vec{p}}\Big] \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3} \, \omega_{\vec{p}} \bigg[ a^{\dagger}_{\vec{p}}\, a_{\vec{p}} + \frac{1}{2}(2\pi)^3\del^{(3)}(0)\bigg],
+    \end{split}
+\ee 
+where to get to the last line we have used \Cref{eqn:FieldCreationAnnihilationCommutator}. 
+
+\bbox 
+    Another lovely exercise for you: Obtain the first line of \Cref{eqn:KGHamiltonian}. \textit{Hint: Again if you get really stuck, Prof. Tong has done this in his notes, also on page 24.}
+\ebox  
+
+\br 
+    All jokes aside about the above exercises, it is actually a really beneficial exercise to do and will test your understanding of a reasonable amount of the information leading up to here. So honestly at least give them a go.
+\er 
+
+\subsection{A Quantum Field Theorist's Least Favourite Friend: Infinities}
+
+We can extend \Cref{eqn:QHOGroundState} to the field theory case to define the ground state as
+\be 
+\label{eqn:KGGroundState}
+    a_{\vec{p}}\ket{0} = 0 \qquad \forall \vec{p}.
+\ee 
+We can then use \Cref{eqn:KGHamiltonian} to find the ground state energy: 
+\bse 
+    H\ket{0} = \bigg[\int d^3\vec{p} \, \frac{1}{2} \omega_{\vec{p}} \del^{(3)}(0)\bigg] \ket{0},
+\ese 
+which is... infinite?! Uh oh this does not seem good at all, but what did we do wrong? The answer is actually nothing. QFT is filled with infinities and, as Prof. Tong explains "each tells us something important, usually that we're doing something wrong, or asking the wrong question". What we need to do when infinities arise is ask where they come from and what that implies. So let's investigate this one. 
+
+Firstly the bad news... it's actually two infinities! The first one comes from the fact that we're considering the entirety of $\R^3$. So instead let's put our theory inside a box of size $L$. We adopt the usual idea where we prescribe periodic boundary conditions to the sides, and so get the \textit{flat torus}.\footnote{If you're confused why I say flat torus, either google it or think about what happens geometrically when you make these periodic boundary conditions.} Finally we just let $L\to\infty$ to get our result back. We can then use 
+\bse 
+    (2\pi)^3 \del^{(3)}(0) = \lim_{L\to\infty} \int_{-L/2}^{L/2} d^3\vec{x} \, e^{i\vec{x}\cdot\vec{p}} \bigg|_{\vec{p}=0} = \lim_{L\to\infty} \int_{-L/2}^{L/2}d^3\vec{x} = V,
+\ese 
+where $V$ is the volume of our theory. Ok so the $(2\pi)^3\del(0)$ infinity is just because we're considering the total energy $E_0$ instead of the \textit{energy density}
+\bse 
+    \varepsilon_0 := \frac{E_0}{V} = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2}\omega_{\vec{p}}.
+\ese 
+This is still infinite though! Why? well because we take the positive root in \Cref{eqn:KGHarmonicFrequency} and so we're summing an infinite number of positive numbers! This seems like a more tricky beast to tame, however then a light bulb goes off in our heads and we realise that this is just the ground state energy, and so, from the extension of \Cref{eqn:QHOEn}, it will appear in \textit{all} the energies. Then remembering that all we can measure physically is energy \textit{differences} we realise that we are free to just `take this away' from every energy in our system (as the difference wont be effected), so this is what we shall do. 
+
+You might not be very comfortable with `subtracting infinity', and if that is the case, allow me to provide a calming remark: we are mere mortals pretending to be Gods. In less poetic (and perhaps offensive) words: we have assumed that the theory we have written down is valid up to arbitrarily large momentum. This corresponds to arbitrarily large energies, or arbitrarily low length scales. Nature is highly unlikely to agree with us and so plays the trump card of "you need to cut-off your theory at high momenta!" If we do this, the ground state energy density will become finite and then we can comfortably take it away from all energies and proceed as if nothing ever happened. Infinities of this kind are called \textit{ultra-violet divergences}. 
+
+\subsection{Finally, The Spectrum}
+
+Now that we have tamed our infinities, we can proceed to finding the spectrum of the Klein-Gordan field. Continuing with the extension of the QHO, we have 
+\be 
+\label{eqn:KGHamiltonianAAdaggerCommutators}
+    [H,a_{\vec{p}}\,]\ket{0} = -\omega_{\vec{p}}\, a_{\vec{p}}\ket{0}, \qand [H,a^{\dagger}_{\vec{p}}\,] = \omega_{\vec{p}}\, a^{\dagger}_{\vec{p}}\ket{0},
+\ee 
+which encourages us to define 
+\bse 
+    \ket{\vec{p}} := a^{\dagger}_{\vec{p}}\, \ket{0}.
+\ese 
+But now we have different creation/annihilation operators and so can excite the ground state in different ways. We therefore use the notation 
+\bse 
+    \ket{\vec{p}, \vec{q}, ...} := \Big(a^{\dagger}_{\vec{p}} \, a^{\dagger}_{\vec{q}} \,  ... \Big)\ket{0}.
+\ese 
+Then finally using \Cref{eqn:KGHamiltonianAAdaggerCommutators} gives us 
+\bse 
+    H\ket{\vec{p}, \vec{q},...} = (\omega_{\vec{p}} + \omega_{\vec{q}} + ... )\ket{0}.
+\ese 
+This exhausts our spectrum.\footnote{And perhaps it has exhausted you getting to this point.}
+
+\br 
+    Just as with the states $\ket{n}$ defined in \Cref{eqn:QHOExcitedStates}, our states $\ket{\vec{p}}$ are not normalised. They are orthogonal though. We shall return to the normalisation later.
+\er 
+
+\subsection{Interpreting The Eigenstates: Particles}
+
+So we have our spectrum, now we want to interpret what they mean physically. Well let's focus on the first excited state
+\bse 
+    \ket{\vec{p}} = a^{\dagger}_{\vec{p}}\ket{0}.
+\ese 
+We have already seen that this has energy 
+\bse 
+    E_{\vec{p}} = \omega_{\vec{p}} = \sqrt{\vec{p}^2 +m^2},
+\ese 
+and have already remarked that this is the energy of a relativistic particle. But could this just be some coincidence? Well let's look at the \textit{physical} momentum given by \Cref{eqn:EnergyAndMomentumCharges}. Straight forward calculation using the Lagrangian for our system gives 
+\bse 
+    T^{\mu\nu} = \p^{\mu}\phi\p^{\nu}\phi - \eta^{\mu\nu}\cL,
+\ese
+and so the momentum is 
+\bse 
+    P^i = \int d^3\vec{x} \, \dot{\phi}(x) \p^i \phi(x),
+\ese 
+which as a operator we can write\footnote{Recall that we're using the field theorist's convention of $(+,-,-,-)$.}
+\bse 
+    \vec{P} = - \int d^3\vec{x} \, \pi(\vec{x})\nabla\phi(\vec{x})
+\ese
+If we then use \Cref{eqn:phipicreationannihilation}, we get 
+\bse 
+    \begin{split}
+        \vec{P} & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{\vec{p}}{2}\Big[ a^{\dagger}_{\vec{p}} \, a_{\vec{p}} +  a_{\vec{p}} \, a^{\dagger}_{\vec{p}}  + a_{\vec{p}}\, a_{\vec{-p}} + a^{\dagger}_{\vec{p}}\, a^{\dagger}_{\vec{-p}} \Big] \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3}\vec{p} a^{\dagger}_{\vec{p}} \, a_{\vec{p}},
+    \end{split}
+\ese 
+where to get to the last line we have used the commutation relation between $a/a^{\dagger}$ and then dropped the $\del(0)$ term as we did for the energy, and then `dropped' the $aa$ and $a^{\dagger}a^{\dagger}$ terms using the argument of \Cref{rem:Sandwiching}. So we see that the first excited state has momentum 
+\bse 
+    \vec{P}\ket{\vec{p}} = \vec{p}\ket{\vec{p}},
+\ese 
+which is exactly what we expect for a particle. We therefore \textit{interpret} the state $\ket{\vec{p}}$ to be a particle with 3-momentum $\vec{p}$. It is important to note that this is simply an interpretation, what we're really dealing with is an excitation of a field. 
+
+\bbox 
+    Using the definition 
+    \bse 
+        J^i = \epsilon^{ijk} \int d^3\vec{x} \, (\cJ^0)^{jk},
+    \ese 
+    where $\epsilon^{ijk}$ is the Levi-Civita tensor density and $\cJ$ is the classical angular momentum defined in \Cref{eqn:LorentzCurrents}, show that the state $\ket{\vec{p}=0}$ has 
+    \bse 
+        J^i\ket{\vec{p}=0} = 0.
+    \ese 
+\ebox 
+
+The result of the above exercise tells us that the our interpreted particle has no spin (i.e. no internal angular momentum). That is, our quantisation of the Klein-Gordan field gives rise to a spin-0 particle. 
+
+\subsection{Multiparticle States}
+
+Above we just considered the first excited state, but we have already seen that we can apply the creation operators multiple times, i.e. we have 
+\bse 
+    \ket{\vec{p}_1,...,\vec{p}_n} = a^{\dagger}_{\vec{p}_1}...a^{\dagger}_{\vec{p}_n}\ket{0}.
+\ese 
+As we have used $n$ creation operators, we refer to these states are $n$-particle states and interpret it as $n$ particles with 3-momenta $(\vec{p}_1,...,\vec{p}_n)$. As the creation operators commute with each other we have 
+\bse 
+    \ket{\vec{p},\vec{q}} = \ket{\vec{q},\vec{p}},
+\ese 
+and so the particles are symmetric under interchange. We therefore see that these particles are \textit{bosons}. This also agrees with the fact that they are spin-0, as per the above exercise. 
+
+Now recall that in the first lecture we showed when we unite special relativity with QM we have to account for particle number changing. We said that we do this by changing our Hilbert space to be a Fock space, \Cref{eqn:FockSpace}. We can clarify a bit what we meant there now. If $\cH$ is the Hilbert space of our 1-particle states (i.e. $\ket{\vec{p}}\in\cH$), then we have
+\bse 
+    \ket{\vec{p}_1,...,\vec{p}_n} \in \cH^{\otimes n}.
+\ese 
+We then take the direct sum over all these different states so that our total Hilbert space accounts for the particle creation process. That is, let's say we start off with a state $\ket{\psi}\in\cH^{\otimes n}$ and then something happens to it and causes the production of a new particle. The new state would then be an element of $\cH^{\otimes (n+1)}$. If we don't take the Fock space construction as above, this process would mean that we leave our Hilbert space, which is a big no-no.
+
+\subsection{Interpretation Of $\phi(\vec{x})\ket{0}$}
+
+The next thing we can ask is how does the action of $\phi(\vec{x})$ fit into our particle interpretation? Well let's calculated it and see. We have 
+\bse 
+    \begin{split}
+        \phi(\vec{x})\ket{0} & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2\omega_{\vec{p}}}} \Big[ a_{\vec{p}} \, e^{i\vec{p}\cdot\vec{x}} + a^{\dagger}_{\vec{p}} \, e^{-i\vec{p}\cdot\vec{x}} \Big]\ket{0} \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2\omega_{\vec{p}}}} e^{-i\vec{p}\cdot\vec{x}} \ket{\vec{p}}.
+    \end{split}
+\ese 
+Now compare this to the result from QM\footnote{This result comes from inserting a complete set of states, $\b1 = \int dp \ket{p}\bra{p}$. See any decent QM book for details.}
+\bse 
+    \ket{x} = \int dp e^{-ipx} \ket{p}.
+\ese 
+We can therefore interpret $\phi(\vec{x})\ket{0}$ as a particle at position $\vec{x}$. 
+
+\subsection{Number Operator}
+
+We have just talked about constructing a whole Fock space to take into account the fact that particle number can change. Well in our free theory this construction is actually not important because nothing is interacting and so there's no chance for more particles to be produced. We can show this explicitly by defining the \textit{number operator}
+\be 
+\label{eqn:NumberOperator}
+    N := \int \frac{d^3p}{(2\pi)^3} a^{\dagger}_{\vec{p}} \, a_{\vec{p}},
+\ee 
+which satisfies 
+\bse 
+    N\ket{\vec{p}_1,...,\vec{p}_n} = n\ket{\vec{p}_1,...,\vec{p}_n}.
+\ese 
+The proof that particle number is conserved in a free theory is the content of the next exercise. 
+
+\bbox 
+    Using the above definition and \Cref{eqn:KGHamiltonian} (with the delta term dropped) show that 
+    \be
+    \label{eqn:NumberOperatorConserved}
+        [H,N] = 0.
+    \ee 
+\ebox  
+
+This tells us that once we are in a particular $\cH^{\otimes n}$ in the Fock space, we will never leave it in a free theory. This makes them a bit boring to study. Fortunately later we will allow for interactions in our theory and see that the above result no longer holds in general. The sad news is free theories are the only ones we can solve exactly, and so in order to study interacting theories we are going to have to develop the mathematics of Feynman diagrams. These are essentially life saving tools to calculate things in perturbation expansions of interacting QFTs. 

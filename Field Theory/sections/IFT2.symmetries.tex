@@ -1,0 +1,441 @@
+\chapter{Symmetries \& Hamiltonian Field Theory}
+
+\section{Lorentz Invariance}
+
+As we explained last lecture, we want to consider theories that are Lorentz invariant. Will therefore be testing for this often and so we want to clarify the notion and conventions here. 
+
+As in (i) last lecture, we denote a general Lorentz transformation via the symbol $\Lambda$. We think of Lorentz transformations as acting on the spacetime coordinates $\{x^{\mu}\}$\footnote{In fact this interpretation is a bit misleading, but that's not important here. For an explanation of what I mean, see my \href{https://richie291.wixsite.com/theoreticalphysics/post/the-we-heraeus-international-winter-school-on-gravity-and-light}{notes on Dr. Schuller's Winter School on Gravity and Light}, Section 13.3.} and so it is useful to express them as matrices. We therefore have 
+\bse 
+    x^{\mu} \longrightarrow \widetilde{x}^{\mu} = {\Lambda^{\mu}}_{\nu} x^{\nu}
+\ese 
+as our transformation. We also have the condition 
+\be 
+\label{eqn:LorentzTransformationsOnMetric}
+    {\Lambda^{\mu}}_{\tau} \eta^{\tau\sig} {\Lambda^{\nu}}_{\sig} = \eta^{\mu\nu}. 
+\ee 
+
+Lorentz transformations are essentially spatial rotations and boosts, and we can work out the entries of the matrix ${\Lambda^{\mu}}_{\nu}$ by consider the action on the $\{x^{\mu}\}$. We give an example of each below. 
+
+\bex
+    Let's set $(x^0,x^1,x^2,x^3)=(t,x,y,z)$. First let's consider a rotation around the $z$ axis. This does nothing to the $t$ axis and obviously doesn't effect $z$. We therefore just set the SO(2) rotation in the $xy$-plane by angle $\theta$. In other words we have 
+    \bse 
+        \begin{pmatrix}
+            t \\
+            x \\
+            y \\
+            z 
+        \end{pmatrix} \longrightarrow \begin{pmatrix}
+            t \\
+            x\cos\theta - y\sin\theta \\
+            y\sin\theta + x\cos\theta \\
+            z 
+        \end{pmatrix},
+    \ese 
+    and so we can conclude\footnote{In these notes I shall try and be consistent and put brackets around indexed objects to indicate that we mean the matrix.}
+    \bse 
+        ({\Lambda^{\mu}}_{\nu}) = \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & \cos\theta & -\sin\theta & 0 \\
+            0 & \sin\theta & \cos\theta & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix}.
+    \ese 
+\eex
+
+\bex 
+    Following a similar idea to the previous example, we can show that for a boost along the $x$ axis we have 
+    \bse 
+        ({\Lambda^{\mu}}_{\nu}) = \begin{pmatrix}
+            \g & -\g v & 0 & 0 \\
+            -\g v & \g & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix},
+    \ese 
+    where $\g = 1/\sqrt{1-v^2}$.
+\eex 
+
+\subsection{Active vs. Passive Transformations}
+
+There is a subtlety in taking transformations that can be wonderfully confusing the first time you hear it, and this is the difference between an active and passive transformation. This short section just aims to clear up the differences so that the notation that follows in these notes is not confusing. 
+
+Let's say we want shift the temperature field in a room to the right. That is the temperature your left-hand neighbour is currently feeling you will feel after the transformation. There are essentially two ways to achieve this: firstly we could actually move the air particles themselves and so physically move the temperature to the right; secondly we could leave the air where it is and instead we, the people,\footnote{Not to be confused with \href{https://en.wikipedia.org/wiki/We_the_People_(disambiguation)}{this}.} could move to the left. In both cases you will end up feeling the temperature your left-hand neighbour previously felt, the question is "what's the difference?" 
+
+The answer is that the former is an \textit{active} transformation whereas the latter is a \textit{passive} one. Put in a more mathematically meaningful way, an active transformation is one where the thing itself (in this case the temperature field) is moved, whereas a passive transformation is one where we simply shift the underlying reference frame/coordinate system (in this case, us). 
+
+Those passionate about the concepts of relativity should now throw their arms up in protest. Why? Well because a passive transformation clearly depends on the choice of coordinate system and so should not be a physical thing. In contrast, the active transformation makes perfect sense without reference to any coordinate system. Put in terms of the example above, the passive transformation only makes sense if we are in the room and move ourselves and explain the shift, whereas the active transformation makes perfect sense even if we're not in the room at all. 
+
+It is for this reason that we actually consider active transformations in field theory. That is we actually consider shifting the \textit{fields} in our problems and not the coordinate system. As we have just seen, when we \textit{measure} something (i.e. we personally measure the change in temperature), we can think of the active transformation as a passive one going in the other direction (i.e. we move left so that `the temperature moves right'). This is why in what is to follow we shall write the transformation on fields as follows
+\be 
+\label{eqn:ActiveFieldTransformation}
+    \phi(x) \longrightarrow \widetilde{\phi}(x) = \phi\big(\Lambda^{-1}x\big).
+\ee 
+
+The above equation is actually a particular case for the action of the \textit{representation} of the Lorentz transformation on fields. In this case we are acting on a scalar field and so no $D[\Lambda]$ factors appear. For a general field we have 
+\bse 
+    \phi^{\mu\nu...}(x) \longrightarrow D[\Lambda]^{\mu}_{\sig} \big(D[\Lambda]^{\nu}_{\tau} ...\big) \phi^{\sig\tau...}\big(\Lambda^{-1}x\big).
+\ese 
+
+\section{Noether's Theorem}
+
+\bt[Noether's Theorem]
+\label{thrm:Noether}
+    Every continuous symmetry of the Lagrangian gives rise to a conserved current, which we label $j^{\mu}(x)$, such that the equations of motion imply 
+    \be 
+    \label{eqn:pj=0}
+        \p_{\mu}j^{\mu} = 0.
+    \ee 
+\et 
+
+As we will see, symmetries and their conserved currents are incredibly important in field theory, and so Noether's theorem is an invaluable tool to field theorists. 
+
+\bq 
+    In order to prove Noether's theorem it is very helpful to work infinitesimally. As we are considering continuous symmetries, we can always do this. 
+    
+    Now the first thing we note is that the equations of motion, \Cref{eqn:EulerLagrangeDensity}, were obtained by varying the action and dropping surface terms. We therefore see that these will be completely unaffected for any transformation that takes the form 
+    \be 
+    \label{eqn:LagrangianBoundaryChange}
+        \cL \longrightarrow \cL + \epsilon\p_{\mu}F^{\mu},
+    \ee 
+    where $F^{\mu}$ is some function of the fields and $\epsilon$ is some small parameter.
+    
+    Ok, so let's consider some infinitesimal transformation of the field
+    \bse 
+        \phi_a(x) \longrightarrow \phi_a(x) + \epsilon\del\phi_a(x).
+    \ese 
+    This gives a change in the action, of the general form\footnote{We use the fact that $\epsilon$ is a constant to take it outside the derivative.} 
+    \bse 
+        \begin{split}
+            \epsilon\del\cL & = \frac{\p\cL}{\p\phi_a} \epsilon\del\phi_a + \frac{\p\cL}{\p(\p_{\mu}\phi_a)}\p_{\mu}(\epsilon\phi_a) \\
+            & = \bigg[ \frac{\p\cL}{\p \phi_a} -\p_{\mu}\bigg(\frac{\p\cL}{\p(\p_{\mu}\phi_a)}\bigg)\bigg] \epsilon\del\phi_a + \epsilon\p_{\mu} \bigg(\frac{\p\cL}{\p(\p_{\mu}\phi_a)}\del\phi_a\bigg) \\
+            & = \epsilon\p_{\mu} \bigg(\frac{\p\cL}{\p(\p_{\mu}\phi_a)}\del\phi_a\bigg),
+        \end{split}
+    \ese 
+    where we have used \Cref{eqn:EulerLagrangeDensity} to set the square bracket term to zero. Now if this transformation is a symmetry of the system then we also have 
+    \bse 
+        \epsilon\del\cL = \p_{\mu}F^{\mu},
+    \ese
+    and so taking these two results away from each other gives us 
+    \mybox{
+        \be 
+        \label{eqn:NoetherCurrent}
+            j^{\mu} = \frac{\p\cL}{\p(\p_{\mu}\phi_a)}\del\phi_a - F^{\mu}(\phi_a) \qquad \implies \qquad \p_{\mu}j^{\mu} = 0.
+        \ee 
+    }
+    So this is our conserved current. We get one of these for each continuous $\del\phi$ transformation and so we have proved Noether's theorem. 
+\eq 
+
+Before doing some examples, first there is an important comment to make. As we have been careful to say above, Noether's theorem tells us that we get a conserved \textit{current}. This is a stronger result then saying we get a conserved \textit{charge}. Indeed a conserved current gives rise to a conserved charge, and we get this charge as follows: 
+\bse 
+    \p_{\mu}j^{\mu} = 0 \qquad \implies \qquad \frac{\p j^0}{\p t} = - \nabla \cdot \Vec{j}.
+\ese 
+Integrating both sides of this over all of space, we have 
+\bse 
+    \begin{split}
+        \frac{\p}{\p t} \int_{\R^3} d^3 \vec{x} \, j^0 & = -\int_{\R^3}d^3\vec{x} \, \nabla\cdot\vec{j} \\
+        & = - \oint d\vec{s} \cdot \vec{j} \\
+        & = 0,
+    \end{split}
+\ese 
+where the last line follows from the fact that we assume $\vec{j}$ falls off sufficiently fast as $|\vec{x}|\to\infty$. We can therefore define our conserved charge by 
+\be 
+\label{eqn:NoetherCharge}
+    Q := \int_{\R^3} d^3 \vec{x} \, j^0.
+\ee 
+This is a \textit{globally} conserved charge. 
+
+The reason that the existence of a conserved current is stronger than the existence of a globally conserved charge is that the current tells us that charge is conserved \textit{locally}. This is easily seen by repeating the above procedure but now just integrating over some finite volume, $V$. We obtain 
+\bse 
+    \frac{dQ_V}{dt} = - \oint_{\p V} \vec{j}\cdot d\vec{S},
+\ese 
+where $\p V$ is the boundary of $V$. This equation tells us the the charge leaving a volume $V$ in time $t$ (left-hand side) is equal to the current flowing through the boundary of the volume (right-hand side). 
+
+This is a much more powerful statement than simply that charge is conserved globally. For further clarity, if charge is conserved locally everywhere then we know that it is conserved globally (simply take your local region to be infinitely big). However if we only know that charge is conserved globally it could be possible that a charge disappears at some point $x\in\R^3$ and miraculously reappears at some other point $y\in\R^3$ far away from $x$. In other words the charge `teleported' through space. 
+
+\subsection{The Energy-Momentum Tensor}
+
+An important example of Noether's theorem comes from considering translations in spacetime. Recall that in particle mechanics, translations in space gave rise to momentum conservation, whereas translations in time gave rise to energy conservation. We are now dealing with a relativistic theory and so want to avoid this splitting of spacetime as much as possible, and so we want to find a 4-dimensional generalisation of the above conservation laws. This is exactly the \textit{energy-momentum tensor}. We denote it by a $T$. 
+
+\br 
+    Some people also refer to the energy-momentum tensor as the stress-energy tensor or the stress-momentum tensor, or even the stress-energy-momentum tensor. I will try to use energy-momentum tensor everywhere here, but I might sometimes just call it the stress tensor. Apologies for this in advance.
+\er 
+
+Ok, let's derive this lovely chappy.
+
+Consider a continuous translation of the spacetime coordinates. As above, we shall work infinitesimally, and so we have 
+\bse 
+    x^{\mu} \longrightarrow x^{\mu} - \epsilon^{\mu},
+\ese 
+where we use a minus sign so that the transformation of the field is positive, see the discussion of active vs. passive transformations above. We can Taylor expand the field to obtain the transformation
+\bse 
+    \phi_a(x) \longrightarrow \phi_a(x) + \epsilon^{\mu}\p_{\mu}\phi_a(x),
+\ese 
+and similarly the Lagrangian transforms as 
+\bse 
+    \cL(x) \longrightarrow \cL(x) + \epsilon^{\mu}\p_{\mu}\cL(x).
+\ese 
+Comparing this to \Cref{eqn:LagrangianBoundaryChange}, we see that $F^{\mu}=\epsilon^{\mu}\cL$. Our conserved current is therefore 
+\bse
+    \begin{split}
+        j^{\mu} & = \frac{\p \cL}{\p(\p_{\mu}\phi_a)} \epsilon^{\nu}\p_{\nu}\phi_a - \epsilon^{\mu}\cL \\
+        & = \epsilon^{\nu}\bigg(\frac{\p \cL}{\p(\p_{\mu}\phi_a)} \p_{\nu}\phi_a - \del^{\mu}_{\nu}\cL\bigg),
+    \end{split}
+\ese 
+and so we have a conserved current for each $\epsilon^{\nu}$, i.e. for the translations in each direction. These are the components of our energy-momentum tensor.
+\mybox{
+\be
+\label{eqn:EnergyMomentumTensor}
+    {T^{\mu}}_{\nu} := (j^{\mu})_{\nu} = \frac{\p \cL}{\p(\p_{\mu}\phi_a)} \p_{\nu}\phi_a - \del^{\mu}_{\nu}\cL.
+\ee 
+} 
+Being a conserved current it satisfies 
+\be 
+\label{eqn:EnergyMomentumConservation}
+    \p_{\mu}{T^{\mu}}_{\nu} = 0 \qquad \forall \nu = 0,1,...,d.
+\ee 
+
+In spacetime (i.e. $d=4$) we have four currents and so we have 4 charges. The $\nu$ index above tells us which direction we translated in, and so in correspondance with the comment made at the start of this section we want $\nu=0$ to correspond to energy conservation and $\nu=1,2,3$ to correspond to momentum conservation. We therefore define\footnote{Note we have raised the $\nu$ index here. As we are working in Minkowksi spacetime this really isn't a big deal, however as these are definitions you should be careful in more general spacetimes as some non-trivial factors will appear.}
+\be 
+\label{eqn:EnergyAndMomentumCharges}
+    E := \int d^3\vec{x} \, T^{00}, \qand P^i := \int d^3\, \vec{x}T^{0i}
+\ee 
+to be the total energy and the ($i$-th component of the) total momentum of the field configuration, respectively. 
+
+\br 
+    Note in deriving \Cref{eqn:EnergyMomentumTensor}, we didn't say anything about the actual form of our Lagrangian, and so this result holds for generic $\cL$.
+\er 
+
+\subsection{Angular Momentum \& Boost Symmetries}
+
+So we have done spacetime translations, but recall that we have also restricted ourselves to Lagrangians that are Lorentz invariant. Given that Lorentz transformations are continuous, Noether's theorem tells us that we should have some conserved currents to go along with them. Keeping in line with the logic applied to the translations, what kind of conservation do we expect? Well in particle mechanics spatial rotations give rise to conservation of angular momentum, so we expect some generalisation of this. As we are considering the whole set of Lorentz transformations, we will also derive the symmetries corresponding to boosts, whatever these may be. 
+
+As always, we want to work infinitesimally, and its a fact that infinitesimal Lorentz transformations can be written as
+\bse 
+    {\Lambda^{\mu}}_{\nu} = {\del^{\mu}}_{\nu} + {\omega^{\mu}}_{\nu},
+\ese 
+for some infintesimal ${\omega^{\mu}}_{\nu}$, and where \Cref{eqn:LorentzTransformationsOnMetric} tells us 
+\be 
+\label{eqn:AntisymmetricOmega}
+    \omega^{\mu\nu} = - \omega^{\nu\mu}.
+\ee 
+
+From \Cref{eqn:ActiveFieldTransformation}, we have, after Taylor expanding
+\bse 
+    \phi(x) \longrightarrow \phi(x^{\mu}) - {\omega^{\mu}}_{\nu} x^{\nu} \p_{\mu}\phi(x) \qquad \implies \qquad \del\phi = -{\omega^{\mu}}_{\nu}x^{\nu}\p_{\mu}\phi.
+\ese 
+Similarly we obtain 
+\bse 
+    \del\cL = -{\omega^{\mu}}_{\nu} x^{\nu} \p_{\mu}\cL.
+\ese 
+Now we use a clever trick. Firstly we note that ${\omega^{\mu}}_{\nu}$ is a constant so we can take it inside the derivative. Next we note that 
+\bse 
+    \p_{\mu}x^{\nu} = \del^{\nu}_{\mu},
+\ese 
+along with ${\omega^{\mu}}_{\mu}=0$ by \Cref{eqn:AntisymmetricOmega}. We can therefore also take the $x^{\nu}$ inside the derivative and obtain 
+\bse 
+    \del\cL = -\p_{\mu}\big( {\omega^{\mu}}_{\nu} x^{\nu}\cL\big).
+\ese 
+This is now of the form \Cref{eqn:LagrangianBoundaryChange}, with $F^{\mu} = {\omega^{\mu}}_{\nu} x^{\nu}\cL$. So our conserved currents are 
+\bse
+    \begin{split}
+        j^{\mu} & = - \frac{\p \cL}{\p(\p_{\mu}\phi)}{\omega^{\sig}}_{\nu}x^{\nu}\p_{\sig}\phi + {\omega^{\mu}}_{\nu} x^{\nu}\cL \\
+        & = - {\omega^{\sig}}_{\nu} \bigg[ \frac{\p \cL}{\p(\p_{\mu}\phi)}\p_{\sig}\phi + {\del^{\mu}}_{\sig} \cL \bigg]x^{\nu} \\
+        & = - {\omega^{\sig}}_{\nu} {T^{\mu}}_{\sig} x^{\nu}.
+    \end{split}
+\ese 
+
+As above we can split this into the individual currents, one for each ${\omega^{\sig}}_{\nu}$, and obtain 
+\be 
+\label{eqn:LorentzCurrents}
+    (\cJ^{\mu})^{\rho\sig} = x^{\rho}T^{\mu\sig} - x^{\sig}T^{\mu\rho}, \qquad \text{with} \qquad \p_{\mu}(\cJ^{\mu})^{\rho\sig} = 0 \qquad \forall \rho,\sig=0,..,3.
+\ee 
+Each one of these has a corresponding conserved charge. We get the particle result, i.e. angular momentum, when $\rho,\sig=1,2,3$: 
+\bse 
+    Q^{ij} = \int d^3\vec{x} \, \big(x^iT^{0j} - x^jT^{0i}\big).
+\ese 
+The question is "what charge do the boosts give us?" Well these correspond to $\rho=0, \sig=1,2,3$, which give 
+\bse 
+    Q^{0i} = \int d^3\vec{x} \, \big(x^0T^{0i} - x^iT^{00}\big).
+\ese 
+What is this? Well we know that its temporal derivative vanishes, so using $x^0=t$, we have 
+\bse 
+    \begin{split}
+        \frac{d Q^{0i}}{dt} & = \int d^3\vec{x} \, T^{0i} + \int d^3\vec{x} \, t \frac{\p T^{0i}}{\p t} - \frac{d}{dt}\int d^3\vec{x} \, x^i T^{00} \\
+        0 & = P^i + \frac{d P^i}{dt} - \frac{d}{dt}\int d^3\vec{x} \, x^i T^{00},
+    \end{split}
+\ese 
+where we've used \Cref{eqn:EnergyAndMomentumCharges}. But we've already seen that $P^i$ is a constant and so we simply get 
+\bse 
+    \frac{d}{dt}\int d^3\vec{x} \, x^i T^{00} = \text{constant},
+\ese 
+which is the statement that the center of energy of the field travels with constant velocity. 
+
+\br 
+    Note that \Cref{eqn:AntisymmetricOmega} agrees with the number of Lorentz transformations. That is, it is an antisymmetric, $4\times4$ matrix and so has $4\times 3/2=6$ independant entries. So it has $6$ basis elements, $3$ of these correspond to spatial rotations and the other $3$ are our boosts.
+\er 
+
+\subsection{Internal Symmetries}
+
+In the above calculations we considered transformations that did something to the spacetime itself, that is the $x^{\mu}$s changed. The question is "is this the only kind of symmetry we can have?" The answer is no, but in order to see it we need to have at least two fields in our Lagrangian. When this is the case we can consider transformations in the plane spanned by these two fields. If our transformations give rise to a symmetry, then we call them \textit{internal symmetries}. Let's look at some examples. 
+
+\bex 
+    Consider a theory with 2 real scalar fields $\phi_1$ and $\phi_2$. We can package these together into a two column representation simply as 
+    \bse 
+        \vec{\phi} := \begin{pmatrix}
+            \phi_1 \\
+            \phi_2
+        \end{pmatrix}.
+    \ese 
+    We can consider these spanning some 2-dimensional plane as indicated diagrammatically below. Let's then consider the Lagrangian 
+    \bse 
+        \begin{split}
+            \cL & = \frac{1}{2}(\p_{\mu}\vec{\phi})\cdot(\p^{\mu}\phi) - \frac{1}{2}m^2 \vec{\phi}\cdot \vec{\phi} \\
+            & = \frac{1}{2}\big[(\p\phi_1)^2 + (\p\phi_2)^2\big] - \frac{1}{2}m^2 \big[ \phi_1^2 + \phi_2^2 \big]
+        \end{split}
+    \ese 
+    where on the first line we have written out the multiple of the derivatives explicitly to make the dot-product clear. This Lagrangian is invariant under rotations in the $\phi_1-\phi_2$ plane, i.e. under 
+    \bse 
+        \begin{split}
+            \phi_1 \longrightarrow \phi_1' & = \phi_1\cos\theta + \phi_2\sin\theta \\
+            \phi_2 \longrightarrow \phi_2' & = - \phi_1\sin\theta + \phi_2\cos\theta.
+        \end{split}
+    \ese 
+    This is a continuous transformation and so we can work infinitesimally and find the conserved current. We have 
+    \bse 
+        \begin{split}
+            \phi_1' & \approx \phi_1 + \theta \phi_2 \qquad \implies \qquad \del\phi_1 = \theta\phi_2 \\
+            \phi_1' & \approx -\theta\phi_1 + \phi_2 \qquad \implies \qquad \del\phi_2 = -\theta\phi_1.
+        \end{split}
+    \ese 
+    
+    \begin{center}
+        \btik 
+            \draw[thick] (-1,0) -- (3,0);
+            \node at (3,-0.3) {\large{$\phi_1$}};
+            \draw[thick] (0,-1) -- (0,3);
+            \node at (-0.3,3) {\large{$\phi_2$}};
+            \draw[thick, dashed, rotate around={20:(0,0)}] (0,0) -- (3,0);
+            \node at (3.2,1) {\large{$\phi_1'$}};
+            \node at (1.2,0.2) {\large{$\theta$}};
+            \draw[thick, dashed, rotate around={20:(0,0)}] (0,0) -- (0,3);
+            \node at (-1.3,2.7) {\large{$\phi_2'$}};
+            \node at (-0.15,1) {\large{$\theta$}};
+        \etik 
+    \end{center}
+    
+    The Lagrangian doesn't change, so our conserved current is simply 
+    \bse 
+        \begin{split}
+            j^{\mu} & = \frac{\p \cL}{\p (\p_{\mu}\phi_1)} \del\phi_1 + \frac{\p \cL}{\p (\p_{\mu}\phi_2)} \del\phi_2 \\
+            & = (\p^{\mu}\phi_1)\phi_2 - (\p^{\mu}\phi_2)\phi_1.
+        \end{split}
+    \ese 
+    We can check that this obeys $\p_{\mu}j^{\mu}=0$. First we need the Euler-Lagrange equations for our action. We have 
+    \bse 
+        0 = \p_{\mu}\bigg(\frac{\p\cL}{\p(\p_{\mu}\phi_1)}\bigg) - \frac{\p \cL}{\p \phi_1} = (\p^2 + m^2)\phi_1
+    \ese
+    and similarly for $\phi_2$. Now take the derivative of our current:
+    \bse
+        \begin{split}
+            \p_{\mu}j^{\mu} & = (\p^2\phi_1)\phi_2 + \p^{\mu}\phi_1\p_{\mu}\phi_2 - (\p^2\phi_2)\phi_1 - \p^{\mu}\phi_2\p_{\mu}\phi_1 \\
+            & = m^2\phi_1\phi_2 - m^2\phi_2\phi_1 \\
+            & = 0,
+        \end{split}
+    \ese 
+    where we used the Euler-Lagrange equations to get to the third line, and then used the fact that we have real scalars so $\phi_1\phi_2=\phi_2\phi_1$. 
+    
+    This symmetry is known as a \textit{global SO(2) symmetry}. The name makes sense: its global (i.e. the whole plane is rotated) and its a rotation in 2-dimensions. It is actually a specific case of the more general global SO($N$) symmetry, which has 
+    \bse 
+        \frac{N(N-1)}{2}
+    \ese 
+    conserved currents for $N$ fields. 
+\eex 
+
+\bex 
+    We can reformulate the previous example by considering the complex scalar field
+    \bse 
+        \psi = \frac{1}{\sqrt{2}}\big( \phi_1 + i\phi_2\big).
+    \ese 
+    The above Lagrangian then becomes\footnote{Note that we don't have a factor of $1/2$ in this expression as was the case for the real scalar field. This is just because of the $1/\sqrt{2}$ factor above.} 
+    \be 
+    \label{eqn:ComplexLagrangianClassical}
+        \cL = \p_{\mu}\psi^*\p^{\mu}\psi - m^2 \psi^*\psi.
+    \ee 
+    We are now rotating in the complex plane so instead of considering a SO(2) rotation we consider the complex U(1) rotation
+    \bse 
+        \psi \longrightarrow e^{i\a}\psi.
+    \ese 
+    We already know that this is a symmetry because its exactly the same as the previous example, but what does the current look like in this complexified case? Well simple calculation will give 
+    \be 
+    \label{eqn:ComplexCurrent}
+        j^{\mu} = i\big[ (\p^{\mu}\psi^*)\psi - \psi^*(\p^{\mu}\psi)\big]
+    \ee 
+\eex 
+
+\bbox 
+    Derive the above conserved current. \textit{Hint: Note that $\psi^* \longrightarrow e^{-i\a}\psi^*$ and then work infinitesimally.} 
+\ebox 
+
+\br 
+    \textcolor{red}{Maybe put a comment here in line with the non-abelian comment made in Tong, page 18.}
+\er 
+
+Internal symmetries will prove to be vital for the study of particle physics as a QFT. We will see that the charges arising from such symmetries correspond to things such as electric charge and particle number. 
+
+\section{Hamiltonian Field Theory}
+
+Above we have constructed classical field theory in terms of Lagrangians. It is true that we can extend this Lagrangian approach to QFT by using so-called \textit{path integrals}, and there are advantages to doing that (most notably that the Lorentz invariance is manifest throughout), however in this course we shall use the Hamiltonian approach instead. This uses so-called \textit{canonical quantisation} to promote the fields to operators. 
+
+In particle mechanics, we define the Hamiltonian to be 
+\bse 
+    H(p,q) = \sum_a p_a\dot{q}_a - L(q,\dot{q}),
+\ese
+where 
+\bse 
+    p_a := \frac{\p L}{\p \dot{q}_a}
+\ese 
+is known as the \textit{conjugate momentum}. The idea is to eliminate $\dot{q}$ wherever we can and replace it with $p$. 
+
+In field theory we do a very similar thing, but now we have to use the Lagrangian density, $\cL$, and we define the \textit{conjugate momentum density} and \textit{Hamiltonian density}
+\mybox{
+\be 
+\label{eqn:ConjugateMomentumDensity}
+    \pi(x) := \frac{\p \cL}{\p \dot{\phi}(x)}
+\ee 
+\be 
+\label{eqn:HamiltonianDensity}
+    \cH = \pi(x)\dot{\phi}(x) - \cL(x).
+\ee 
+}
+Again we favour replacing any $\dot{\phi}(x)$ dependence with $\pi(x)$ once we know the relation. As with \Cref{eqn:LtocL}, we define the Hamiltonian as the spatial integral over the Hamiltonian density, 
+\be 
+    H(t) = \int d^3\vec{x} \, \cH(x).
+\ee 
+
+Note in this line we appear to have broken Lorentz symmetry as we have picked a preferred time to define our Hamiltonian. However, as long as we are careful not to do anything silly, we should be alright because we started with a Lorentz invariant theory. This is what we mean by the Lorentz symmetry not being manifest: it is not obvious just by looking at the equations that we have Lorentz symmetry, in contrast to the Lagrangian formalism where spacetime indices were always summed over and so it was clear.
+
+\bex 
+    As an example let's consider the real scalar field mentioned above with Lagrangian\footnote{It is incredibly common in the field theory world to forget to say `density', as I have done here (and probably above too). The symbols should tell you what we mean: densities are normally given in fancy curly font.}
+    \bse 
+        \begin{split}
+            \cL & = \frac{1}{2}(\p\phi_a)^2 - \frac{1}{2}m^2 \phi_a^2 \\
+            & = \frac{1}{2}\dot{\phi}_a^2 - \frac{1}{2}(\nabla\phi_a)^2 - \frac{1}{2}m^2 \phi_a^2.
+        \end{split}
+    \ese 
+    The conjugate momentum is therefore 
+    \bse 
+        \pi_a(x) = \dot{\phi}_a(x),
+    \ese 
+    and the Hamiltonian density is 
+    \bse
+        \begin{split}
+            \cH & = \dot{\phi}_a^2 - \cL \\
+            & = \frac{1}{2}\dot{\phi}_a^2 + \frac{1}{2}(\nabla\phi_a)^2 + \frac{1}{2}m^2\phi_a^2 \\
+            & = \frac{1}{2}\pi_a^2 + \frac{1}{2}(\nabla\phi_a)^2 + \frac{1}{2}m^2\phi_a^2,
+        \end{split}
+    \ese 
+    where in the last line we have done our procedure of swapping out the $\dot{\phi}$s for $\pi$s using the relation above.\footnote{For clarity, you don't just swap $\dot{\phi}\longrightarrow\pi$, but you use the relation for $\pi$ in terms of $\dot{\phi}$ to eliminate the $\dot{\phi}$s. In this particular case, $\pi=\dot{\phi}$, and it does correspond to just swapping them.} The integral over these terms give three contributions to the Hamiltonian, they are 
+    \bse 
+        H = \int d^3 \vec{x} \, \bigg(\underbrace{\frac{1}{2}\pi_a^2}_{\text{kinetic}} + \underbrace{\frac{1}{2}(\nabla\phi_a)^2}_{\text{shear}} + \underbrace{\frac{1}{2}\phi_a^2}_{\text{mass}}\bigg).
+    \ese 
+\eex

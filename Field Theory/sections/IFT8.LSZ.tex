@@ -1,0 +1,424 @@
+\chapter{LSZ Theorem, Loop \& Amputated Diagrams}
+
+Last lecture we discussed fully connected diagrams and derived the Feynman rules for $\psi\psi \to \psi\psi$ scattering. We also said that there were two other types of conceptually different diagrams, namely \textit{connected} and \textit{disconnected} diagrams. As diagrams they look like:
+\begin{center}
+    \btik 
+        \begin{scope}[xshift=-3.25cm]
+            \draw (-3,1.5) -- (3,1.5) -- (3,-3.5) -- (-3,-3.5) -- (-3,1.5);
+            \midarrow (-2,0) -- (-1,0);
+            \node at (-2.2,0) {$\psi$};
+            \midarrow (-1,0) -- (1,0);
+            \draw[thick, dashed] (-1,0) .. controls (-0.5,1) and (0.5,1) .. (1,0);
+            \node at (0,1) {$\phi$};
+            \midarrow (1,0) -- (2,0);
+            \node at (0,-0.3) {$\psi$};
+            \node at (2.2,0) {$\psi$};
+            \midarrow (-2,-2) -- (2,-2);
+            \node at (-2.2,-2) {$\psi$};
+            \node at (2.2,-2) {$\psi$};
+            \node at (0,-3) {\large{Connected}};
+        \end{scope}
+        %
+        \begin{scope}[xshift=3.25cm]
+            \draw (-2,1.5) -- (6,1.5) -- (6,-3.5) -- (-2,-3.5) -- (-2,1.5);
+            \midarrow (-1,0) -- (1,0);
+            \node at (-1.2,0) {$\psi$};
+            \node at (1.2,0) {$\psi$};
+            \midarrow (-1,-2) -- (1,-2);
+            \node at (-1.2,-2) {$\psi$};
+            \node at (1.2,-2) {$\psi$};
+            \beforemidarrow (3,-1) circle [radius=0.5cm];
+            \node at (3,-0.25) {$\psi$};
+            \draw[thick, dashed] (3.5,-1) -- (4.5,-1);
+            \node at (4,-1.3) {$\phi$};
+            \beforemidarrow (5,-1) circle [radius=0.5cm];
+            \node at (5,-0.25) {$\psi$};
+            \node at (2,-3) {\large{Disconnected}};
+        \end{scope}
+    \etik 
+\end{center}
+
+Intuitively, we would say these don't really correspond to scattering as the initial states don't interact with each other. However we need some way to actually prove this, and this is where the so-called LSZ theorem\footnote{Named after Harry Lehmann, Kurt Symanzik and Wolfhart Zimmermann.} comes in. First we need some definitions and a proposition.
+
+\bd[$n$-Point Green's Function]
+    We define the \textit{$n$-point Green's function} to be the time ordered vacuum expectation value of $n$ Heisenberg picture\footnote{Note we need this, otherwise time-ordering doesn't mean anything.} field operator. That is 
+    \be  
+    \label{eqn:nPointGreensFunction}
+        G_n(x_1,...,x_n) := \bra{0} \cT\big[\phi(x_1) ... \phi(x_n)\big] \ket{0}.
+    \ee 
+\ed 
+
+\bd[Wavefunction Normalisation]
+    We define the so-called \textit{wavefunction normalisation} to be 
+    \bse 
+        Z := |\bra{p_i} \phi(x) \ket{0}|^2,
+    \ese 
+    so that 
+    \be 
+    \label{eqn:ZDefinition}
+        \bra{p_1,...,p_n} \phi(t=\pm\infty,\Vec{x}) \ket{q_1, ..., q_m} = \lim_{t\to\pm\infty} Z^{-1/2} \, \bra{p_1,...,p_n} \phi(x) \ket{q_1, ..., q_m}.
+    \ee 
+\ed 
+
+\br 
+    What \Cref{eqn:ZDefinition} does is it allows us to turn an asymptotic field $\phi(t=\pm\infty,\Vec{x})$ into a field at a general time under a limit. The factor of $\sqrt{Z}$ is included just to normalise the result, hence the name. \textcolor{red}{For Michael: Is this the correct interpretation of $Z$?}
+\er 
+
+\bd[Left-Right Derivative Action]\footnote{This might not be a technical name, it's just what I've decided to call it.}
+    Let $\phi_1(x)$ and $\phi_2(x)$ be to fields on the spacetime. Then we define the \textit{left-right derivative action} as 
+    \be 
+    \label{eqn:LeftRightDerivativeAction}
+        \phi_1(x) \lra{\p}_{\mu} \, \phi_2(x) := \phi_1(x) \p_{\mu} \phi_2(x) - \big(\p_{\mu}\phi_1(x)\big)\phi_2(x).
+    \ee 
+\ed 
+
+\bp 
+    For the real scalar field, \Cref{eqn:HeisenbergPhi}, we have 
+    \be 
+    \label{eqn:aaDaggerLeftRightDerivativeAction}
+        \begin{split}
+            a_{\Vec{p}} & = \frac{i}{\sqrt{2E_{\vec{p}}}} \, \int d^3 \Vec{x} \, e^{ip\cdot x} \lra{\p}_0 \, \phi(x) \\
+            a_{\Vec{p}}^{\dagger} & = -\frac{i}{\sqrt{2E_{\vec{p}}}} \, \int d^3 \Vec{x} \, e^{-ip\cdot x} \lra{\p}_0 \, \phi(x)
+        \end{split}
+    \ee 
+\ep 
+
+\bbox 
+    Prove \Cref{eqn:aaDaggerLeftRightDerivativeAction}. \textit{Hint: You will want to use the constraint $p_0=E_{\vec{p}}$ present in \Cref{eqn:HeisenbergPhi} along with $E_{\vec{p}} = \sqrt{\vec{p}^2+m^2} = E_{-\vec{p}}$ at the end.}
+\ebox 
+
+We choose here to first state the result of the LSZ theorem and then derive it, as this way the heavy manipulations that follow have some guiding light. 
+
+\bt[LSZ Reduction Formula]
+    We can express the S-matrix between an initial $m$-particle state and a $n$-particle final particle state in terms of the $(n+m)$-point Green's function as follows:
+    \be 
+    \label{eqn:LSZ}
+        \begin{split}
+            S_{fi} = & \big(iZ^{-1/2}\big)^{n+m} \int dy_1...dy_n \int dx_1...dx_m \, e^{i(p_j\cdot y_j - q_i\cdot x_i)} \\
+            & \times \bigg(\prod_{i=1}^m (\p_{x_i}^2+m^2)\bigg) \bigg(\prod_{j=1}^n (\p_{y_j} +m^2) \bigg) G_{n+m}(y_1,...,y_n,x_1,...,x_m) \\
+            & + \text{all non-fully connected stuff},
+        \end{split}
+    \ee 
+    where we assume an implicit sum in the exponential.
+\et 
+
+Before proving this theorem it is worth stating what it allows us to do. Basically we note that the right-hand side of \Cref{eqn:LSZ} splits into a contribution that contains only information about the fully connected diagrams (we will prove this), and a part that contains only the non-fully connected stuff. We can therefore simply restrict our analysis to processes that are only fully connected in a well defined way. That is, a priori there is no clear way to see that the result of the full S-matrix calculation wont `mix' fully connected and non-fully connected stuff, but the LSZ theorem tells us that it indeed does. This statement does \textit{not} mean that the connected diagrams do not contribute to the full S-matrix value, but simply that we are allowed to restrict ourselves to considering only fully-connected diagrams.
+
+\bq 
+    Unfortunately for those who don't like long proofs, this one comes from sheer brute force,\footnote{I'm following the one given by Prof. Weigand, starting on page 49.} so prepare yourself. Firstly we need to clarify the notation that follows: by Dysons formula, the S-matrix is given by a bunch of time evolution operators, and we also take our states to asymptotic (i.e. at $t\to \pm\infty$). Therefore the creation operators that we extract from our initial states \textit{do not} simply act on the final state and annihilate them, as they are separated in time. For this reason we shall use subscripts `in' and `out' on the creation/annihilation operators to avoid confusion. Similarly we will denote the initial/final states using the following notation 
+    \bse 
+        \bra{p_1...p_n;out}, \qand \ket{q_1...q_m;in}.
+    \ese 
+    We use this notation as it is the one used by Prof. Weigand in his notes. 
+    
+    We therefore have 
+    \bse 
+        \begin{split}
+            S_{fi} & = \braket{p_1...p_n;out}{q_1...q_m;in} \\
+            & = \sqrt{2E_{\vec{q}_1}}\bra{p_1...p_n;out} a^{\dagger}_{\vec{q}_1} \ket{q_2...q_m;in} \\
+            & = \frac{1}{i} \int d^3\vec{x}_1 \bra{p_1...p_n;out} e^{-iq_1\cdot x_1} \lra{\p}_0 \, \phi(t=-\infty,\vec{x}) \ket{q_2...q_m;in} \\
+            & = \frac{1}{i} \lim_{t\to-\infty} Z^{-1/2} \, \int d^3\vec{x}_1 \bra{p_1...p_n;out} e^{-iq_1\cdot x_1} \lra{\p}_0 \, \phi(x) \ket{q_2...q_m;in} \\
+            & = \frac{1}{i\sqrt{Z}} \lim_{t\to-\infty}  \, \int d^3\vec{x}_1 e^{-iq_1\cdot x_1} \lra{\p}_0  \bra{p_1...p_n;out} \phi(x) \ket{q_2...q_m;in}
+        \end{split}
+    \ese 
+    where we have used the definition $\ket{q} = \sqrt{2E_{\vec{q}}}a^{\dagger}_{\vec{q}}\ket{0}$ and \Cref{eqn:aaDaggerLeftRightDerivativeAction,eqn:ZDefinition}. Note on the third line we have $\phi(t=-\infty,\vec{x})$, this is because we want to consider an initial state, which we take to be at $t=-\infty$. Indeed for this exact reason, we should really denote the creation operator on the second line as something like 
+    \bse 
+        (a_{\text{in}})^{\dagger}_{\vec{q}_1},
+    \ese 
+    so that we know it only acts on in/initial states.
+    
+    What we now want to do is get the $\phi(x)$ to act on a final state, in which case we need to change the limit from $t\to-\infty$ to $t\to + \infty$. We achieve this by using the simple result 
+    \bse 
+        \lim_{t\to-\infty} f(t) = \lim_{t\to+\infty} f(t) - \lim_{T\to\infty} \int_{-T}^{T} \frac{d}{dt}f(t),
+    \ese 
+    so our S-matrix splits into two terms:
+    \bse 
+        \begin{split}
+            S_{fi} = & \frac{1}{i\sqrt{Z}} \lim_{t\to+\infty} \, \int d^3\vec{x}_1 e^{-iq_1\cdot x_1} \lra{\p}_0 \bra{p_1...p_n;out} \phi(x) \ket{q_2...q_m;in} \\
+            & \qquad + \frac{1}{i\sqrt{Z}} \, \int d^4x_1 \, \p_0\Big( e^{-iq_1\cdot x_1} \lra{\p}_0 \bra{p_1...p_n;out} \phi(x) \ket{q_2...q_m;in}\Big),
+        \end{split}
+    \ese
+    where we notice that the second term contains a $4$-integral. Let's call the first $A$ and the second $B$, and consider them in turn. In $A$ we can use \Cref{eqn:ZDefinition} backwards to get 
+    \bse 
+        A = \frac{1}{i\sqrt{Z}} \int d^3\vec{x}_1 e^{-iq_1\cdot x_1} \lra{\p}_0  \bra{p_1...p_n;out} \phi(t=+\infty,\vec{x}) \ket{q_2...q_m;in},
+    \ese 
+    and then we can use \Cref{eqn:aaDaggerLeftRightDerivativeAction} backwards to give 
+    \bse 
+        A = \sqrt{2E_{\vec{q}_1}}  \bra{p_1...p_n;out} (a_{\text{out}})^{\dagger}_{\vec{q}_1} \ket{q_2...q_m;in},
+    \ese 
+    where, in agreement with the comment made above, we have included a subscript `out' to tell us this acts on the final states. Now the action of a creation operator to the left gives a delta function, and so we get 
+    \bse 
+        A = 2E_{\vec{q}_1}(2\pi)^3 \sum_{k=1}^{n}\del^{(3)}(\vec{p}_k -\vec{q}_1) \braket{p_1...\hat{p}_k...p_n;out}{q_2...q_m;in},
+    \ese 
+    where we have used the standard maths notation where a hatted entry in a string of terms is missing (i.e. $\hat{p}_k$ is missing from the final states). This corresponds to a connected, \textit{but not fully connected}, diagram as we have the $k$-th final particle just corresponding to the $1^{\text{st}}$ initial particle (it is just a straight line in a diagram). 
+    
+    Now what about $B$? Well we use \Cref{eqn:LeftRightDerivativeAction} to get
+    \bse
+        \begin{split}
+            B & = \frac{1}{i\sqrt{Z}}\, \int d^4x_1 \, \p_0\Big( e^{-iq_1\cdot x_1} \p_0 \la...\ra - \p_0\big(e^{-iq_1\cdot x_1}\big)\la...\ra \Big) \\
+            & = \frac{1}{i\sqrt{Z}} \, \int d^4x_1 \, \Big( e^{-iq_1\cdot x_1} \p_0^2 \la...\ra - \p_0^2\big(e^{-iq_1\cdot x_1}\big)\la...\ra \Big)
+        \end{split}
+    \ese 
+    Next note that 
+    \bse 
+        \p_0^2 e^{-ip\cdot x} = -p_0^2 e^{-ip\cdot x} = (p^2 +(\vec{p})^2) e^{-ip\cdot x} = (m^2 - \nabla^2)e^{-ip\cdot x},
+    \ese 
+    which we can apply to the second term on the second line above. We then integrate by parts twice\footnote{Note, as always, we assume boundary terms vanish at spatial infinity.} to move the $\nabla^2$ to act on $\la...\ra$ and then use 
+    \bse 
+        \p^2 := \p_0^2 - \nabla^2
+    \ese 
+    to give us 
+    \bse 
+        B = \frac{1}{i\sqrt{Z}} \int d^4 x_1 e^{-iq_1\cdot x_1} \big(\p^2+m^2)\bra{p_1...p_n;out} \phi(x) \ket{q_2...q_m;in}
+    \ese 
+    This is exactly of the form of one of the product terms in \Cref{eqn:LSZ}! We can then apply a similar argument to all the other initial states, noting that 
+    \bse 
+        [a^{\dagger}_{\vec{q}_i},a^{\dagger}_{\vec{q}_j}] = 0 \qquad \forall i,j \in \{1,...,m\},
+    \ese 
+    to obtain the full product from $1$ to $m$ in \Cref{eqn:LSZ}. 
+    
+    We now need to do the same thing for the final states. However now we have 
+    \bse 
+        \bra{p} = \sqrt{2E_{\vec{p}}} \bra{0} (a_{\text{out}})_{\vec{p}},
+    \ese
+    and from 
+    \bse 
+        [a_{\vec{p}_i},a^{\dagger}_{\vec{q}_j}] \neq 0
+    \ese
+    we cannot simply commute the annihilation operators past $\phi(x)$ to get them to act on the initial state, that is 
+    \bse 
+        \begin{split}
+            \bra{p_2...p_n;out}\phi(y_1^0=\infty,&\vec{y}_1)\phi(x_1^0=-\infty,\vec{x}_1)\ket{q_1...q_m;in} \\
+            & \neq \bra{p_2...p_n;out}\phi(x_1^0=-\infty,\vec{x}_1)\phi(y_1^0=\infty,\vec{y}_1)\ket{q_1...q_m;in}.
+        \end{split}
+    \ese 
+    This is when we notice that \Cref{eqn:LSZ} contains a Green's function, which contains time-ordering and so we realise we are saved! More explicitly, we will get something of the form 
+    \bse 
+        \begin{split}
+            \lim_{x_1^0\to-\infty} \lim_{y_1^0\to+\infty} \int d^3 \vec{x}_1 \int d^3 \vec{y}_1 e^{-iq_1\cdot x_1} \lra{\p}_{x_1^0} \, e^{ip_1\cdot y_1} \lra{\p}_{y_1^0} \, \bra{p_2...p_n;out}\phi(y_1)\phi(x_1)\ket{q_2...q_m;in} \\
+            = \lim_{x_1^0\to-\infty} \int d^3 \vec{x}_1 e^{-iq_1\cdot x_1} \lra{\p}_{x_1^0} \, \lim_{y_1^0\to+\infty} \int d^3 \vec{y}_1  e^{ip_1\cdot y_1} \lra{\p}_{y_1^0} \, \bra{p_2...p_n;out}\phi(y_1)\phi(x_1)\ket{q_2...q_m;in}
+        \end{split}
+    \ese 
+    where we notice that the $x_1^0$ limit is taken after the $y_1^0$ one, so during the latter we can take $x_1^0$ to be some fixed finite value, so we can just consider the $y_1$ part of the expression. Now consider 
+    \bse 
+        \begin{split}
+            \lim_{T\to\infty} \int_{-T}^T dy_1^0 \p_{y_1^0} & \bigg(\int d^3\vec{y}_1 e^{ip_1\cdot y_1} \lra{\p}_{y_1^0} \bra{p_2...p_n;out}\cT\big[ \phi(y_1)\phi(x_1)\big] \ket{q_2...q_m;in}\bigg) \\
+            = & \lim_{y_1^0\to+\infty} \int d^3\vec{y}_1 e^{ip_1\cdot y_1} \lra{\p}_{y_1^0} \bra{p_2...p_n;out} \phi(y_1)\phi(x_1) \ket{q_2...q_m;in} \\
+            & \qquad  - \lim_{y_1^0\to-\infty} \int d^3\vec{y}_1 e^{ip_1\cdot y_1} \lra{\p}_{y_1^0} \bra{p_2...p_n;out} \phi(x_1)\phi(y_1) \ket{q_2...q_m;in}.
+        \end{split}
+    \ese 
+    The first term on the right hand side is what we want, (compare it to the proof above), while the second term on the right hand side will again give a connected, but not fully connected, diagram as we get a $a_{\vec{p}_1}$ term acting on the initial state. So we finally see that we can replace the expression we had above for the Green's function (the time-ordered expression) at the cost of picking up a connected, but not fully connected, term. Doing this for all the final states will then give us all the terms in the product from $j=1$ to $j=n$ needed in \Cref{eqn:LSZ}. Note also that all the other factors needed for \Cref{eqn:LSZ} also appear, i.e. all the exponentials and the $iZ^{-1/2}$ factors.
+\eq 
+
+Ok so we have that the fully connected part of the scattering process is given by a $(n+m)$-point Green's function. However the LSZ formula is quite a large formula and so we want to simplify it somehow. We do this by introducing the \textit{truncated Green's function} as follows
+\be 
+\label{eqn:TruncatedGreensFunction}
+    \begin{split}
+        G_{n+m}(y_1,...,y_n,x_1,...,x_m) = \int & d^4 z_1 ... d^4 dz_{m+n} \Delta_F(x_1-z_1) ... \Delta_F(x_m-z_m) \\
+        & \times \Delta(y_1-z_{m+1}) ... \Delta_F(y_n-z_{n+m}) \widetilde{G}_{n+m}(z_1,...,z_{n+m}),
+    \end{split}
+\ee
+where $\Delta_F$ is the Feynman propagator and $\widetilde{G}_{n+m}$ is our truncated $(n+m)$-point Green's functions. Essentially what we're doing is saying is propagate our initial states to the points $\{z_1,...,z_m\}$ and similarly the final states with $\{z_{m+1},...,z_{m+n}\}$, and characterise all the interaction stuff in the middle using some Green's function, $\widetilde{G}$, as we've tried to indicate below diagrammatically. 
+\begin{center}
+    \btik[scale=0.8]
+        \draw[thick, fill = gray!40, opacity = 0.8] (0,0) circle [radius=2cm];
+        \node at (0,0) {\Large{$\widetilde{G}_{5+4}$}};
+        \node at (-6.3,0) {$x_3$};
+        \node at (-1.7,0) {$z_3$};
+        \draw[thick] (-6,0) -- (-2,0);
+        \draw[fill=black] (-2,0) circle [radius=0.07cm];
+        \begin{scope}[rotate around={20:(0,0)}]
+            \node at (-6.3,0) {$x_4$};
+            \node at (-1.7,0) {$z_4$};
+            \draw[thick] (-6,0) -- (-2,0);
+            \draw[fill=black] (-2,0) circle [radius=0.07cm];
+        \end{scope}
+        \begin{scope}[rotate around={40:(0,0)}]
+            \node at (-6.3,0) {$x_5$};
+            \node at (-1.7,0) {$z_5$};
+            \draw[thick] (-6,0) -- (-2,0);
+            \draw[fill=black] (-2,0) circle [radius=0.07cm];
+        \end{scope}
+        \begin{scope}[rotate around={-20:(0,0)}]
+            \node at (-6.3,0) {$x_2$};
+            \node at (-1.7,0) {$z_2$};
+            \draw[thick] (-6,0) -- (-2,0);
+            \draw[fill=black] (-2,0) circle [radius=0.07cm];
+        \end{scope}
+        \begin{scope}[rotate around={-40:(0,0)}]
+            \node at (-6.3,0) {$x_1$};
+            \node at (-1.7,0) {$z_1$};
+            \draw[thick] (-6,0) -- (-2,0);
+            \draw[fill=black] (-2,0) circle [radius=0.07cm];
+        \end{scope}
+        %
+        \node at (6.3,0) {$y_3$};
+        \node at (1.7,0) {$z_8$};
+        \draw[thick] (6,0) -- (2,0);
+        \draw[fill=black] (2,0) circle [radius=0.07cm];
+        \begin{scope}[rotate around={20:(0,0)}]
+            \node at (6.3,0) {$y_2$};
+            \node at (1.7,0) {$z_7$};
+            \draw[thick] (6,0) -- (2,0);
+            \draw[fill=black] (2,0) circle [radius=0.07cm];
+        \end{scope}
+        \begin{scope}[rotate around={55:(0,0)}]
+            \node at (6.3,0) {$y_1$};
+            \node at (1.7,0) {$z_6$};
+            \draw[thick] (6,0) -- (2,0);
+            \draw[fill=black] (2,0) circle [radius=0.07cm];
+        \end{scope}
+        \begin{scope}[rotate around={-30:(0,0)}]
+            \node at (6.3,0) {$y_4$};
+            \node at (1.7,0) {$z_9$};
+            \draw[thick] (6,0) -- (2,0);
+            \draw[fill=black] (2,0) circle [radius=0.07cm];
+        \end{scope}
+    \etik 
+\end{center}
+
+Why would we introduce the truncated Green's function? Well we recall that the Feynman propagator is a Green's function of the Klein-Gordan operator:
+\bse 
+    (\p^2+m^2)\Delta_F(x-z) = 0,
+\ese 
+so in the LSZ formula all of the Klein-Gordan operators will just give us delta functions, which we can integrate over, leaving us with 
+\be
+\label{eqn:SMatrixTruncatedGreensFunction}
+    \begin{split}
+        S_{if}^{F.C.} & = \big(iZ^{-1/2}\big)^{n+m} \int dy_1...dy_n\int dx_1...dx_m e^{i(p_j\cdot y_j - q_i\cdot x_i)} \widetilde{G}_{n+m}(x_1...,x_m, y_1,...,y_n) \\
+        & = \big(iZ^{-1/2}\big)^{n+m} \widetilde{G}_{n+m} (q_1,...,q_m, p_1, ... , p_n),
+    \end{split}
+\ee 
+where the second line follows from the delta functions we get from the exponentials, and where the superscript F.C. means "fully connected". This result tells us that we can compute the entire fully connected S-matrix by just considering the momentum space truncated Green's function! This is a massively convenient result. 
+
+\br 
+    It is worth stressing again that the LSZ theorem does \textit{not} tell us that the connected, but not fully connected, diagrams vanish but that we can ignore them if we want to just consider a scattering process where everything interacts. In fact the former diagrams will contribute to renormalisation and so are very important. 
+\er 
+
+\section{Loop Diagrams}
+
+So far we have only considered what are known as \textit{tree level diagrams}. This essentially just means that all of our vertices are connected to our external lines. However this is clearly not the only type of diagram we can have and we can have vertices internally. For example in the scalar Yakawa theory the following is a valid diagram to order $g^2$:
+\begin{center}
+    \btik 
+        \midarrow (-3,0) -- (0,0);
+        \node at (-3.3,0) {$\psi$};
+        \draw[->] (-2,0.3) -- (-1,0.3) node [midway, above] {$p_1$};
+        \midarrow (0,0) -- (3,0);
+        \node at (3.3,0) {$\psi$};
+        \draw[->] (1,0.3) -- (2,0.3) node [midway, above] {$p_3$};
+        \draw[thick, dashed] (0,0) -- (0,-1);
+        \draw[->] (-0.3,-0.15) -- (-0.3,-0.85) node [midway, left] {$k_1$};
+        \midarrow (0,-1.5) circle [radius=0.5cm];
+        \draw[->] (0.8,-1.5) arc (0:60:0.7cm);
+        \node at (1,-1) {$\ell_1$};
+        \draw[->, rotate around={180:(0,-1.5)}] (0.8,-1.5) arc (0:60:0.7cm);
+        \node at (-1,-2) {$\ell_2$};
+        \midarrow (0,-1.5) circle [radius=-0.5cm];
+        \draw[thick, dashed] (0,-2) -- (0,-3);
+        \draw[->] (0.3,-2.15) -- (0.3,-2.85) node [midway, right] {$k_2$};
+        \midarrow (-3,-3) -- (0,-3);
+        \node at (-3.3,-3) {$\psi$};
+        \draw[->] (-2,-3.3) -- (-1,-3.3) node [midway, below] {$p_2$};
+        \midarrow (0,-3) -- (3,-3);
+        \node at (3.3,-3) {$\psi$};
+        \draw[->] (1,-3.3) -- (2,-3.3) node [midway, below] {$p_4$};
+    \etik 
+\end{center}
+\noindent where we haven't labelled the internal particles and the $(-ig)$ factors to avoid cluttering the diagram. This is called a \textit{loop diagram} for obvious reasons. Loop diagrams are a bit of a pain because we don't have enough delta functions to remove all of our integrals. That is, recall that in the momentum space Feynman rules we include a factor of\footnote{Note that before we only defined this for $\phi$ propagators, but here we say we get the same factor for $\psi$ ones but we simply replace the mass with the $\psi$ mass. From now on we shall use $m_{\phi}=m$ and $m_{\psi}=M$.}
+\bse 
+    \int \frac{d^4k_i}{(2\pi)^2} \frac{i}{k_i^2-m_{\phi/\psi}^2 + i\epsilon}
+\ese
+for each internal line and a delta function of the momentum flowing in at each vertex. For example, in the above diagram the $k_1$ and $k_2$ momentum are obtained from the delta functions with the external momenta, i.e. $k_1=p_1-p_3$ and $k_2=p_4-p_2$. However we cannot find the values of $\ell_1$ and $\ell_2$, but at best can obtain a relation between them. This is just because $\ell_1$ and $\ell_2$ will both appear in two delta functions, namely 
+\bse 
+    \del^{(4)}(k_1+\ell_1-\ell_2), \qand \del^{(4)}(\ell_2-k_2-\ell_1),
+\ese
+and so when we integrate over one of the two $\ell$s we kill both delta functions and we are left with the integral over the other $\ell$ and no delta function to remove it! To be more explicit, if we did the integral over $\ell_2$, say, we would get 
+\bse 
+    \ell_2 = k_1 + \ell_1, \qand \ell_2 = k_2 + \ell_1,
+\ese 
+so if we equate the two terms we just get 
+\bse 
+    k_1 = k_2 \qquad \implies \qquad p_1 + p_2 = p_3+p_4,
+\ese
+where the implication comes from the momentum conservation on the $k$s. This just tells us the $4$-momentum initially and finally are equivalent, and does not allow us to conclude what $\ell_1$ is. 
+
+\br 
+    As we said when we introduced the momentum space Feynman rules, it is common to alter the rules slightly to so just include the factor 
+    \bse 
+        \frac{i}{k^2-m^2+i\epsilon}
+    \ese 
+    for each propagator and then impose momentum conservation at each vertex. If we use these rules, then when we have loops we insert the additional rule of "and then integrate over all undetermined momenta", i.e. $\ell_1$ in the above example. 
+\er 
+
+We also get loop diagrams in connected, but not fully connected, diagrams, as in the next exercise. 
+
+\bbox 
+    Show that this diagram
+    \begin{center}
+        \btik 
+            \midarrow (-3,0) -- (-1,0);
+            \node at (-3.2,0) {$\psi$};
+            \midarrow (-1,0) -- (1,0);
+            \draw[thick, dashed] (-1,0) .. controls (-0.5,1) and (0.5,1) .. (1,0);
+            \draw[->, rotate around={-30:(-1.2,0.2)}] (-1.2,0.2) arc (0:-30:-2) node [midway, above] {$k$};
+            \draw[->] (-2.8,-0.3) -- (-1.8,-0.3) node [midway,below] {$p_1$};
+            \draw[->] (1.8,-0.3) -- (2.8,-0.3) node [midway,below] {$p_2$};
+            \draw[->] (-0.5,-0.3) -- (0.5,-0.3) node [midway,below] {$\ell$};
+            \midarrow (1,0) -- (3,0);
+            \node at (3.2,0) {$\psi$};
+        \etik 
+    \end{center}
+    \noindent corresponds to 
+    \bse 
+        (2\pi)^4 \del^{(4)}(p_2-p_1)\Bigg[ \int \frac{d^4\ell}{(2\pi)^4} (-ig)^2 \bigg( \frac{i}{(p_1-\ell)^2- m^2 +i\epsilon} \bigg) \bigg( \frac{i}{\ell^2 - M^2 +i\epsilon} \bigg) \Bigg]
+    \ese
+\ebox  
+
+\br 
+    Note that the result of the previous exercise diverges logarithmically in $\ell$. This is easily seen because we essentially have $1/\ell^4$ and we do $d^4\ell$. This kind of divergence is known as a \textit{UV divergence}.
+\er 
+
+\section{Amputated Diagrams}
+
+Note in all the Feynman diagrams we have just drawn, we always draw the ingoing and outgoing particles as `pure' lines, by which I mean nothing is attached to them. An example of something we haven't drawn is the following:
+\begin{center}
+    \btik 
+        \midarrow (-2,0) -- (-1,0);
+        \midarrow (-1,0) -- (1,0);
+        \draw[thick, dashed] (-1,0) .. controls (-0.5,1) and (0.5,1) .. (1,0);
+        \midarrow (1,0) -- (3,0);
+        \midarrow (3,0) -- (5,0);
+        \draw[thick, dashed] (3,0) -- (3,-2);
+        \midarrow (-2,-2) -- (3,-2);
+        \midarrow (3,-2) -- (5,-2);
+    \etik 
+\end{center}
+
+The reason we have never considered these is because what we've been drawing are so-called \textit{amputated diagrams}. You get amputated diagrams by saying "can I cut through the diagram and remove something by only cutting through one line?" If the answer is yes, do it. So for the above example we would cut along the dotted red line below:
+\begin{center}
+    \btik 
+        \midarrow (-2,0) -- (-1,0);
+        \midarrow (-1,0) -- (1,0);
+        \draw[thick, dashed] (-1,0) .. controls (-0.5,1) and (0.5,1) .. (1,0);
+        \midarrow (1,0) -- (3,0);
+        \midarrow (3,0) -- (5,0);
+        \draw[thick, dashed] (3,0) -- (3,-2);
+        \midarrow (-2,-2) -- (3,-2);
+        \midarrow (3,-2) -- (5,-2);
+        \draw[ultra thick, red, dashed] (3,1) -- (1,-1);
+    \etik 
+\end{center}
+\noindent which gives us the scattering diagram we drew before. It is important that you only cut through $1$ line, i.e. we can not amputate the following 
+\begin{center}
+    \btik 
+        \midarrow (-2,0) -- (-1,0);
+        \midarrow (-1,0) -- (0,0);
+        \midarrow (0,0) -- (1,0);
+        \draw[thick, dashed] (-1,0) .. controls (-0.5,1) and (0.5,1) .. (1,0);
+        \midarrow (1,0) -- (2,0);
+        \draw[thick, dashed] (0,0) -- (0,-2);
+        \midarrow (-2,-2) -- (0,-2);
+        \midarrow (0,-2) -- (2,-2);
+    \etik 
+\end{center}
+The reason we amputate diagrams is because the LSZ theorem tells us to consider only amputated diagrams. This is seen from the truncated Greens function expression: we consider just propagating our initial and final states in/out without any interactions and then only consider the interactions that happen between all the particles in the internal parts, see the truncated $\widetilde{G}$ picture above. 

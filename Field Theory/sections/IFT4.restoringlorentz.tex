@@ -1,0 +1,259 @@
+\chapter{Restoring Lorentz Invariance \& Causality}
+
+\section{Operator Valued Distributions}
+
+Recall that last lecture we gave an interpretation of our results as particles. There is a problem with this interpretation: they are momentum eigenstates and so, by Heisenberg uncertainty principle, are not localised in position space at all. This problem essentially stems from the fact that in QM the position and momentum eigenstates are not good elements of the Hilbert space as the normalise to delta-functions. The QFT equivalent is that the operators $\phi(\vec{x})$ and $a_{\vec{p}}$ are not good operators on the Fock space as the resulting states are not normalisable. Explicitly we have 
+\bse 
+    \bra{0}a_{\vec{p}}a^{\dagger}_{\vec{p}}\ket{0} = \braket{\vec{p}}{\vec{p}} = (2\pi)^3 \del^{(3)}(0), \qand \bra{0}\phi(\vec{x})\phi(\vec{x})\ket{0} = \braket{\vec{x}}{\vec{x}} = \del(0).
+\ese 
+
+These are known as \textit{operator valued distributions}, and the way we fix this problem is by smearing them over space. For example the wavepacket 
+\bse 
+    \ket{\varphi} = \int \frac{d^3\vec{p}}{(2\pi)^3} e^{-i\vec{p}\cdot\vec{x}} \varphi(\vec{p})\ket{\vec{p}},
+\ese 
+is partially localised in both momentum and position space. A typical state is an element of the Schwarz space and is of the form 
+\bse 
+    \varphi(\vec{p}) = e^{-\vec{p}^2/2m^2}.
+\ese
+
+\section{Relativistic Normalisation}
+
+This problem has come from the fact that we haven't been careful to maintain Lorentz invariance. This is what we were warning about in \Cref{rem:ButcheredLorentzInv}. So what's broken our Lorentz invariance? The answer is that 
+\bse 
+    \braket{\vec{p}}{\vec{p}} = (2\pi)^3 \del^{(3)}(0),
+\ese 
+which is a $3$-delta function, i.e. we have lost a coordinate! Now it's possible that we're lucky and this object is still Lorentz invariant, however this is not the case. We see this easily by taking a Lorentz transformation
+\bse 
+    p^{\mu} \longrightarrow {\Lambda^{\mu}}_{\nu} p^{\nu}.
+\ese 
+If our expectation value is going to be unchanged, we would need the transformation on the states to be unitary, i.e. 
+\bse 
+    \ket{\vec{p}} \longrightarrow U(\Lambda)\ket{\vec{p}},
+\ese 
+but there is absolutely no reason why this would be the case. 
+
+So what do we do? We need to normalise our one-particle states so that we somehow get a Lorentz invariant inner product. We do this using two tricks. 
+
+\subsection{Trick 1}
+
+The first thing we note is that the integral $\int d^4p$ is manifestly Lorentz invariant, provided the integrand is also Lorentz invariant. Then we note that the relativistic dispersion relation
+\bse 
+    p_{\mu}p^{\mu} = m^2 
+\ese 
+is also manifestly Lorentz invariant. This can be written as 
+\bse 
+    p_0^2 = \vec{p}^2 + m^2 = \omega_{\vec{p}}^2,
+\ese 
+which has two branches, $p_0 = \pm\omega_{\vec{p}}^2$, as depicted below.
+
+\begin{center}
+    \btik 
+        \draw[thick] (-2,-2) -- (2,2);
+        \draw[thick] (2,-2) -- (-2,2);
+        %
+        \draw[thick, ->] (0,0) -- (2.5,0);
+        \node at (2.5,-0.5) {\large{$\vec{p}$}};
+        \draw[thick] (0,0) -- (0,1.8);
+        \node at (-0.5,3) {\large{$p_0$}};
+        %
+        \draw[thick, fill = gray!40, opacity = 0.8] (1.5,2) .. controls (0,0.5) .. (-1.5,2) arc (-180:360: 1.5 and 0.2);
+        \draw[thick] (1.5,2) .. controls (0,0.5) .. (-1.5,2) arc (-180:360: 1.5 and 0.2);
+        \draw[thick] (-1.5,2) arc (180:360: 1.5 and 0.2);
+        %
+        \draw[thick, dashed] (-1.5,-2) arc (-180:360: 1.5 and 0.2);
+        \draw[thick, fill = gray!40, opacity = 0.8] (1.5,-2) .. controls (0,-0.5) .. (-1.5,-2) arc (180:360: 1.5 and 0.2);
+        \draw[thick] (1.5,-2) .. controls (0,-0.5) .. (-1.5,-2) arc (180:360: 1.5 and 0.2);
+        % 
+        \draw[thick, ->] (0,1.8) -- (0,3);
+    \etik 
+\end{center}
+
+The choice of branch is Lorentz invariant, so w.l.o.g. we take $p_0>0$. We we know the integral 
+\bse 
+    \int \frac{d^4p}{(2\pi)^4} 2\pi \del(p^2-m^2) \Theta(p_0)
+\ese 
+where $\Theta$ is the Heaviside function, is Lorentz invariant. We can rewrite this in polar coorindates as
+\bse 
+    \int \frac{d^3\vec{p}}{(2\pi)^3} \int_0^{\infty} dp_0 \, \del(p_0^2 - \vec{p}^2 -m^2) = \int \frac{d^3\vec{p}}{(2\pi)^3} \int_0^{\infty} \frac{dp_0}{2p_0} \del(p^0 - \omega_{\vec{p}}) = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2\omega_{\vec{p}}}
+\ese 
+where the middle term comes from
+\bse 
+    \del\big(f(x) - f(x_0)\big) = \frac{1}{|f'(x_0)|} \del(x-x_0).
+\ese 
+The thing we started with was Lorentz invariant and so we know that that the measure 
+\be 
+\label{eqn:LorentzInvariantMeasure}
+    \int \frac{d^3\vec{p}}{(2\pi)^3}\frac{1}{2\omega_{\vec{p}}}
+\ee 
+is a Lorentz invariant measure.
+
+\subsection{Second Trick}
+
+Now we use 
+\bse 
+    \int \frac{d^3\vec{p}}{(2\pi)^3} \bra{0}a_{\vec{q}}\, a_{\vec{p}}^{\dagger} \ket{0} = \int \frac{d^3\vec{p}}{(2\pi)^3} \, (2\pi)^3 \del^{(3)}(\vec{p}-\vec{q}) = 1,
+\ese 
+which is clearly Lorentz invariant (it's just a number). We want to write this in terms of our Lorentz invariant measure, \Cref{eqn:LorentzInvariantMeasure}. That is:
+\bse 
+    \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2\omega_{\vec{p}}} \bra{0} \big(\sqrt{2\omega_{\vec{q}}} \, a_{\vec{q}}\big) \big(\sqrt{2\omega_{\vec{p}}} \, a_{\vec{p}}^{\dagger}\big),
+\ese 
+and conclude that if we normalise our one-particle states as 
+\be 
+\label{eqn:RelativisticNormalisation}
+    \ket{\vec{p}} = \sqrt{2\omega_{\vec{p}}} \, a_{\vec{p}}^{\dagger} \ket{0} = \sqrt{2E_{\vec{p}}} \, a_{\vec{p}}^{\dagger} \ket{0} 
+\ee 
+where on the second equality we have just used $E$, for energy, as this is standard notation, then our inner products become Lorentz invariant.
+
+\section{Heisenberg Picture}
+
+As we remarked above, we slaughtered our Lorentz invariance through our quantisation procedure. Even besides the above mix of the measure, we could have easily seen (or at least been cautious) by the fact that we are working in the Schr\"{o}dinger picture, so our operators $\phi(\vec{x})$ only depend on space, and not time. Equally our one states evolve in time, with the evolution given by the Schr\"{o}dinger equation, which implies
+\bse 
+    \ket{\psi(t)}_S = e^{-iH(t-t_0)} \ket{\psi(t_0)}_S.
+\ese 
+
+So we would be closer to having manifest Lorentz invariance if we stripped the time dependence from the states and put it in the operators. This is exactly what the Heisenberg picture does. The relation between states is 
+\be 
+\label{eqn:HeisenbergStates}
+    \ket{\psi}_H = e^{iH(t-t_0)} \ket{\psi(t)}_S \qquad \implies \qquad \frac{d}{dt}\ket{\psi}_H = 0.
+\ee  
+The operators are related by 
+\be 
+\label{eqn:HeisenbergOperators}
+    \cO_H = e^{iHt}\cO_S e^{-iHt} 
+\ee 
+which tells us 
+\be 
+\label{eqn:HeisenbergOperatorsEvolution}
+    \frac{d}{dt}\cO_H = i [H,\cO_H].
+\ee 
+
+So in our field theory our Schr\"{o}dinfer picture operators $\phi(\vec{x})/\pi(\vec{x})$ become the Heisenberg operators 
+\be 
+    \phi(x) = e^{iHt}\phi(\vec{x}) e^{-iHt}, \qand \pi(x) = e^{iHt}\pi(\vec{x}) e^{-iHt},
+\ee 
+where, as is standard in field theory, we have dropped the $H/S$ subscripts and used the arguments to tell us which picture we're in (i.e. we've used $\phi(x)=\phi(\vec{x},t)$). We adapt the commutation relations \Cref{eqn:FieldsCommutation} to be \textit{equal time} commutations:
+\be 
+\label{eqn:EqualTimeCommutators}
+    [\phi_a(\vec{x},t),\phi_b(\vec{y},t)] = [\pi_a(\vec{x},t),\pi_b(\vec{y},t)] = 0, \qand [\phi_a(\vec{x},t),\pi_b(\vec{y},t)] = i \del^{(3)}(\vec{x}-\vec{y})\del_{ab}.
+\ee 
+
+We can now study to see if the Heisenberg equations, \Cref{eqn:HeisenbergOperatorsEvolution}, for $\phi(x)$ and $\pi(x)$ are equivalent to the Klein-Gordan equation. Using 
+\bse 
+    H = \int d^3\vec{x} \, \frac{1}{2}\big(\pi^2 + (\nabla\phi)^2 + m^2\phi^2\big),
+\ese 
+and the commutations above
+\bse 
+    \begin{split}
+        \frac{d}{dt}\phi & = \frac{i}{2} \Big[ \int d^3\vec{y}\,  \pi^2(y) , \phi(x) \Big] \\
+        & = \frac{i}{2} \int d^3y \Big( \pi(y)[\pi(y), \phi(x)] + [\pi(y),\phi(x)]\pi(y)\Big) \\
+        & = i \int d^3 \vec{y} \, \pi(y) (-i)\del^{(3)}(\vec{y}-\vec{x}) \\
+        & = \pi(x).
+    \end{split}
+\ese 
+That is, 
+\be 
+\label{eqn:dotphiHeisenberg}
+    \dot{\phi}(x) = \pi(x).
+\ee 
+
+\bbox 
+    Using \Cref{eqn:HeisenbergOperatorsEvolution} show that 
+    \be
+    \label{eqn:dotpiHeisenberg}
+        \dot{\pi}(x) = (\nabla^2-m^2)\phi(x).
+    \ee
+\ebox  
+
+Combining \Cref{eqn:dotphiHeisenberg,eqn:dotpiHeisenberg}, we have 
+\bse 
+    (\nabla^2-m^2)\phi(x) = \dot{\pi} = \Ddot{\phi},
+\ese 
+or more familiarly, 
+\bse 
+    (\p^2 + m^2)\phi = 0,
+\ese 
+the Klein-Gordan equation! We refer to this as the \textit{correspondence principle}.
+
+\bbox 
+    Show that 
+    \bse  
+        e^{iHt}a_{\vec{p}} \, e^{-iHt} = e^{-iE_{\vec{p}}} a_{\vec{p}}, \qand e^{iHt}a_{\vec{p}}^{\dagger} \, e^{-iHt} = e^{iE_{\vec{p}}} a_{\vec{p}}^{\dagger}.
+    \ese 
+    \textit{Hint: Use} 
+     \bse  
+        e^{iHt}a_{\vec{p}}^{\dagger} \, e^{-iHt} = \sum_{n=0}^{\infty} \frac{(iHt)^n}{n!} a_{\vec{p}}^{\dagger} \, e^{-iHt}, \qand [H, a_{\vec{p}}^{\dagger}\, ] = E_{\vec{p}}\, a_{\vec{p}}^{\dagger}.
+    \ese
+\ebox  
+
+We can find the mode expansion of $\phi(x)$ in the Heisenberg picture by starting with the Schr\"{o}dinger expression
+\bse 
+    \phi(\vec{x}) =  \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} \Big( e^{i\vec{p}\cdot\vec{x}}a_{\vec{p}} \, + e^{-i\vec{p}\cdot\vec{x}}a_{\vec{p}}^{\dagger}\Big)
+\ese 
+and then use \Cref{eqn:HeisenbergOperators} and the result of the previous exercise to obtain
+\be 
+\label{eqn:HeisenbergPhi}
+    \begin{split}
+        \phi(x) & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} \Big( e^{-iE_{\vec{p}}t + i\vec{p}\cdot\vec{x}} a_{\vec{p}} \, + e^{iE_{\vec{p}}t - i\vec{p}\cdot\vec{x}} a_{\vec{p}}^{\dagger}\Big) \\
+        & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} \Big( a_{\vec{p}} \, e^{-ipx} + a_{\vec{p}}^{\dagger}\, e^{ipx}\Big)\Big|_{p_0=E_{\vec{p}}}.
+    \end{split}
+\ee 
+
+You can then quickly arrive at the expression for $\pi(x)$ by using \Cref{eqn:dotphiHeisenberg}, giving 
+\be 
+\label{eqn:HeisenbergPi}
+    \pi(x) = \int \frac{d^3\vec{p}}{(2\pi)^3} i\sqrt{\frac{E_{\vec{p}}}{2}}\Big( a_{\vec{p}}^{\dagger} \, e^{ipx} - a_{\vec{p}} \, e^{-ipx}\Big)\Big|_{p_0=E_{\vec{p}}}.
+\ee 
+These look a lot like \Cref{eqn:phipicreationannihilation}, but now in terms of $4$-vectors. This seems more manifestly Lorentz invariant!
+
+So we see that $\phi(x)$ is a superposition of plane waves $e^{\pm ip_0t}$, but the coefficients create and destroy particles. We can therefore think of the field as a `hammer' which bashes the vacuum and shakes quanta out of it. That is the operator acting on the vacuum creates a particle:
+\bse 
+    \phi(\vec{x},0) \ket{0} = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec{p}}} e^{-i\vec{p}\cdot\vec{x}} \ket{\vec{p}}, \qquad \implies \qquad  \bra{\vec{p}}\phi(\vec{x},0)\ket{0} = e^{-i\vec{p}\cdot\vec{x}}.
+\ese 
+If we act on an $n$ particle state instead, because $\phi(x)$ contains both creation and annihilation operators, it has a amplitude to create both $(n+1)$ and $(n-1)$ particle states. 
+
+\section{Causality}
+
+As we have mentioned above, in order for our theory to be causal, we want spacelike separated operators to commute, that is 
+\bse 
+    [\cO_1(x),\cO_2(y)] = 0 \qquad \forall (x-y)^2 <0.
+\ese 
+This statement is obviously made in the Heisenberg picture, as the operators are functions of spacetime, not just space. So we need to study the commutator between two fields $[\phi(x),\phi(y)]$, but where now we don't impose equal time, i.e. $x^0 \neq y^0$ in general. We define 
+\be 
+\label{eqn:Delta(x-y)}
+    \Delta(x-y) := [\phi(x),\phi(y)]
+\ee
+Plugging in the definition \Cref{eqn:HeisenbergPhi}, we have 
+\bse 
+    \begin{split}
+        \Delta(x-y) & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{d^3\vec{q}}{(2\pi)^3} \frac{1}{2\sqrt{E_{\vec{p}}E_{\vec{q}}}} \Big[ a_{\vec{p}}\, e^{ipx} + a_{\vec{p}}^{\dagger} \, e^{-ipx} \, ,  a_{\vec{q}} \, e^{iqy} + a_{\vec{q}}^{\dagger}\, e^{-iqy} \big] \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{d^3\vec{q}}{(2\pi)^3} \frac{1}{2\sqrt{E_{\vec{p}}E_{\vec{q}}}} \Big( e^{-ipx+ipy}  + e^{ipx-ipy}\Big) (2\pi)^3 \del^{(3)}(\vec{p}-\vec{q}) \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec{p}}} \Big( e^{-ip(x-y)}  - e^{ip(x+y)}\Big)
+    \end{split}
+\ese 
+
+The first thing we note is that this expression is Lorentz, as we have the correct measure, \Cref{eqn:LorentzInvariantMeasure}, and the exponential contain $4$-vectors. We can therefore choose a specific reference frame in order to evaluate its timelike/spacelike properties. 
+
+\ben[label=(\roman*)]
+    \item First look at the spacelike separations, i.e. $(x-y)^2>0$. Let's work in a reference frame where $(x-y) = (0,\vec{a})$, then we have 
+    \bse 
+        \Delta(0,\vec{a}) = \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{E_{\vec{p}}} \Big( e^{i\vec{p}\cdot \vec{a}} - e^{-i\vec{p}\cdot \vec{a}}\Big).
+    \ese 
+    Now note that $E_{\vec{p}} = \sqrt{\vec{p}^2+m^2}$ and so $E_{-\vec{p}} = E_{\vec{p}}$, and also that the measure is invariant under $\vec{p}\longrightarrow -\vec{p}$, as you get a minus sign but the integration limits flip. So we can freely change the sign in the second exponential, and then the two terms cancel, i.e. 
+    \bse 
+        \Delta(0,\vec{a}) = 0.
+    \ese 
+    So our theory is causal! 
+    \item Let's also check that it doesn't vanish for timelike separations (which would be an obvious problem). Again can pick a frame, so simply choose $(x-y) = (t,0)$, then we have 
+    \bse 
+        \Delta(t,0) = \int \frac{d^3\vec{p}}{(2\pi)^3} \Big( e^{-iE_{\vec{p}}\,t} - e^{iE_{\vec{p}}\,t} \Big) \sim \int d^3\vec{p}\, \sinh\big(\sqrt{\vec{p}^2+m^2} \, t\big),
+    \ese 
+    which does not vanish (its a Bessel function).
+\een
+
+\br 
+    Note that the objects on the right-hand side of \Cref{eqn:Delta(x-y)} are operators. However we've just shown that it comes out to be a $\C$-number. Essentially what we have done is sandwich it in between two vacuum states, as per \Cref{rem:Sandwiching}. In other words we really should have written 
+    \bse 
+        \bra{0}[\phi(x),\phi(y)]\ket{0},
+    \ese 
+    but its common field theory notation to drop the bra and ket. We will continue to do this next lecture, but this is just another remark to go with \Cref{rem:Sandwiching} to remind us that everything needs to be sandwiched. 
+\er 

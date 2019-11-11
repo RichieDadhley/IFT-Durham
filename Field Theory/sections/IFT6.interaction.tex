@@ -1,0 +1,314 @@
+\chapter{Interaction Picture \& Dyson's Formula}
+
+So far we have used the Schr\"{o}dinger picture and the Heisenberg picture. Recall that the difference between these two pictures was where the time dependence sat: for the Schr\"{o}dinger picture the states are time dependant, whereas in the Heisenberg picture it is the operators that are time dependant. There is a third picture, the \textit{interaction picture},  which is a sort of hybrid of the other two. As the name suggests, it is useful when studying interacting systems. What we do is consider small perturbations from some well-understood Hamiltonian, $H_0$. That is, we write the Hamiltonian as
+\bse 
+    H = H_0 + H_{\text{int}}.
+\ese 
+We treat $H_{\text{int}}$ like a Schr\"{o}dinger Hamiltonian, and $H_0$ like a Heisenberg one. That is, the time dependence of the states is governed by $H_{\text{int}}$ while the time dependence of the operators is governed by $H_0$. As we did for the other pictures, we denote the states/operators in the interaction picture with a subscript $I$, and they are given as follows:
+\be 
+\label{eqn:InteractionPictureStatesAndOperators}
+    \ket{\psi(t)}_I = e^{iH_0t}\ket{\psi(t)}_S, \qand \cO_I(t) = e^{iH_0t}\cO_Se^{-iH_0t}.
+\ee 
+From this we ca work out how the states $\ket{\psi}_I$ depend on time. We simply use the Schr\"{o}dinger equation
+\bse 
+    i\frac{d}{dt}\ket{\psi}_S = H_S\ket{\psi}_s
+\ese 
+along with $H_S=(H_0+H_{\text{int}})_S$. We get 
+\bse 
+    \begin{split}
+        i\frac{d}{dt} \Big( e^{-iH_0t}\ket{\psi}_I\Big) & = \big(H_0+H_{\text{int}}\big)_S e^{-iH_0t}\ket{\psi}_I \\
+        H_0\Big(e^{-iH_0t}\ket{\psi}_I\Big) + e^{-iH_0t}\bigg(i\frac{d}{dt}\ket{\psi}_I\bigg) & = \big(H_0+H_{\text{int}}\big)_S e^{-iH_0t}\ket{\psi}_I,
+    \end{split}
+\ese
+so we get
+\be
+\label{eqn:InteractionSchrodigerEquation}
+    i\frac{d}{dt}\ket{\psi}_I = (H_{\text{int}})_I\ket{\psi}_I, \qquad \text{with} \qquad (H_{\text{int}})_I := e^{iH_ot} (H_{\text{int}})_S e^{-iH_0t}.
+\ee 
+
+\bnn 
+    From now on we shall simply write $H_I(t)$ instead of $(H_{\text{int}})_I(t)$ for obvious reasons. However we should be careful not to confuse $H_I(t)$ with $H_{\text{int}}$ itself: the former is the latter in the interaction picture, while the latter is a small perturbation to our Hamiltonian. Note in particular that the former is \textit{always} a function of time whereas the latter is time independent in the Schr\"{o}dinger picture. 
+\enn 
+
+\bbox 
+    Convince yourself that $[H_I(t_1),H_I(t_2)]\neq0$ in general. 
+\ebox 
+
+Ok this looks great but it's useless unless we can actually solve it, so what do we do? The answer is we derive what is known as \textit{Dyson's formula}.
+
+\section{Dyson's Formula}
+
+We start with the ansatz\footnote{As with all good physics derivations do, our guess will turn out to miraculously be correct...}
+\bse 
+    \ket{\psi(t)}_I = U(t,t_0) \ket{\psi(t_0)}_I,
+\ese 
+where $U(t,t_0)$ is a \textit{unitary time evolution operator} satisfying 
+\bse 
+    U(t_1,t_2)U(t_2,t_3) = U(t_1,t_3), \qand U(t,t) = \b1.
+\ese 
+Using \Cref{eqn:InteractionSchrodigerEquation}, we can easily show 
+\be 
+\label{eqn:USchrodingerEquation}
+    i\frac{d}{dt}U(t,t_0) = H_I(t)U(t,t_0).
+\ee 
+Now if we were just considering wavefunctions here instead of operators then the solution to this differential equation would just be 
+\be
+\label{eqn:UWrong}
+    U(t,t_0) = \exp\bigg( -i\int_{t_0}^t H_I(t') dt'\bigg).
+\ee
+However we are considering non-commuting operators, and so we have to be careful about ordering. To be more explicit, consider the Taylor expansion of the above formula, we get 
+\bse 
+    U(t,t_0) = \b1 - i\int_{t_0}^t H_I(t')dt' + \frac{(-i)^2}{2}\bigg(\int_{t_0}^t H_I(t')dt'\bigg)^2 + ...,
+\ese 
+and we want the derivative to leave us with 
+\bse 
+    i\frac{d}{dt}U(t,t_0) = H_I(t) \Bigg[ \b1 - i\int_{t_0}^t H_I(t')dt' + \frac{(-i)^2}{2}\bigg(\int_{t_0}^t H_I(t')dt'\bigg)^2 + ...\Bigg].
+\ese 
+However if we take the derivative, we get terms like
+\bse 
+    -\frac{1}{2}\bigg(\int_{t_0}^t H_I(t')dt'\bigg)H_I(t) - \frac{1}{2}H_I(t) \bigg(\int_{t_0}^t H_I(t')dt'\bigg).
+\ese 
+The second term is the kind of thing we want but the first term has the $H_I(t)$ on the wrong side! We cannot simply `pull it through' as the operators are non-commuting. So we need to alter \Cref{eqn:UWrong} somehow to account for this. The obvious\footnote{Or perhaps only obvious when you know its the answer...} thing to try is taking a time ordering. 
+
+\bcl 
+    The solution of \Cref{eqn:USchrodingerEquation} is given by \textit{Dyson's formula}
+    \be 
+    \label{eqn:DysonsFormula}
+        U(t,t_0) = \cT \exp\bigg( -i\int_{t_0}^t H_I(t') dt'\bigg),
+    \ee 
+    where $\cT$ is the time ordering operator defined above, \Cref{eqn:TimeOrdering}.
+\ecl 
+
+\br 
+    Before presenting the proof, let's make a quick remark. Recall that if the result of an integral is finite, then we can use\footnote{If you haven't seen this before, it's worth convincing yourself why this is true.}
+    \bse 
+        \bigg(\int_a^b f(x) dx\bigg)^2 = \int_a^bdx \int_a^b dy f(x)f(y).
+    \ese 
+    Now in QFT we consider bounded operators, and so the integral over the Hamiltonian is finite, so we can turn our exponential expansion above into a sum of higher order integrals, rather then powers of integrals. This is obviously a \textit{massive} help. In particular, our expansion becomes
+    \bse 
+        U(t,t_0) = \b1 - i\int_{t_0}^t dt'H_I(t') + \frac{(-i)^2}{2}\Bigg[ \int_{t_0}^t dt' \int_{t'}^t dt'' H_I(t'')H_I(t') + \int_{t_0}^t dt' \int_{t_0}^{t'} dt'' H_I(t')H_I(t'')\Bigg] + ...
+    \ese 
+    Note the integration limits on the quadratic terms. The first one is the condition that $t''>t'$ as the lower limit for $t''$ is $t'$, while the second one is the condition that $t'>t''$ as the upper limit for $t''$ is $t'$. These two terms are in fact equal as
+    \bse
+        \begin{split}
+            \int_{t_0}^t dt' \int_{t'}^t dt'' H_I(t'')H_I(t') & = \int_{t_0}^t dt'' \int_{t_0}^{t''} dt' H_I(t'')H_I(t') \\
+            & = \int_{t_0}^t dt' \int_{t_0}^{t'} dt'' H_I(t')H_I(t''),
+        \end{split}
+    \ese 
+    where the left had side says $t''$ has lower limit $t'$ while the first expression on the right hand side says $t'$ has supper limit $t''$. These are clearly the same statement. The last expression is obtained by simple change of variables $t' \longleftrightarrow t''$. We can also see this diagrammatically as the two following triangle areas: the blue area corresponds to the left hand side above (i.e. $t''>t')$, whereas the red area is the final expression (i.e. $t'>t''$).
+    \begin{center}
+        \btik 
+            \draw[thick, ->] (-0.5,0) -- (4,0);
+            \node at (4,-0.3) {$t'$};
+            \draw[thick, ->] (0,-0.5) -- (0,4);
+            \node at (-0.3,4) {$t''$};
+            \draw[fill = blue, opacity = 0.5] (1,1) -- (3,3) -- (1,3) -- (1,1);
+            \draw[fill = red, opacity = 0.5] (1,1) -- (3,3) -- (3,1) -- (1,1);
+            \draw[thick] (1,1) -- (3,1) -- (3,3) -- (1,3) -- (1,1);
+            \draw (1,1) -- (3,3);
+            \draw[dashed] (0,1) -- (1,1) -- (1,0);
+            \node at (-0.3,1) {$t_0$};
+            \node at (1,-0.3) {$t_0$};
+            \draw[dashed] (0,3) -- (1,3);
+            \node at (-0.3,3) {$t$};
+            \draw[dashed] (3,0) -- (3,1);
+            \node at (3,-0.3) {$t$};
+        \etik 
+    \end{center}
+    So our expansion becomes 
+    \bse 
+        U(t,t_0) = \b1 -i \int_{t_0}^t dt'H_I(t') + (-i)^2 \int_{t_0}^tdt'\int_{t_0}^{t'} dt'' H_I(t')H_I(t'') + ...
+    \ese 
+\er 
+
+\bq 
+    Given the final result from the above remark, the proof of Dyson's formula is almost trivial. We simply note that our left most integral is \textit{always} the one with upper limit $t$, and so when we act with the time derivative we are always just getting the latest time result (as the expression is time ordered). We can therefore pull it out of the time ordering and get the result. In terms of maths, that is 
+    \bse 
+        \begin{split}
+            i\frac{d}{dt}\Bigg[ \cT\exp \bigg(-i\int_{t_0}^t H_I(t')dt'\bigg)\Bigg] & = \cT\bigg[H_I(t) \exp \bigg(-i\int_{t_0}^t H_I(t')dt'\bigg)\Bigg] \\
+            & = H_I(t)\Bigg[\cT\exp \bigg(-i\int_{t_0}^t H_I(t')dt'\bigg)\Bigg],
+        \end{split}
+    \ese 
+    which is the result we want. 
+\eq 
+
+Dyson's formula might look a bit daunting, but when we remember that in the interaction picture we're considering small perturbations, we can truncate our expansion and it becomes a lot nicer. Now, recalling that we said in order to study interacting filed theories we were going to take a perturbation around a free theory, we see why Dyson's formula is so useful. It will allow us to use something called \textit{Wick's theorem} and then define the all-so-useful Feynman diagrams. But first let's talk about scattering. 
+
+\section{Scattering}
+
+\bd
+    We define the \textit{scattering matrix}, or \textit{S-matrix} for short, to be the amplitude to go from some initial state $\ket{i}$ to a final state $\ket{f}$:
+    \be 
+    \label{eqn:SMatrixI}
+        S_{fi} := \bra{f}S\ket{i} := \lim_{t_{\pm}\to\infty}\bra{f(t_+)} U(t_+,t_-) \ket{i(t_-)}_I,
+    \ee 
+    where the states are in the interaction picture
+\ed 
+
+When we study scattering in QFT we make one big assumption:
+\mybox{
+    \begin{center}
+        The initial and final states, which we collectively call \textit{asymptotic states}, are eigenstates of the free Hamiltonian. .
+    \end{center}
+}
+\noindent The basic idea is we want to say that the initially the fields/particles are so far apart that they do not interact with each other at all, and so do not feel in the interaction Hamiltonian. As Prof. Tong points out,\footnote{Pages 54-55.} at first this seems like a reasonable thing to do, but then we realise it's actually not as solid an assumption as we might think. We shall illustrate one of the problems here. 
+
+Consider the case of a real Klein-Gordan field, $\phi$, in some potential $V(x)$, the Lagrangian is 
+\bse 
+    \cL = \cL_{KG} - V(x)\phi,
+\ese 
+then the equations of motion become 
+\bse 
+    (\p^2+m^2)\phi = -V(x).
+\ese 
+So our asymptotic states condition tells us that we need $V(x)\to 0$ as $|x|\to\infty$. This still seems somewhat reasonable. However now let's consider the interaction term to be a $\phi^4$ term. Recall the Lagrangian is 
+\bse 
+    \cL = \cL_{KG} - \frac{\l}{4!}\phi^4,
+\ese
+and you should have shown in the exercise that the equation of motion is
+\bse 
+    (\p^2+m^2)\phi = -\frac{\l}{3!}\phi^3.
+\ese 
+This poses a more significant problem, as we can't `turn off' our interaction at $|t|\to\infty$; the field is defined everywhere! Despite this we continue on with our assumption that the asymptotic states are eigenstates of the free theory. We therefore rewrite \Cref{eqn:SMatrix} as
+\mybox{
+    \be 
+    \label{eqn:SMatrix}
+        S_{fi} := \bra{f}S\ket{i} := \lim_{t_{\pm}\to\infty}\bra{f(t_+)} U(t_+,t_-) \ket{i(t_-)},
+    \ee 
+}
+\noindent where the states are now eigenstates for the free theory.
+
+We can actually define a different matrix, called the \textit{transition matrix}, by 
+\bse 
+    T_{fi} := \bra{f}(S-\b1)\ket{i},
+\ese 
+which removes the $\b1$ term in the Taylor expansion of $U(t,t_0)$.
+
+\subsection{Particle Decay}
+
+Ok let's actually derive our first interaction result. Consider scalar Yakawa theory, and recall that the Lagrangian is 
+\bse 
+    \cL = \frac{1}{2}(\p\phi)^2 -m^2\phi^2 + \p_{\mu}\psi^*\p^{\mu}\psi - M\psi^*\psi - g\psi^*\psi\phi.
+\ese 
+This has\footnote{This notation is meant to mean everything in the bracket is a function of $x$. Just want to save writing all the brackets and clutterig notation.} 
+\bse 
+    H_{\text{int}} = g \int d^3x \, \psi^{\dagger}_x\psi_x\phi_x.
+\ese 
+We're going to `flip' the diagram we gave for this at the end of last lecture, and consider the decay process 
+\bse 
+    \phi(p) \to \overline{\psi}(q_2)\psi(q_1),
+\ese 
+where $\phi$ is the particle created by $a^{\dagger}$, $\psi$ the one created by $b^{\dagger}$ and $\overline{\psi}$ the \textit{anti}particle created by $c^{\dagger}$. The diagram\footnote{We will understand how to draw these soon.} looks like 
+\begin{center}
+    \btik 
+        \midarrow (0,0) -- (1,1);
+        \draw[->] (0.4,0.2) -- (0.9,0.7);
+        \node at (0.8,0.3) {$q_1$};
+        \node at (1.2,1.3) {$\psi$};
+        \midarrow (1,-1) -- (0,0);
+        \draw[->] (0.4,-0.2) -- (0.9,-0.7);
+        \node at (1.2,-1.2) {$\overline{\psi}$};
+        \node at (0.8,-0.25) {$q_2$};
+        \draw[thick,dashed] (-1.5,0) -- (0,0);
+        \node at (-1.7,0) {$\phi$};
+        \draw[->] (-1,0.2) -- (-0.4,0.2);
+        \node at (-0.7,0.5) {$p$};
+        \draw[fill=black] (0,0) circle [radius=0.07cm];
+        \node at (-0.15,-0.3) {$g$};
+    \etik 
+\end{center}
+Our asymptotic states are given by 
+\bse 
+    \begin{split}
+        \ket{i} & = \sqrt{2E_{\vec{p}}} \, a_{\vec{p}}^{\dagger} \, \ket{0} =: \ket{\phi(p)} \\
+        \ket{i} & = \sqrt{4E_{\vec{q}_1}E_{\vec{q}_2}} \,  b_{\vec{q}_1}^{\dagger} \, c_{\vec{q}_2}^{\dagger} \, \ket{0} =: \ket{\psi(q_1)\overline{\psi}(q_2)}
+    \end{split}
+\ese 
+So what is our scattering amplitude? Well we are just considering the first order expansion, i.e. one power of $H_I$ (higher powers would correspond to terms like $\overline{\psi}(p_1)\psi(p_2) \to \phi(q) \to \overline{\psi}(p_3)\psi(p_4)$ etc), so we have
+\bse 
+    U(-\infty,\infty) = \b1 - ig\int d^4 x \psi^{\dagger}_x\psi_x\phi_x + \cO(g^2),
+\ese
+and so the transition matrix to leading order in $g$ is 
+\bse 
+    T_{fi} = ig \bra{f} \int d^4 x \, \psi^{\dagger}_x \psi_x \phi_x \ket{i}. 
+\ese 
+We now need to substitute in $\psi_x^{\dagger}$, $\psi_x$ and $\phi_x$. First let's just do $\phi_x$. We use the definition 
+\bse 
+    \phi(x) = \int \frac{d^3\vec{k}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{k}}}} \Big( a_{\vec{k}} \, e^{-ikx} + a^{\dagger}_{\vec{k}} \, e^{ikx}\Big),
+\ese 
+and note that the $a_{\vec{k}}^{\dagger}$ term will act on $\ket{i}$ and produce a two particle state. That is (up to factors of $\sqrt{2E}$)
+\bse 
+    a^{\dagger}_{\vec{k}} \ket{i} = a^{\dagger}_{\vec{k}} \, a^{\dagger}_{\vec{p}} \ket{0} = \ket{\phi(p)\phi(k)}.
+\ese
+Then noting that the $\psi/\psi^{\dagger}$ terms are not going to be able to `undo' this, we will get a zero projection onto the final state $\ket{f}$. So we just need to consider the $a_{\vec{k}}$ term. So using the usual trick of commuting $a_{\vec{k}}$ with the $a_{\vec{p}}^{\dagger}$ and picking up a $(2\pi)^3\del^{(3)}(\vec{k}-\vec{p})$, we get 
+\bse 
+    T_{fi} = -ig \bra{f} \int d^4x \, \psi^{\dagger}_x\psi_x e^{-ipx}\ket{0}.
+\ese 
+
+\bbox 
+    Using the definitions for $\psi$ and $\psi^{\dagger}$ show that 
+    \bse 
+        \bra{f}\psi^{\dagger}_x\psi_x \, ``=" \, e^{i(q_1+q_2)x}\bra{0}.
+    \ese 
+    \textit{Hint: Again you will argue away terms that will vanish when taking the inner product. This is why I have put ``=''.}
+\ebox 
+
+Using the result of the above exercise we get 
+\bse 
+    T_{fi} = -ig \int d^4 x \, e^{i(q_1+q_2-p)x} = -ig(2\pi)^4\del^{(4)}(p-q_1-q_2).
+\ese 
+This result is basically just telling us that 4-momentum must be conserved at the vertex, a very nice physical result. What kind of restrictions does this put on the process? Well the result is Lorentz invariant so we can pick the decaying $\phi$s rest frame to evaluate it. In this frame we have $p=(m,0,0,0)$, so the delta function splits into 
+\bse 
+    \del^{(4)}(p-q_1-q_2) = \del(m-q_1^0-q_2^0)\del^{(3)}(\vec{q}_1+\vec{q}_2),
+\ese 
+and so we see the decay can only happen if $m \geq 2M$.
+
+Obviously we expect momentum conservation to be something that comes up a lot in our interaction calculations, and indeed it turns out that in general
+\be 
+\label{eqn:TransitionMatrixMatrixElements}
+    T_{fi} = i (2\pi)^4 M_{fi} \, \del^{(4)}(p_i - p_f),
+\ee 
+where $p_i$ and $p_f$ are the total 4-momentum initial and final state, respectively. So essentially our goal is to find the $M_{fi}$s, and these are given the, somewhat disappointing, name \textit{matrix elements}. We often also group the $i$ with it and call $iM_{fi}$ the matrix elements.
+
+\subsection{$\phi^4$ Scattering}
+
+Ok so we've computed our first scattering matrix, but it corresponded to a decay, so now let's find the first \textit{scattering} scattering matrix. That is we want something like 
+\bse 
+    F(p_1)G(p_2) \to F(p_3)G(p_4),
+\ese 
+where $F$ and $G$ are some fields. We could consider higher order terms in the expansion for the scalar Yakawa theory as mentioned above, however as we will see these are incredibly hard to compute and will require the machinery of Wick contractions. So we want something that to first order in $H_I$ will give us 4 fields (two in, two out). The easiest example is of course $\phi^4$ theory, which has 
+\bse 
+    H_{\text{int}} = \frac{\l}{4!} \int d^3 x \, \phi_x\phi_x\phi_x\phi_x,
+\ese 
+and corresponds simply to the scattering process 
+\bse 
+    \phi(p_1)\phi(p_2) \to \phi(p_3)\phi(p_4).
+\ese 
+The calculation of the transition matrix is left as an exercise. 
+
+\bbox 
+    Show that the above interaction Hamiltonian leads to 
+    \bse 
+        T_{fi} = -i\l \del^{(4)}(p_1+p_2-p_3-p_4).
+    \ese 
+\ebox  
+
+Note that the factor of $4!$ has gone in the result to the above exercise. This is actually the reason it's included in the original expression, so that the matrix elements don't have any additional factors. Its an example of a what we call \textit{symmetry factors}, which will become more clear after studying Wick contractions. 
+
+\br 
+    Note that for the scalar Yakawa decay we could have actually used the S-matrix instead of the transition matrix. This is because the two only differ by the inner product between the initial and final state, which for the scalar Yakawa theory vanishes. However for the $\phi^4$ scattering, this inner product is non-vanishing and doesn't actually correspond to a scattering. Diagrammatically it looks like,
+    \begin{center}
+        \btik 
+            \draw[thick] (-2,0.75) -- (2,0.75);
+            \node at (-2.3,0.75) {$\phi$};
+            \node at (2.3,0.75) {$\phi$};
+            \draw[->] (-1,1) -- (1,1) node [midway, above] {$p_1=p_3$};
+            \draw[thick] (-2,-0.75) -- (2,-0.75);
+            \node at (-2.3,-0.75) {$\phi$};
+            \node at (2.3,-0.75) {$\phi$};
+            \draw[->] (-1,-1) -- (1,-1) node [midway, below] {$p_2=p_4$};
+        \etik 
+    \end{center}
+    It is therefore important to actually distinguish between $S_{fi}$ and $T_{fi}$, however it is often the case that we write $S_{fi}$ and really mean $T_{fi}$. In these notes I shall try be careful here, but its quite possible that I will forget and make a mistake, so keep on your toes. 
+\er 
+

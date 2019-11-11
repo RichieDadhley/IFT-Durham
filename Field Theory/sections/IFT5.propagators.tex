@@ -1,0 +1,425 @@
+\chapter{Complex Scalar Field \& Propagators}
+
+\section{Complex Scalar Field}
+
+Recall the \textit{classical} Lagrangian for the complex scalar field, \Cref{eqn:ComplexLagrangianClassical}, 
+\bse 
+    \cL = \p_{\mu}\psi^*\p^{\mu}\psi - m^2 \psi^*\psi.
+\ese 
+We treat $\psi$ and $\psi^*$ as independent fields and get the equations of motion 
+\bse 
+    \big(\p^2 + m^2 \big)\psi = 0, \qand \big(\p^2 + m^2\big) \psi^* = 0.
+\ese 
+When we quantise this theory we again treat each field as an independent degree of freedom. In quantising we replace the complex conjugate with the Hermitian conjugate. We want to obtain an expansion equivalent to that of \Cref{eqn:phipicreationannihilation}, but we have to note something: the field $\psi$ is \textit{not} real and so the corresponding quantum operator will \textit{not} be Hermitian. We therefore need to have different labels for our creation and annihilation operators in the expansion for $\psi$. We then get the expansion for $\psi^{\dagger}$ by taking the Hermitian conjugate. The result is 
+\be 
+\label{eqn:ComplexFieldExpansion}
+    \begin{split}
+        \psi & = \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} \Big( b_{\vec{p}} \,  e^{i\vec{p}\cdot\vec{x}} + c_{\vec{p}}^{\dagger} \, e^{-i\vec{p}\cdot\vec{x}}\Big) \\
+        \psi^{\dagger} & = \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} \Big( c_{\vec{p}} \,  e^{i\vec{p}\cdot\vec{x}} + b_{\vec{p}}^{\dagger} \, e^{-i\vec{p}\cdot\vec{x}}\Big) 
+    \end{split}
+\ee 
+
+\br 
+    Note that the dagger comes with the negative exponential. This is because we want the particles we create to have positive frequency, which corresponds to $e^{-i\vec{p}\cdot\vec{x}}$. 
+\er 
+
+Classically we had the result $\pi = \p\cL/\p\dot{\psi}$, \Cref{eqn:ConjugateMomentumDensity}. We turn this into a quantum relation, and using $\p\cL/\p\dot{\psi} = \dot{\psi}^*$, we obtain the operator expressions
+\be 
+\label{eqn:ComplexPiExpansion}
+    \begin{split}
+        \pi & = \int \frac{d^3\vec{p}}{(2\pi)^3} i \sqrt{\frac{E_{\vec{p}}}{2}} \Big( - c_{\vec{p}}e^{i\vec{p}\cdot\vec{x}} + b_{\vec{p}}^{\dagger} e^{-i\vec{p}\cdot\vec{x}}\Big) \\
+        \pi^{\dagger} & = \int \frac{d^3\vec{p}}{(2\pi)^3} (-i) \sqrt{\frac{E_{\vec{p}}}{2}} \Big(  b_{\vec{p}}e^{i\vec{p}\cdot\vec{x}} - c_{\vec{p}}^{\dagger} e^{-i\vec{p}\cdot\vec{x}}\Big)
+    \end{split}
+\ee 
+
+\br 
+    I have chosen to write the above equations so that the creation operator always appears to the far most right. This means that the $b$s and $c$s move around, obviously. There are two reasons I am writing them like this: it's how Prof. Spannowsky writes them, and it then they take the same form as \Cref{eqn:phipicreationannihilation}. Obviously it doesn't matter which order I write them in, I just make this remark because Prof. Tong writes them so that the $b$ term is always to the left (see pages 33/34 of his notes).
+\er 
+
+We want to keep the same form for the \textit{equal time} commutation relations as for the real scalar field, i.e.
+\be 
+    [\psi(\vec{x}), \pi(\vec{y})] = i \del^{(3)}(\vec{x}-\vec{y}), \qquad [\psi(\vec{x}),\pi^{\dagger}(\vec{y})] = 0,
+\ee 
+and similarly with Hermitian conjugates everywhere,\footnote{Note you can simply use $[A,B]^{\dagger}=-[A^{\dagger},B^{\dagger}]$, along with the $i$s on the right-hand, to get these results.} and the vanishing ones 
+\bse 
+    [\psi(\vec{x}),\psi(\vec{y})] = 0 = [\pi(\vec{x}),\pi(\vec{y})].
+\ese 
+
+\bbox 
+    Show that the above commutation relations hold if, and only if, we also have 
+    \be 
+        [b_{\vec{p}} \, b_{\vec{p}}^{\dagger}\,] = (2\pi)^3 \del^{(3)}(\vec{p}-\vec{q}), \qand [c_{\vec{p}} \, c_{\vec{p}}^{\dagger}\,] = (2\pi)^3 \del^{(3)}(\vec{p}-\vec{q}),
+    \ee 
+    and all others vanishing, i.e. 
+    \bse 
+        [b_{\vec{p}} \, b_{\vec{p}}\,] = 0 = [b_{\vec{p}} \, c_{\vec{p}}\,] 
+    \ese 
+    etc.
+\ebox 
+
+\bbox 
+    Derive the following expression for the Hamiltonian, 
+    \be 
+    \label{eqn:ComplexFieldHamiltonian}
+        H = \frac{1}{2} \int \frac{d^3\vec{p}}{(2\pi)^3} E_{\vec{p}} \, \big( b_{\vec{p}}^{\dagger} \, b_{\vec{p}} + c_{\vec{p}}^{\dagger} \, c_{\vec{p}} \big).
+    \ee 
+    \textit{Hint: Derive the Hamiltonian density and use \Cref{eqn:ComplexFieldExpansion,eqn:ComplexPiExpansion}. You will need to drop an infinity term as we did for the real scalar field.} 
+\ebox 
+
+In our particle interpretation, \Cref{eqn:ComplexFieldHamiltonian} tells us that the complex theory contains two particles of the same energy, and therefore mass. We can show that they also both have vanishing spin. The states of our Hilbert space are made up of products of these two particle types, we use a semi-colon in the bra/ket to indicate the different types. For example 
+\bse 
+    \ket{\vec{p}_1,\vec{p}_2 ; \vec{q}_1, \vec{q}_2} := b_{\vec{p}_1}^{\dagger}  b_{\vec{p}_2}^{\dagger}  c_{\vec{q}_1}^{\dagger} c_{\vec{q}_2}^{\dagger} \ket{0}.
+\ese 
+We refer to the particles created by $c$ as \textit{anti-particles} and the particles created by $b$ as \textit{particles}. Note that for the real scalar field we have $b=c$ and so the `particle is its own antiparticle'.
+
+The classical complex field conserved current, \Cref{eqn:ComplexCurrent}, can be upgraded to the quantum theory and from that we can obtain the conserved charge 
+\be
+\label{eqn:ParticleAntiparticleNumberConserved}
+    Q = \int \frac{d^3\vec{p}}{(2\pi)^3} \big( c_{\vec{p}}^{\dagger}\,  c_{\vec{p}} - b_{\vec{p}}^{\dagger}\, b_{\vec{p}}\big) = N_c - N_b,
+\ee 
+which says that the number of antiparticles minus the number of particles is conserved \textit{locally}. Of course in the free theory we have that $N_c$ and $N_b$ are separatly conserved, so this statement is nothing new. However, as we keep teasing, in the interacting theory the number of each type of particle will no longer be a conserved charge, but \Cref{eqn:ParticleAntiparticleNumberConserved} will still hold. The locality of this result will translate into the fact that particles and antiparticles are always created in pairs, and they can annihilate to produce something different (e.g. a photon). 
+
+\br 
+    As we just said, these are spin-0 particles and so do not correspond to Fermions (i.e. electrons etc), but they give us a taste of what's to come. We can refer to this complex scalar field as a `poor man's Fermion'.
+\er
+
+\section{Propagators}
+
+At the end of the last lecture we checked to see if our theory was causal by checking that the operators commuted for spacelike separation. We could have worded this question differently, and perhaps more `particle physicsy'. We could have asked "what is the probability for a particle to propagate from point $y$ to point $x$?" If $x$ and $y$ are spacelike separated, we would want the answer to be a big fact zero, otherwise the particles would be travelling faster than light. The propagation is given by the 2-point function $\bra{0}A(x)A(y)\ket{0}$ where $A$ is our field in the Heisenberg picture. So we need to consider this calculation theory by theory. 
+
+\subsection{Real Scalar Field}
+
+First let's consider the real scalar field. Our propagator is 
+\bse 
+    \begin{split}
+        D(x-y) & = \bra{0}\phi(x)\phi(y)\ket{0} \\
+        & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{d^3\vec{q}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} \frac{1}{\sqrt{2E_{\vec{q}}}} \bra{0} \Big(a_{\vec{p}}\, e^{-ipx} + a_{\vec{p}}^{\dagger} \, e^{ipx} \Big) \Big(a_{\vec{q}}\, e^{-iqy} + a_{\vec{q}}^{\dagger} \, e^{iqy} \Big) \ket{0} \\
+        & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{d^3\vec{q}}{(2\pi)^3} \frac{1}{\sqrt{2E_{\vec{p}}}} \frac{1}{\sqrt{2E_{\vec{q}}}} \bra{0} a_{\vec{p}}\,  a_{\vec{q}}^{\dagger} \ket{0} e^{-ipx + i qy} \\
+        & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec{p}}} e^{-ip(x-y)},
+    \end{split}
+\ese 
+where we have used 
+\bse 
+    \bra{0}a_{\vec{p}}^{\dagger} = 0 = a_{\vec{q}}\ket{0}, \qand \bra{0} a_{\vec{p}}\,  a_{\vec{q}}^{\dagger} \ket{0} = (2\pi)^3 \del^{(3)}(\vec{p}-\vec{q}).
+\ese 
+Again this result is Lorentz invariant and so we can pick any frame we like. We want to check spacelike separations $(x-y)^2<0$, so choose a frame with $(x-y)=(0,\vec{r})$, and work in polar coordinates, $d^3\vec{p} = p^2 \sin^2\theta d\theta d\varphi dp$. This gives us 
+\bse 
+    \begin{split}
+        D(x-y) & = \frac{2\pi}{(2\pi)^3} \int_0^{\infty} dp \frac{p^2}{2E_p} \frac{e^{ipr} - e^{-ipr}}{ipr}  \\
+        & = - \frac{i}{2(2\pi)^2r} \int_{-\infty}^{\infty} dp \frac{p e^{ipr}}{\sqrt{p^2+m^2}} 
+    \end{split}
+\ese 
+This is an integral in the complex plane with two poles at $p=\pm im$. We therefore need to take two branch cuts as indicated in the figure below. We do the integral over the shaded region and extend out to infinity.  
+
+\begin{center}
+    \btik 
+        \begin{scope}
+            \clip (-3,3) -- (-0.3,3) -- (-0.3,1) .. controls (-0.15,0.7) and (0.15,0.7) .. (0.3,1) -- (0.3,3) -- (3,3) -- (3,-3) -- (0.3,-3) -- (0.3,-1) .. controls (0.15,-0.7) and (-0.15,-0.7) .. (-0.3,-1) -- (-0.3,-3) -- (-3,-3) -- (-3,3);
+            \draw[fill = gray!40, opacity = 0.8] (-3,3) -- (-0.3,3) -- (-0.3,1) .. controls (-0.15,0.7) and (0.15,0.7) .. (0.3,1) -- (0.3,3) -- (3,3) -- (3,-3) -- (0.3,-3) -- (0.3,-1) .. controls (0.15,-0.7) and (-0.15,-0.7) .. (-0.3,-1) -- (-0.3,-3) -- (-3,-3) -- (-3,3);
+        \end{scope}
+        \draw[thick, ->] (-3.5,0) -- (3.5,0);
+        \node at (3.5,-0.5) {\large{Re($p$)}};
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (0,1) -- (0,3);
+        \draw[fill=black] (0,1) circle [radius=0.07cm];
+        \node at (0,0.5) {\large{$im$}};
+        \draw[thick, decorate, decoration={snake, segment length=1.5mm, amplitude=0.5mm}] (0,-1) -- (0,-3);
+        \draw[fill=black] (0,-1) circle [radius=0.07cm];
+        \node at (0,-0.5) {\large{$-im$}};
+        % 
+        \draw[ultra thick] (-0.3,3) -- (-0.3,1) .. controls (-0.15,0.7) and (0.15,0.7) .. (0.3,1) -- (0.3,3);
+        \draw[ultra thick] (-0.3,-3) -- (-0.3,-1) .. controls (-0.15,-0.7) and (0.15,-0.7) .. (0.3,-1) -- (0.3,-3);
+    \etik
+\end{center}
+
+We then define $\rho = -ip$ and obtain 
+\bse 
+    D(x-y) = \frac{1}{4\pi^2 r} \int_m^{\infty} d \rho \frac{\rho e^{-\rho r}}{\sqrt{\rho^2-m^2}},
+\ese 
+which in the limit $r\to\infty$ (which is \textit{very} spacelike separated) gives 
+\bse 
+    D(x-y) \sim e^{-m|\vec{x}-\vec{y}|},
+\ese 
+where we've put $r=|\vec{x}-\vec{y}|$ back in. 
+
+Ah this does not appear good... we've shown that the amplitude for a particle to propagate on a spacelike curve decays exponentially, which is small but non-zero. What was the difference to what we did at the end of last lecture? Well last lecture we had the (sandwiched) \textit{commutator}, which in terms of the propagators is 
+\bse 
+    [\phi(x),\phi(y)] = D(x-y) - D(y-x).
+\ese 
+But the above formula has $|\vec{x}-\vec{y}|$, so it doesn't change when we switch $x\longleftrightarrow y$. This is why the result vanished last lecture. So what does this correspond to in our particle propagation terms? Well because we're considering a spacelike path, their is no Lorentz invariant way to order events, so we have to consider both the propagation $x\to y$ and $y\to x$, but these have the same amplitude, and so cancel. 
+
+\subsection{Complex Scalar Field}
+
+What about for the scalar field? Well first consider the exercise 
+\bbox 
+    Define 
+    \be
+    \label{eqn:ComplexPropagators}
+        \begin{split}
+            D_b(x-y) & := \bra{0} \psi(x)\psi^{\dagger}(y) \ket{0}, \\
+            D_c(x-y) &:= \bra{0} \psi^{\dagger}(x)\psi(y) \ket{0}.
+        \end{split}
+    \ee 
+    Then using the relevant definitions and commutators show these both give 
+    \bse 
+        \int \frac{d^3\vec{p}}{(2\pi)^3} \frac{1}{2E_{\vec{p}}} e^{-ip(x-y)}
+    \ese
+    \textit{Hint: The subscripts $b/c$ should become justified relatively quickly.}
+\ebox  
+
+For the complex scalar case we therefore have 
+\bse 
+    \big[\psi(x),\psi^{\dagger}(y)\big] = D_b(x-y) - D_c(y-c),
+\ese
+and a similar calculation to the real scalar gives that this vanishes for spacelike separations. So we give the same particle propagation tale, but now with an interesting difference. As we see in \Cref{eqn:ComplexPropagators}, $D_b(x,y)$ corresponds to an \textit{antiparticle} propagating from $y\to x$ whereas $D_c(y-x)$ corresponds to a \textit{particle} propagating from $x\to y$. So now the cancellation in amplitude comes from a particle going one way while an antiparticle going the other way! So causality requires that every particle have a corresponding antiparticle with the same mass but opposite quantum numbers. This isn't actually a new interpretation, it's just that for the real scalar field the particle is its own antiparticle so we didn't notice. 
+
+\subsection{Feynman Propagator}
+
+As we shall see, for interacting field theories perhaps the most important object is the so-called \textit{Feynman propagator}:
+
+\mybox{
+\be 
+\label{eqn:FeynmanPropagator}
+    \Delta_F(x-y) = \bra{0}\cT\phi(x)\phi(y)\ket{0} = \begin{cases}
+        D(x-y) & x^0 > y^0 \\
+        D(y-x) & y^0 > x^0
+    \end{cases},
+\ee 
+}
+\noindent where the cases on the right hand side defines $\cT$, the \textit{time ordering} operator:
+\be 
+\label{eqn:TimeOrdering}
+    \begin{split}
+        \cT\big(\cO_1(t_1)\cO_2(t_2)\big) & = \cO_1(t_1),\cO_2(t_2) \Theta(t_1-t_2) + \cO_2(t_2),\cO_1(t_1) \Theta(t_2-t_1) \\
+        & = \begin{cases}
+        \cO_1(t_1),\cO_2(t_2) & t_1 > t_2 \\
+        \cO_1(t_2),\cO_2(t_1) & t_2 > t_1
+    \end{cases}.
+    \end{split}
+\ee 
+
+Physically what this tells us is that first the particle is created and then destroyed. It will be incredibly useful for us to write this expression as a $4$-integral, and this comes in the form of \textit{Feynman's trick}. 
+
+\bcl 
+    We can write the Feynman propagator as 
+    \mybox{
+    \be 
+    \label{eqn:FeynmanPropagatorIntegral}
+        \Delta_F(x-y) = \int \frac{d^4 p}{(2\pi)^4} \frac{i}{p^2-m^2 + i\epsilon} e^{-ip(x-y)},
+    \ee 
+    }
+    where $\epsilon >0$ but infinitesimal.
+\ecl 
+
+\bq 
+    We prove this claim by taking a complex contour integral and using Cauchy's theorem. First let's rewrite the right-hand side of \Cref{eqn:FeynmanPropagatorIntegral} slightly: 
+    \bse
+        \begin{split}
+            \frac{1}{p^2-m^2+i\epsilon} & = \frac{1}{p_0^2 - \vec{p}^2-m^2 +i\epsilon} \\
+            & = \frac{1}{p_0^2 - E_{\vec{p}}^2+i\epsilon} \\
+            & = \frac{1}{p_0^2 - (E_{\vec{p}}-i\epsilon)^2} \\
+            & = \frac{1}{p_0 - (E_{\vec{p}}-i\epsilon)} \frac{1}{p_0 + (E_{\vec{p}}-i\epsilon)}
+        \end{split}
+    \ese 
+    where to get to the penultimate line we used  the fact that $\epsilon$ is infinitesimal, and relabelled $\epsilon = 2E_{\vec{p}}\epsilon$. Explicitly, we have 
+    \bse 
+        (E_{\vec{p}} - i\epsilon)^2 = E_{\vec{p}}^2 - 2iE_{\vec{p}}\, \epsilon - \epsilon^2
+    \ese 
+    then we drop the $\epsilon^2$ term and, because $E_{\vec{p}}>0$, we can redefine $\epsilon\to 2E_{\vec{p}}\epsilon$ which is still positive and infinitesimal. 
+    
+    We now have an integral with poles 
+    \bse 
+        p_0^{\pm} =  \pm (E_{\vec{p}}-i\epsilon)
+    \ese 
+    as indicated in the following diagram. 
+    \begin{center}
+        \btik 
+            \draw[fill = blue, opacity = 0.5] (-3,0) -- (3,0) -- (3,-2) -- (-3,-2) -- (-3,0);
+            \draw[fill = red, opacity = 0.5] (-3,0) -- (3,0) -- (3,2) -- (-3,2) -- (-3,0);
+            %
+            \draw[ultra thick, blue, ->] (-1,0) -- (-0.99,0);
+            \draw[ultra thick, blue, ->] (1,0) -- (1.01,0);
+            \draw[ultra thick, blue, ->] (3,0) -- (3,-1.5);
+            \draw[ultra thick, blue] (3,-1.5) -- (3,-2);
+            \draw[ultra thick, blue, ->] (3,-2) -- (1.5,-2);
+            \draw[ultra thick, blue, ->] (1.5,-2) -- (-1.5,-2);
+            \draw[ultra thick, blue] (-1.5,-2) -- (-3,-2);
+            \draw[ultra thick, blue, ->] (-3,-2) -- (-3,-1);
+            \draw[ultra thick, blue] (-3,-1) -- (-3,0);
+            %
+            \draw[ultra thick, red, ->] (-2,0) -- (-1.99,0);
+            \draw[ultra thick, red, ->] (2,0) -- (2.01,0);
+            \draw[ultra thick, red, ->] (3,0) -- (3,1);
+            \draw[ultra thick, red] (3,1) -- (3,2);
+            \draw[ultra thick, red, ->] (3,2) -- (1.5,2);
+            \draw[ultra thick, red, ->] (1.5,2) -- (-1.5,2);
+            \draw[ultra thick, red] (-1.5,2) -- (-3,2);
+            \draw[ultra thick, red, ->] (-3,2) -- (-3,1);
+            \draw[ultra thick, red] (-3,1) -- (-3,0);
+            %
+            \draw[thick, ->] (-3.5,0) -- (3.5,0);
+            \node at (4.5,0) {\large{Re($p_0$)}};
+            \draw[thick, ->] (0,-2.5) -- (0,2.5);
+            \node at (0,3) {\large{Im($p_0$)}};
+            \draw[white, fill=white] (-2,0.5) circle [radius=0.15cm];
+            \draw[white, fill=white] (2,-0.5) circle [radius=0.15cm];
+            \draw[fill=black] (-2,0.5) circle [radius=0.07cm];
+            \draw[fill=black] (2,-0.5) circle [radius=0.07cm];
+            \draw[thick, ->] (3.5,-1) -- (2.2,-0.55);
+            \node at (3.8,-1) {\large{$p_0^+$}};
+            \draw[thick, ->] (-3.5,1) -- (-2.2,0.55);
+            \node at (-3.8,1) {\large{$p_0^-$}};
+            \node at (2,1.5) {\large{$y^0>x^0$}};
+            \node at (2,-1.5) {\large{$x^0>y^0$}};
+        \etik 
+    \end{center}
+    The shaded regions are meant to indicate how we close our contours for the relevant $(x^0-y^0)$ sign. The arrows are meant to indicate which way round we close each contour (so $x^0>y^0$ is clockwise and $y^0>x^0$ is anticlockwise). We pick up the relative poles as indicated. 
+    
+    Let's consider the case $x^0>y^0$, then we pick up $p_0^+$ pole, and using Cauchy's theorem, 
+    \bse 
+        \oint dz \frac{f(z)}{(z-z_0)} = (2\pi i) f(z_0),
+    \ese 
+    we get the residue $-1/2E_{\vec{p}}$, where the minus sign comes from that fact that we're doing a clockwise integral,\footnote{If this doesn't make sense, basically in Cauchy's theorem you use the anticlockwise contour integral.} and obtain 
+    \bse 
+        \int \frac{d^4}{(2\pi)^4} \frac{i}{p^2 - m^2 +i\epsilon} e^{-ip(x-y)} = \int \frac{d^3p}{(2\pi)^3} \frac{2\pi i}{2\pi} \frac{i}{2E_{\vec{p}}}e^{-iE_{\vec{p}}(x^0-y^0) + i \vec{p}\cdot (\vec{x}-\vec{y})},
+    \ese 
+    but the right-hand side (after cancelling) is just $D(x-y)$.
+\eq 
+
+\bbox 
+    Finish the proof above. That is show 
+    \bse 
+        \Delta_F(x-y) = D(y-x) \qquad \text{if} \qquad y^0>x^0.
+    \ese 
+\ebox 
+
+\br 
+    If you are not 100\% comfortable with the idea of putting the $i\epsilon$ in the denominator, you can obtain the same result but now the poles like on the real axis. The contour you need to take to get the Feynman propagator is drawn below. 
+    \begin{center}
+        \btik 
+            \draw[thick, ->] (-3.5,0) -- (3.5,0);
+            \node at (4.2,0) {\large{Re($p_0$)}};
+            \draw[thick, ->] (0,-1.5) -- (0,1.5);
+            \node at (-0.7,1.5) {\large{Im($p_0$)}};
+            \draw[fill=black] (-2,0) circle [radius=0.07cm];
+            \node at (-2,0.5) {\large{$-E_{\vec{p}}$}};
+            \draw[fill=black] (2,0) circle [radius=0.07cm];
+            \node at (2,-0.5) {\large{$+E_{\vec{p}}$}};
+            \draw[ultra thick, blue, ->] (-0.5,0) -- (-0.49,0);
+            \draw[ultra thick, blue, ->] (0.5,0) -- (0.51,0);
+            \draw[ultra thick, blue] (-3,0) -- (-2.5,0) .. controls (-2.25,-0.5) and (-1.75,-0.5) .. (-1.5,0)-- (1.5,0) .. controls (1.75,0.5) and (2.25,0.5) .. (2.5,0) -- (3,0);
+        \etik 
+    \end{center}
+\er 
+
+\bbox 
+    Show that the diagram in the above remark will lead to the same result for the Feynman propagator. \textit{Hint: If you get stuck, this is how Prof. Tong does it. But I advise you try it first using the calculation done in the proof above for guidance.}
+\ebox  
+
+The Feynman propagator is, in fact, also a Green's function\footnote{Basically a function that gives a delta function when acted on by a differential operator.} for the Klein-Gordan equation. We see this easily using \Cref{eqn:FeynmanPropagatorIntegral} (with $\epsilon=0$, as we don't need to use a contour integral here):
+\bse 
+    \begin{split}
+        (\p^2 +m^2)\Delta_F(x-y) & = \int \frac{d^4p}{(2\pi)^4} \frac{i}{p^2-m^2} (\p^2 + m^2) e^{-ip(x-y)} \\
+        & = \int \frac{d^4p}{(2\pi)^4} \frac{i}{p^2-m^2} \big(-p^2+m^2\big) e^{-ip(x-y)} \\
+        & = -i \int \frac{d^4p}{(2\pi)^4} e^{-ip(x-y)} \\
+        & = -i\del^{(4)}(x-y).
+    \end{split}
+\ese
+This is a really nice result as it allows us to `invert' the Klein-Gordan equation, i.e. turn it from a differential equation to a integral one.\footnote{For more info on why this is the case, just Google what a Green's function is.}
+
+\section{Building Interacting Theories}
+
+As we have seen, in free theories our equations of motion are linear in the fields, e.g. the Klein-Gordan equation
+\bse 
+    (\p^2 + m^2)\phi = 0.
+\ese 
+We solved these theories by a Fourier analysis and saw that all the different modes decoupled. That is we never had a $a_{\vec{p}} \, a_{\vec{q}}$ term in our Hamiltonian etc. This lead to us showing that the number operator in such theories in conserved, \Cref{eqn:NumberOperatorConserved}. This is why we called them free theories.
+
+Obviously the in the real world things do interact, and we have hinted a few times that this will lead to the number operator not being conserved anymore. We need some way, then, to construct interacting theories and the rest of this lecture is dedicated to exactly that. 
+
+We get interactions in our theory when the equations of motion are not linear in the fields. Recalling that the equations of motion come from varying the Lagrangian (i.e. they're the Euler-Lagrange equations). So if we want interaction terms in our equations of motion, we're going to have to add interaction terms into the Lagrangian:
+\bse 
+    \cL = \cL_{\text{free}} + \cL_{\text{int}}.
+\ese
+This will also lead to interaction terms in the Hamiltonian, which we want. 
+
+However, in QFT we cannot just arbitrarily change our Lagrangian. That is, we need to keep our `suitable Lagrangian' conditions we introduced previously. We shall state them again here, but now in terms of the additional $\cL_{\text{int}}$:
+\ben[label=(\roman*)]
+    \item We only want local interactions, in order to preserve causality. That is something of the form 
+    \bse 
+        \int d^3 y \phi(x)\phi^2(y)
+    \ese
+    is \textit{not} allowed. 
+    \item $\cL_{\text{int}}$ is a Lorentz scalar. 
+    \item $\cL_{\text{int}}$ respects the internal symmetries. For example, if our free theory was U(1) invariant (i.e. $\psi \to e^{i\a}\psi$) then we cannot have something like $\psi\psi$ in $\cL_{\text{int}}$.
+    \item Renormalisability. We explained this before, but for a reminder, in 4-dimensions, we would have to truncate the following Lagrangian at the $\phi^4$ term, as $[\l_{i>4}]<0$ which is non-renormalisable.
+    \bse 
+        \cL = \frac{1}{2}(\p\phi)^2 - \frac{1}{2} m^2\phi^2 - \frac{\l_3}{3!} \phi^3 - \frac{\l_4}{4!}\phi^4 - \frac{\l_5}{5!}\phi^5 - ...
+    \ese 
+    Note here we can see $\cL_{\text{free}}$ as the real scalar field.
+\een 
+
+\subsection{Examples}
+
+\bex 
+    As an example consider the popular $\phi^4$ theory. This has Lagrangian
+    \be 
+    \label{eqn:phi4Lagrangian}
+        \cL = \underbrace{\frac{1}{2}(\p\phi)^2 - \frac{1}{2}m^2\phi^2}_{\cL_{\text{free}}} - \underbrace{\frac{\l}{4!}\phi^4}_{\cL_{\text{int}}}.
+    \ee 
+    In terms of Feynman diagrams (to come shortly) the interaction Lagrangian will correspond to something of the form 
+    % To anyone reading the code... I tried to use TikzFeynman and FeynMF but neither seemed to work very well, so decided to just do it manually in Tikz myself. See the shortcuts tab for some things I defined.
+    \begin{center}
+        \btik 
+            \draw[thick] (-1,1) -- (0,0);
+            \draw[->] (-0.9,0.7) -- (-0.4,0.2);
+            \node at (-1.2,1.2) {$p_1$};
+            \draw[thick] (-1,-1) -- (0,0);
+            \draw[->] (-0.9,-0.7) -- (-0.4,-0.2);
+            \node at (-1.2,-1.2) {$p_2$};
+            \draw[thick] (0,0) -- (1,1);
+            \draw[->] (0.4,0.2) -- (0.9,0.7);
+            \node at (1.2,1.2) {$p_4$};
+            \draw[thick] (0,0) -- (1,-1);
+            \draw[->] (0.4,-0.2) -- (0.9,-0.7);
+            \node at (1.2,-1.2) {$p_3$};
+            \draw[fill=black] (0,0) circle [radius=0.07cm];
+            \node at (0,-0.3) {$\l$};
+        \etik  
+    \end{center}
+\eex 
+
+
+\bex 
+    In the above theory we only had one field $\phi$, but we can have (and we will definitely need) interactions between different fields. As an example, we have the \textit{scalar Yukawa} theory, with Lagrangian 
+    \be 
+    \label{eqn:ScalarYukawaLagrangian}
+        \cL = \underbrace{\frac{1}{2}(\p\phi)^2 - m^2\phi^2}_{\text{Klein-Gordan}} + \underbrace{(\p_{\mu}\psi)(\p^{\mu}\psi^*) - M^2\psi\psi^*}_{\text{Complex Scalar}} - \underbrace{g \psi^*\psi\phi}_{\text{interaction}}.
+    \ee 
+    This is the interaction between a Klein-Gordan field of mass $m$ and a complex scalar field of mass $M$. 
+    \begin{center}
+        \btik 
+            \midarrow (-1,1) -- (0,0);
+            \draw[->] (-0.9,0.7) -- (-0.4,0.2);
+            \node at (-0.8,0.3) {$p_1$};
+            \node at (-1.2,1.3) {$\psi$};
+            \midarrow (0,0) -- (-1,-1);
+            \draw[->] (-0.9,-0.7) -- (-0.4,-0.2);
+            \node at (-1.2,-1.2) {$\overline{\psi}$};
+            \node at (-0.8,-0.25) {$p_2$};
+            \draw[thick,dashed] (0,0) -- (1.5,0);
+            \node at (1.7,0) {$\phi$};
+            \draw[->] (0.4,0.2) -- (1,0.2);
+            \node at (0.7,0.5) {$(p_1+p_2)$};
+            \draw[fill=black] (0,0) circle [radius=0.07cm];
+            \node at (0.15,-0.3) {$g$};
+        \etik 
+    \end{center}
+\eex 
+
+\bbox 
+    Find the equations of motion for \Cref{eqn:phi4Lagrangian,eqn:ScalarYukawaLagrangian}. 
+\ebox
+
+
+As the result of the previous exercise shows, our equations of motion are non-linear and so we can no longer solve them by Fourier decomposition. This is exactly what we wanted, and will lead to different modes coupling together. As we will see, we solve these theories in a perturbative way; we assume the couplings $\l$/$g$ are small and expand around the free theory. We are saved from hideously long expression by the famous \textit{Feynman diagrams}. These things really are a field theorist's best friend.\footnote{Sorry Harmonic Oscillators, you've been pipped at the post.}
+
