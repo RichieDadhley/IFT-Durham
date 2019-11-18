@@ -370,16 +370,16 @@ However, in QFT we cannot just arbitrarily change our Lagrangian. That is, we ne
     % To anyone reading the code... I tried to use TikzFeynman and FeynMF but neither seemed to work very well, so decided to just do it manually in Tikz myself. See the shortcuts tab for some things I defined.
     \begin{center}
         \btik 
-            \draw[thick] (-1,1) -- (0,0);
+            \draw[thick, dashed] (-1,1) -- (0,0);
             \draw[->] (-0.9,0.7) -- (-0.4,0.2);
             \node at (-1.2,1.2) {$p_1$};
-            \draw[thick] (-1,-1) -- (0,0);
+            \draw[thick, dashed] (-1,-1) -- (0,0);
             \draw[->] (-0.9,-0.7) -- (-0.4,-0.2);
             \node at (-1.2,-1.2) {$p_2$};
-            \draw[thick] (0,0) -- (1,1);
+            \draw[thick, dashed] (0,0) -- (1,1);
             \draw[->] (0.4,0.2) -- (0.9,0.7);
             \node at (1.2,1.2) {$p_4$};
-            \draw[thick] (0,0) -- (1,-1);
+            \draw[thick, dashed] (0,0) -- (1,-1);
             \draw[->] (0.4,-0.2) -- (0.9,-0.7);
             \node at (1.2,-1.2) {$p_3$};
             \draw[fill=black] (0,0) circle [radius=0.07cm];

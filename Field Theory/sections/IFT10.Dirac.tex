@@ -1,0 +1,543 @@
+\chapter{Dirac Fields}
+
+So far all we have considered are Lorentz scalars, i.e. fields that transform as
+\bse 
+    \phi(x) \to \phi'(x) = \phi\big(\Lambda^{-1}x\big)
+\ese
+under Lorentz transformations. We saw (it was set as an exercise in lecture 3, the one about showing $J^i\ket{\Vec{p}=0}=0$) that quantised version of such fields have zero spin. Obviously we know this is not the case in the real world, and we need to study other fields that transform differently under Lorentz transformations. In particular we want to find something that once we quantise it will give us spin-$1/2$ particles, as these are what electrons and the like are. It is important to note that there is no a priori way to see what kind of transformation property we would need to produce spin $1/2$ particles, but we would have to undergo the full calculation for a given transformation and then see what the resulting spin in. Luckily for us, however, Dirac has basically done this for us and so we do know what transformation property we require. 
+
+\br 
+    This part of the course was forced to be a bit rushed (due to lack of time) and so in order to try help expand on some of the points I am going to use Prof. Tong's notes as a heavy reference. I shall try outline most of the important points given in his notes, however I don't see the point in just copying his explanations out, so if there is anything I say that sounds confusing, I strongly recommend having a look in his notes to see if there is a more detailed explanation there. 
+\er 
+
+\section{Representations Of Lorentz Group}
+
+As we have tried to make clear in these notes, Lorentz invariance is crucial to QFT and is a vital part of the form we allow our Lagrangian to take. We have also just claimed that fields that transform in different ways under the Lorentz transformation will give rise to different types (namely different spins) of particle. In order to talk about how something transforms under the action of a group we use a \textit{representation}, i.e.\footnote{See my notes on Dr. Dorigoni's Group Theory course for more details.}
+\bse 
+    \phi^{ab...} \to \Big({D[\Lambda]^a}_{a'} {D[\Lambda]^b}_{b'} ... \Big) \phi^{a'b'...},
+\ese 
+where $D[\Lambda]$ are matrices. The obvious question to ask is "what are the representations of the Lorentz group?" This is the question we shall now try answer. 
+
+\subsection{The Generators}
+
+The standard way to find representations of the Lie group is to study the associated Lie algebra. We do this because the latter, being an algebra, has a basis and so are \textit{much} easier to deal with. In order to obtain the Lie algebra, we look infinitesimally close to the identity, and we have seen, \Cref{eqn:InfinitesimallyLorentz,eqn:AntisymmetricOmega}, that for the Lorentz group this corresponds to 
+\be
+\label{eqn:LorentzRepresentation}
+    {\Lambda^{\mu}}_{\nu} = {\del^{\mu}}_{\nu} + {\omega^{\mu}}_{\nu}, \qquad \text{with} \qquad \omega^{\mu\nu} = - \omega^{\nu\mu}.
+\ee 
+As we have mentioned before\footnote{Or at least I think it's mentioned in these notes, if not it's mentioned now.} the antisymmetric nature of the $\omega^{\mu\nu}$ tells that we have $4(4-1)/2 = 6$ independent transformations, these are the $3$ spatial rotations and $3$ boosts. The $\omega^{\mu\nu}$ are elements elements in the Lie algebra, and as just mentioned, we want to find a basis to express these in. That is, we want to find $6$ linearly independent, $4\times 4$ antisymmetric matrices such that 
+\bse 
+    \omega^{\mu\nu} = \Omega_a (\cM^a)^{\mu\nu},
+\ese 
+where $a\in \{1,...,6\}$ and $\Omega_a$ are just some numbers. We call the basis the \textit{generators} of our Lie algebra, i.e. $(\cM^a)^{\mu\nu}$ are the generators of (Lie algebra of) the Lorentz transformations.
+
+In fact, for a reason that will appear clearer soon, it is beneficial to label the basis elements with $2$ antisymmetric indices instead, that is:
+\be 
+    \omega^{\mu\nu} =  \Omega_{\rho\sig} (\cM^{\rho\sig})^{\mu\nu},
+\ee 
+where the $\rho,\sig\in\{0,...,3\}$ are antisymmetric, that is $\Omega_{\rho\sig}=-\Omega_{\sig\rho}$ and the same for $\cM$. We note that we still only have $6$ basis elements, as $\rho/\sig$ can take $4$ values, but the antisymmetry gives us $4(4-1)/2=6$ independent choices. This is of course a necessary condition (otherwise we would be changing the dimension of our algebra!). 
+
+\br 
+    It is worth clarifying the indices here. The $\rho\sig$ values tell us which basis element we are considering. Each $\cM^{\rho\sig}$ is a $4\times 4$ matrix and the $\mu\nu$ indices tell us which element of this matrix we are considering. These two set of indices have nothing to do with each other, despite them being of very similar form. 
+\er 
+
+So how do we decide on what form the basis takes? The answer is we use the one that we know gives us the answer we want and look super clever at the end for getting it correct. We use 
+\bse 
+    (\cM^{\rho\sig})^{\mu\nu} = \eta^{\rho\mu}\eta^{\sig\nu} - \eta^{\sig\mu}\eta^{\rho\nu},
+\ese 
+where on the right-hand side all the indices tell us the elements of the metric matrix, but we should keep the above remark in mind about what the indices mean in terms of our Lie algebra.
+
+Now, looking at \Cref{eqn:LorentzRepresentation}, it is clear that we actually want to lower one of the $\mu/\nu$ indices so that we can see how it acts on our fields. Using $\eta^{\mu\nu}\eta_{\nu\sig}={\del^{\mu}}_{\sig}$, this gives us 
+\be 
+\label{eqn:MMuNu}
+    {(\cM^{\rho\sig})^{\mu}}_{\nu} = \eta^{\rho\mu}{\del^{\sig}}_{\nu} - \eta^{\sig\mu}{\del^{\rho}}_{\nu},
+\ee 
+and so we have 
+\be 
+\label{eqn:LittleOmegaBigOmegaWithM}
+    {\omega^{\mu}}_{\nu} = \frac{1}{2}\Omega_{\rho\sig} {(\cM^{\rho\sig})^{\mu}}_{\nu},
+\ee 
+where we have introduce a factor of $1/2$ for convention.\footnote{Note we can do this as it is essentially just a redefinition of the $\Omega_{\rho\sig}$, which are just $6$ numbers.}
+
+\br 
+    Note that by lowering one of the indices we have broken the antisymmetry property of $\cM$. For examples see Prof. Tong's notes, page 82.
+\er 
+
+\bbox
+    Show that \Cref{eqn:LittleOmegaBigOmegaWithM,eqn:MMuNu} imply that 
+    \be 
+    \label{eqn:LittleOmegaBigOmega}
+        \omega^{\mu\nu} = \Omega^{\mu\nu}.
+    \ee 
+\ebox 
+
+\bbox 
+    Prove that the the above basis satisfy the Lie bracket (here just commutator) relation
+    \be
+    \label{eqn:LorentzGeneratorCommutator}
+        [\cM^{\rho\sig},\cM^{\tau\rho}] = \eta^{\sig\tau}\cM^{\rho\rho} - \eta^{\rho\tau}\cM^{\sig\rho} + \eta^{\rho\rho}\cM^{\sig\tau} - \eta^{\sig\rho}\cM^{\rho\tau}.
+    \ee 
+    \textit{Hint: Use the fact that each $\cM^{\rho\sig}$ is a $4\times 4$ matrix so that}
+    \bse 
+        {\big(\cM^{\rho\sig}\circ \cM^{\tau\rho}\big)^{\mu}}_{\nu} = {(\cM^{\rho\sig})^{\mu}}_{\chi} {(\cM^{\tau\rho})^{\chi}}_{\nu}
+    \ese 
+    \textit{and then use the answer to guide you. You want to end up with an expression that is a matrix labelled by $\mu\nu$, i.e. something of the form ${(...)^{\mu}}_{\nu}$.}
+\ebox 
+
+This construction has been done infinitesimally, we can recover some finite Lorentz transformation by taking the exponential of the result, i.e. 
+\be 
+\label{eqn:LorentzExpGenerators}
+    \Lambda = \exp\bigg( \frac{1}{2}\Omega_{\rho\sig}\cM^{\rho\sig}\bigg). 
+\ee 
+
+So we now have a way to see if something is a representation of the Lorentz transformations, namely if they satisfy \Cref{eqn:LorentzGeneratorCommutator} then they form a representation. The question is "what satisfies this and how do we find one?" The answer we give here is that we know the answer to this question and so just show that it satisfies it. It is important to note that there is no easy way to see that the following construction satisfies \Cref{eqn:LorentzGeneratorCommutator} a priori, but it is simply that we already know it does. 
+
+\subsection{The Dirac Representation}
+
+We define the set of matrices $\{\gamma^0,\gamma^1,\gamma^2,\gamma^3\}$, which form a so-called \textit{Clifford algebra}\footnote{For completeness, the curly brackets here mean the anticommutator, defined by $\{A,B\}=AB+BA$.} 
+\mybox{ 
+    \be 
+    \label{eqn:GammaCommutator}
+        \{\gamma^{\mu},\gamma^{\nu}\} = 2\eta^{\mu\nu}\b1_{n\times n}
+    \ee 
+}
+\noindent from which is follows that
+\mybox{
+    \be
+    \label{eqn:GammaSquared}
+        \big(\gamma^0\big)^2 = \b1_{n\times n}, \qand \big(\gamma^i\big)^2 = -\b1_{n\times n}
+    \ee 
+}
+\noindent where $i=1,2,3$. We call these the \textit{gamma matrices}. 
+
+We have yet to specify the dimension of these matrices, i.e. what is the value of $n$? We can show that there is no way to satisfy both these conditions using anything less than a $4\times 4$ matrix. There is \textit{not} a unique set of $4\times 4$ matrices that will satisfy these conditions, but the simplest is 
+\mybox{
+    \be  
+    \label{eqn:GammaDiracBasis}
+        \gamma^0 = \begin{pmatrix}
+            \b1_{2\times2} & 0 \\
+            0 & -\b1_{2\times2}
+        \end{pmatrix}, \qand \gamma^i = \begin{pmatrix}
+            0 & \sig^i \\
+            -\sig^i & 0 
+        \end{pmatrix},
+    \ee
+}
+\noindent where $\{\sig^i\}_{i=1,2,3}$ are the \textit{Pauli matrices}. This is a representation of the Clifford algebra, and we refer to this particular one as the \textit{Dirac basis}. 
+
+\br 
+    Note we can write \Cref{eqn:GammaDiracBasis} in a more compact form using the tensor product, namely 
+    \bse 
+        \gamma^0 = \sig^3\otimes \b1_{2\times 2}, \qand \gamma^j = i\sig^2\otimes \sig^j.
+    \ese
+    This notation makes doing long manipulations with the gamma matrices easier. However in this course we will not use this notation any further.
+\er 
+
+\br 
+\label{rem:DiracVsWeyl}
+    The definition we have given here, \Cref{eqn:GammaDiracBasis}, differs from the one given by Prof. Tong, who uses the so-called Weyl basis. The only difference between the two is that in the \textit{Weyl} basis we have
+    \bse 
+        \gamma^0 = \begin{pmatrix}
+            0 & \b1_{2\times2}  \\
+            \b1_{2\times2} & 0
+        \end{pmatrix}.
+    \ese 
+    The Dirac basis and Weyl basis are related by a simple equivalence transformation, and so they are equivalent representations of our Clifford algebra. It turns out that the Dirac basis is useful for studying massive particles, while the Weyl basis is useful for studying massless particles. It is for this reason that we also refer to the Weyl basis as the \textit{chiral} basis (its helps to study the chirality of massless particles).
+\er 
+
+Now you would be very justified in asking what this has to do with the Lorentz group and the content of the previous subsection. The answer is it turns out we can combine these gamma matrices in such a way as to produce something which obeys \Cref{eqn:LorentzGeneratorCommutator}, and so form a representation of the Lorentz group. Ok so what is it? Well the first thing we note is that it has to contain products of $2$ gamma matrices, as $\cM^{\rho\sig}$ has $2$ indices. Perhaps the two most natural things to try (given that we want to obtain a commutator relation, \Cref{eqn:LorentzGeneratorCommutator}) is the commutator and anticommutator. The anticommutator wont do because \Cref{eqn:GammaCommutator} shows us that the commutator of these will vanish, but what about the commutator? This will turn out to work.
+
+\bbox 
+    Show that 
+    \be 
+    \label{eqn:Srhosig}
+        S^{\rho\sig} := \frac{1}{4}[\gamma^{\rho},\gamma^{\sig}] = \frac{1}{2}\gamma^{\rho}\gamma^{\sig} - \frac{1}{2}\eta^{\rho\sig}.
+    \ee 
+    \textit{Hint: Consider the cases $\rho=\sig$ and $\rho\neq \sig$ separately and then use \Cref{eqn:GammaCommutator} to get the $\eta^{\rho\sig}$ term in the result.}
+\ebox 
+
+\br 
+    As with $\cM^{\rho\sig}$ above, for each $\rho\sig$ value we have a $4\times 4$ matrix (its a product of gamma matrices), and so we need to introduce another two indices in order to label the entries of these matrices. We shall use $\a,\beta=1,2,3,4$ to label these.\footnote{Note we do not start from $0$ here. This is because we're talking about the entries of a matrix, \textit{not} a spacetime index or a gamma index.}
+\er 
+
+\bcl 
+    The matrices $S^{\rho\sig}$ satisfy \Cref{eqn:LorentzGeneratorCommutator} and so form a representation of the Lorentz group.
+\ecl 
+
+\bq 
+    See page 84 of Prof. Tong's notes. (Or if you're feeling up for it, give it a bash yourself)
+\eq 
+
+\br 
+    Note that \Cref{eqn:Srhosig} is satisfied at the level of the Clifford algebra. That is, we do \textit{not} need to give a specific representation to obtain it. This is obviously a requirement if we want to use this result going forward. 
+\er 
+
+\subsection{Spinors}
+
+As we have said the $S^{\rho\sig}$ are $4\times 4$ matrices that form a representation of the Lorentz transformations. We have also said, being matrices they carry two indices, which we label by $\a$ and $\beta$, and so we see that the object they act on carries one index. That is 
+\be 
+\label{eqn:DiracSpinorLorentzTransformation}
+    \psi^{\a}(x) \to {S[\Lambda]^{\a}}_{\beta} \psi^{\beta}\big(\Lambda^{-1}x\big),
+\ee 
+where similarly to \Cref{eqn:LorentzExpGenerators}, we have 
+\be  
+\label{eqn:SLambdaExp}
+    S[\Lambda] = \exp\bigg(\frac{1}{2}\Omega_{\rho\sig}S^{\rho\sig}\bigg),
+\ee 
+where we include the $[\Lambda]$ to help us distinguish this from the $S^{\rho\sig}$s. Note that we have \textit{the same} numbers $\Omega_{\rho\sig}$ appearing in the exponential. This is just because we want the action of this representation to apply the same transformation to the field $\psi^a$ as it does to $x$.
+
+\br 
+    Note that both $S[\Lambda]$ and $\Lambda$ are $4\times 4$ matrices and it is entirely possible that we haven't constructed anything new. That is it could be true that $S[\Lambda]$ is equivalent (in a representation theory sense) to $\Lambda$. It turns out that we haven't done this, and a proof of this can be found in Prof. Tong's notes, pages 85 and 86.
+\er 
+
+\subsection{Non-Unitarity Of $S[\Lambda]$}
+
+\bcl 
+    The representation $S[\Lambda]$ is not completely unitary. In particular it it the boost part of the Lorentz transformations that are not unitary.
+\ecl 
+
+\bq 
+    From \Cref{eqn:SLambdaExp}, it follows that if $S[\Lambda]$ was to be unitary then we would require 
+    \bse 
+        \big(S^{\rho\sig}\big)^{\dagger} = - S^{\rho\sig},
+    \ese 
+    i.e. it is antihermitian, as we take $\Omega_{\rho\sig}$ to be real numbers.\footnote{They are the rotation angles/boost speeds.} However it follows from \Cref{eqn:Srhosig} that this antihermitian condition would require 
+    \bse 
+        \big(\gamma^{\rho}\gamma^{\sig}\big)^{\dagger} = \gamma^{\sig}\gamma^{\rho},
+    \ese 
+    for all $\rho,\sig=0,1,2,3$. This is the statement that we require that all the gamma matrices be hermitian or antihermitian. We cannot achieve this, though, as \Cref{eqn:GammaSquared} tells us that $\gamma^0$ has real eigenvalues (i.e. hermitian) but the $\gamma^i$ have imaginary eigenvalues (i.e. antihermitian). 
+\eq 
+
+This result will prove very important in just a moment. 
+
+\section{The Dirac Action \& Equation}
+
+Dirac wanted to try and obtain an equation of motion that was linear in derivatives. That is he wanted something of the form 
+\bse 
+    (A^{\mu}\p_{\mu} - m)\psi(x) = 0,
+\ese
+where the $A^{\mu}$ is something included in order to ensure a Lorentz invariant result. The question is "what is $A^{\mu}$?" Well given that we've just spent a bunch of time talking about them, it might seem sensible to suggest a gamma matrix, i.e. try something of the form 
+\bse 
+    (\gamma^{\mu}\p_{\mu} - m)\psi(x) = 0.
+\ese
+If we were to obtain this result, we would have to start from something which is bilinear in the field $\psi(x)$, as we differentiate one away in the Euler-Lagrange equations. We also note that $\psi(x)$ here is a column matrix (otherwise acting on it with the gamma matrix wouldn't make any sense),\footnote{Note for this reason we really should write $m\b1$ for the mass term. However it is standard to be a bit sloppy with notation and just assume that people notice that the identity matrix is implicit.} so if the action meant to just be a number (which it is) we also need a transpose of $\psi(x)$ appearing to the left of $\psi$ in our action. Then we finally recall that it is QFT we want to go on and study,\footnote{For emphasis, what we're doing right now is all classical. We will quantise this theory next lecture.} so its best to be safe and turn this transpose into a hermitian conjugate. Perhaps a better argument for this latter point is we want the result the action gives us to be a \textit{real} number. We therefore make the na\"{i}ve guess 
+\bse 
+    \cL_{\text{na\"{i}ve}} = \psi^{\dagger}\gamma^{\mu}\p_{\mu}\psi - m\psi^{\dagger}\psi. 
+\ese 
+We need this to be Lorentz invariant (as that was one of the rules for constructing Lagrangians), so we need to check this.
+
+We have 
+\bse 
+    \psi(x) \to S[\Lambda]\psi\big(\Lambda^{-1}x\big) \qquad \implies \qquad \psi^{\dagger}(x) \to \psi^{\dagger}\big(\Lambda^{-1}x\big)\big(S[\Lambda]\big)^{\dagger},
+\ese 
+and so the 
+\bse 
+    \psi^{\dagger}(x)\psi(x) \to \psi^{\dagger}\big(\Lambda^{-1}x\big)\big(S[\Lambda]\big)^{\dagger}S[\Lambda]\psi\big(\Lambda^{-1}x\big),
+\ese 
+but we just saw that $S[\Lambda]$ is not unitary, so this term is not invariant for all Lorentz transformations. Hmm... so what do we do? Well let's try and work out what went wrong and use that to help us find the correct answer. As we said in the previous subsection, we can pick a representation such that $\gamma^0$ is hermitian, $(\gamma^0)^{\dagger} = \gamma^0$ and the $\gamma^i$s are antihermitian, $(\gamma^i)^{\dagger} = -\gamma^i$. From these, and $(\gamma^0)^2=\b1$ and the anticommutation relations, we conclude 
+\bse 
+    \gamma^0\gamma^{\mu}\gamma^0 = \big(\gamma^{\mu}\big)^{\dagger},
+\ese 
+and so \Cref{eqn:Srhosig} gives 
+\bse 
+    \big(S^{\mu\nu}\big)^{\dagger} = - \g^0 S^{\mu\nu}\g^0.
+\ese 
+
+\bbox 
+    Use the above relation to show that 
+    \be
+    \label{eqn:SLambdaInverse}
+        \big(S[\Lambda]\big)^{\dagger} = \g^0 S[\Lambda]^{-1} \g^0.
+    \ee 
+    \textit{Hint: Use \Cref{eqn:SLambdaExp}, expanding it out and using the fact that a matrix commuted with itself.}
+\ebox 
+
+With the result of the previous exercise in mind, we define the \textit{Dirac adjoint}
+\mybox{
+\be
+\label{eqn:DiracAdjoint}
+    \overline{\psi}(x) := \psi^{\dagger}(x) \g^0.
+\ee 
+}
+\noindent We define the Dirac adjoint, as it transforms as 
+\bse 
+    \overline{\psi}(x) \to \psi^{\dagger}\big(\Lambda^{-1}x\big) \big(S[\Lambda])^{\dagger} \g^0,
+\ese 
+and so we have 
+\bse 
+    \begin{split}
+        \overline{\psi}(x) \psi(x) & \to \psi^{\dagger}\big(\Lambda^{-1}x\big) \big(S[\Lambda])^{\dagger} \g^0 S[\Lambda] \psi\big(\Lambda^{-1}\big) \\
+        & = \psi^{\dagger}\big(\Lambda^{-1}x\big) \g^0\g^0 \big(S[\Lambda])^{\dagger} \g^0 S[\Lambda] \psi\big(\Lambda^{-1}\big) \\
+        & = \psi^{\dagger}\big(\Lambda^{-1}x\big) \g^0 \psi\big(\Lambda^{-1}\big) \\
+        & = \overline{\psi}\big(\Lambda^{-1}x\big) \psi\big(\Lambda^{-1}x\big),
+    \end{split}
+\ese 
+where on the second line we have inserted $\b1=\g^0\g^0$ and then used \Cref{eqn:SLambdaInverse} on the third line. So we see this bilinear is Lorentz invariant. This is exactly the kind of thing we need for our Lagrangian, but we also need to check the term with a $\g^{\mu}$ in it. 
+
+\bbox 
+    Show that $\g^{\mu}$ satisfies
+    \be 
+    \label{eqn:LambdaTransformation}
+        \big(S[\Lambda]\big)^{-1} \g^{\mu} S[\Lambda] = {\Lambda^{\mu}}_{\nu} \g^{\mu}. 
+    \ee 
+    \textit{Remark: This was set as an exercise in the course notes, so I don't want to type the answer here. However if you get really stuck, Prof. Tong's book might help...}
+\ebox 
+
+\bc
+\label{cor:DiracBilinearLorentzScalar}
+    \Cref{eqn:LambdaTransformation} implies that $\overline{\psi}(x)\g^{\mu}\psi(x)$ transforms as a vector under Lorentz transformations. 
+\ec 
+
+\bq 
+    Just consider the transformation (suppressing $x$ arguments for notational brevity): 
+    \bse 
+        \begin{split}
+            \overline{\psi}\g^{\mu}\psi & \to \overline{\psi} \big(S[\Lambda]\big)^{-1} \g^{\mu} S[\Lambda] \psi \\
+            & = {\Lambda^{\mu}}_{\nu} \overline{\psi}\g^{\nu}\psi,
+        \end{split}
+    \ese 
+    where we have used the fact that ${\Lambda^{\mu}}_{\nu}$ for given values of $\mu,\nu$ is just a number so can be pushed through $\overline{\psi}$. This is exactly the transformation property of a vector under Lorentz transformations. 
+\eq 
+
+This Corollary tells us that we can treat the index on the gamma matrix in the bilinear term above as if it was a Lorentz spacetime index. This therefore tells us that the term $\overline{\psi}\g^\mu\p_{\mu}\psi$ in the Lagrangian will be Lorentz invariant. To summarise, the Dirac Lagrangian is
+\mybox{
+\be 
+\label{eqn:DiracLagrangian}
+    \cL = \overline{\psi}(x) \big( i\g^{\mu} \p_{\mu} - m\big) \psi(x),
+\ee 
+}
+\noindent where the factor of $i$ is included for a reason that will be explained shortly. Varying this equation w.r.t. $\overline{\psi}(x)$ gives us the \textit{Dirac equation}
+\mybox{
+\be 
+\label{eqn:DiracEquation}
+    \big(i\g^{\mu}\p_{\mu} - m\big)\psi(x) = 0.
+\ee 
+}
+But what about if we vary \Cref{eqn:DiracLagrangian} w.r.t. $\psi(x)$? Well this gives 
+\bse 
+    i\p_{\mu}\overline{\psi}(x)\g^{\mu} + m\overline{\psi}(x) = 0.
+\ese 
+
+\bbox 
+    Take the hermitian conjugate of this expression and show it gives the Dirac equation again. 
+\ebox 
+
+\br 
+    Ok that mysterious $i$, why is it there? Well the action for the Dirac field is simply 
+    \bse 
+        S = \int d^4 x \, \overline{\psi}(x) \big( i\g^{\mu} \p_{\mu} - m\big) \psi(x).
+    \ese 
+    We require the action to be real, and so we need the integral to be the same under complex conjugation. Well the result of the integral is just a number, so taking the transpose does nothing (it's a $1\times 1$ matrix), so we need the integrand to be hermitian. This is where the $i$ comes in. When we take the hermitian conjugate, we will get the derivative acting on $\overline{\psi}(x)$, so we need to integrate by parts to get it to act on the $\psi(x)$. This will come with a minus sign, and so the complex conjugation of the $i$ cancels this minus sign. 
+\er 
+
+\bnn 
+    There is a common, and very handy, notation when considering the contraction of gamma matrices, it is a slash. For example we write 
+    \bse 
+        \slashed{\p} := \g^{\mu} \p_{\mu}.
+    \ese 
+    We don't just do this for derivatives, but for general gamma matrix contraction, for example we use 
+    \bse 
+        \slashed{p} := \g^{\mu}p_{\mu} 
+    \ese 
+    for the contracted momentum. In this notation the Dirac equation reads 
+    \bse 
+        (i\slashed{\p} -m)\psi(x) = 0. 
+    \ese 
+\enn 
+
+\subsection{Obtaining The Klein-Gordan Equation}
+
+So we have seen that the Dirac equation is linear in derivatives, while the Klein-Gordan equation is quadratic in derivatives. A reasonable question to ask is "does the Dirac equation imply the Klein-Gordan equation?" By which we mean can be obtain the Klein-Gordan equation from \Cref{eqn:DiracEquation}? Well consider 
+\bse 
+    0 = (i\g^{\mu}\p_{\mu}+m)(i\g^{\mu}\p_{\mu}-m) \psi(x) = -\big(\g^{\mu}\g^{\nu}\p_{\mu}\p_{\nu} + m^2\big) \psi(x)
+\ese 
+Now we can split the product of two gamma matrices into the symmetric and antisymmetric parts, 
+\bse 
+    \g^{\mu}\g^{\nu} = \frac{1}{2}\g^{(\mu}\g^{\nu)} + \frac{1}{2}\g^{[\mu}\g^{\nu]} = \frac{1}{2} \{\g^{\mu},\g^{\nu}\} + \frac{1}{2} [\g^{\mu},\g^{\nu}],
+\ese 
+where the second line follows simply from the definition of the commutator and anticommutator. Now we know that $\p_{\mu}\p_{\nu}$ is symmetric in its indices and its true that 
+\bse 
+    A^{[\mu\nu]}B_{(\mu\nu)} = 0,
+\ese 
+and so we are just left with the anticommutator term. Finally use \Cref{eqn:GammaCommutator} to get 
+\bse 
+    \bigg(\frac{1}{2} 2\eta^{\mu\nu}\p_{\mu}\p_{\nu} + m^2\bigg)\psi(x) = \big(\p^2+m^2\big)\psi(x) = 0,
+\ese 
+where the last line follows from the fact that the thing we started with being $0$. This is exactly the Klein-Gordan equation. 
+
+\subsection{$\g^5$ \& Dirac Bilinears}
+
+We have seen that the Dirac bilinear $\overline{\psi}\g^{\mu}\psi$ is transforms as a scalar under Lorentz transformations. A question we could ask is "what if we put other matrices in between $\overline{\psi}$ and $\psi$?" Well these are $4\times 4$ matrices, so if we can find $16$ linearly independent matrices are can study how a general matrix sandwiched between $\overline{\psi}/\psi$ transforms. We have $5$ linearly independent matrices given by $\{\b1,\g^{\mu}\}$, and the question is "can we get the other 11 using only the gammas?" The answer is yes. We have already found $6$ others in $S^{\rho\sig}$, so so far we have $11$ out of $16$. What else could we do? Well we could multiply all $4$ of the gamma matrices together:\footnote{Note we don't call it $\g^4$, despite it being the fourth gamma. This is just because in Euclidean space we would have $\mu=1,2,3,4$ and so $5$ would make sense there.}
+\mybox{
+\be 
+\label{eqn:Gamma5}
+    \g^5 := i\g^0\g^1\g^2\g^3.
+\ee 
+}
+\noindent It follows from this definition that 
+\mybox{
+\be 
+\label{eqn:Gamma5Conditions}
+    \big(\g^5\big)^{\dagger} = \gamma^5, \qquad \big(\g^5\big)^2 = \b1, \qand \{\g^5,\g^{\mu}\} = 0.
+\ee 
+}
+\noindent This is actually a very important combination, and we shall discuss it further in a moment. In the Dirac basis this takes the form 
+\be
+\label{eqn:Gamma5Dirac}
+    \g^5 = \begin{pmatrix}
+        0 & \b1_{2\times 2} \\
+        \b1_{2\times 2} & 0
+    \end{pmatrix}.
+\ee 
+
+\br 
+    In the Weyl/chiral basis we get 
+    \bse 
+        \g^5 = \begin{pmatrix}
+            \b1_{2\times 2} & 0 \\
+            0 & -\b1_{2\times 2}
+        \end{pmatrix}.
+    \ese 
+    Comparing these two expressions with our definition of $\g^0$ (and recalling \Cref{rem:DiracVsWeyl}) we see that the essential different between the Dirac and Weyl basis is $\g^0 \longleftrightarrow \g^5$. 
+\er 
+
+\Cref{eqn:Gamma5Dirac} shows us that $\g^5$ is linearly independent from the other matrices in the Dirac basis (and indeed this is true in an arbitrary representation), so we have $5+6+1=12$ of the $16$. What about the remaining $4$? Well so far we have considered products of $2$ gammas ($S^{\rho\sig}$) and $2$ gammas ($\gamma^5$), what about a product of three? 
+\bbox 
+    Show that 
+    \bse 
+        \g^{\mu}\g^{\nu}\g^{\rho} \sim \g^{\sig}\g^5
+    \ese 
+    for $\mu\neq\nu\neq\rho\neq\sig$. \textit{Hint: Multiply the left-hand side by $(\g^{\rho})^2 \sim \b1$.}
+\ebox  
+
+The result on the right-hand side of the above exercise has a single spacetime index and so corresponds to the final $4$ linearly independent matrices.\footnote{We haven't actually showed this is linearly independent, but you can check it in the Dirac and Weyl bases at least.} So we can write any $4\times 4$ matrix as a linear combination of the set 
+\bse 
+    \Gamma = \{\b1,\g^{\mu}, \g^5, \g^5 \g^{\mu}, S^{\rho\sig}\}.
+\ese 
+So we can write a general Dirac bilinear in the form $\overline{\psi}\Gamma\psi$. Extending the argument made after \Cref{cor:DiracBilinearLorentzScalar}, about treating the gamma index as a spacetime index, we can conclude that these things transform as follows 
+\begin{center}
+	\begin{tabular}{@{} C{4cm} C{4cm}  @{}}
+		\toprule
+		 $\overline{\psi}\psi$ & Scalar \\
+		 $\overline{\psi}\g^{\mu}\psi$ & Vector \\
+		 $\overline{\psi}S^{\mu\nu}\psi$ & Tensor \\
+		 $\overline{\psi}\g^5\psi$ & ...Scalar \\
+		 $\overline{\psi}\g^5\g^{\mu}\psi$ & ... Vector \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+As you probably noticed, the last two terms have ellipses before them, the reason why is set as an exercise.\footnote{This was an exercise from the course, so I don't want to type the results here. As always feel free to ask me any questions for further clarity.}
+
+\bbox
+    \textbf{Parity.}
+    
+    Parity is the transformation $x^{\mu}\to x'^{\mu} = (x^0,-\Vec{x})$, which can be thought of as mapping the world onto its mirror image. 
+    \ben[label=(\alph*)]
+        \item Show that is $\psi(x)$ is a solution to the Dirac equation, then so is $\psi'(x') := \g^0\psi(x)$ in the parity transformed world. In other words, start with $(i\g^{\mu}\p_{\mu}-m)\psi(x)=0$, and manipulate it into the form 
+        \bse 
+            (i\g^{\mu} \p_{\mu}' -m)\psi'(x') = 0,
+        \ese 
+        where $\p_{\mu}' = \p/\p x'^{\mu}$.
+        \item Compute the transformation laws for the following bilinears under parity, i.e. calculate 
+        \bse 
+            \begin{split}
+                \overline{\psi}(x)\psi(x) & \to \overline{\psi}'(x')\psi'(x') = ? \\
+                \overline{\psi}(x)\g^5\psi(x) & \to \overline{\psi}'(x')\g^5\psi'(x') = ? \\
+                \overline{\psi}(x)\g^{\mu}\psi(x) & \to \overline{\psi}'(x')\g^{\mu}\psi'(x') = ? \\
+                \overline{\psi}(x)\g^{\mu}\g^5\psi(x) & \to \overline{\psi}'(x')\g^{\mu}\g^5\psi'(x') = ?
+            \end{split}
+        \ese 
+        You should find that the bilinears transform as a scalar, pseudoscalar, vector and axial vector, respectively. 
+    \een 
+\ebox 
+
+\br 
+    The last sentence in the exercise above is exactly the reason we put the ellipses in the table above for the Lorentz transformation of Dirac bilinears. 
+\er 
+
+\subsection{Chiral Spinors \& Projections}
+
+So far we haven't actually said anything about the form of $\psi(x)$ apart from that its a $4$-component column vector. We can look further into its construction by using a particular representation for our Clifford algebra. Let's consider the Weyl/chiral basis, i.e. 
+\bse 
+    \g^0 = \begin{pmatrix}
+        0 & \b1 \\
+        \b1 & 0
+    \end{pmatrix} \qand \g^i = \begin{pmatrix}
+        0 & \sig^i \\
+        -\sig^i & 0
+    \end{pmatrix}.
+\ese 
+In this basis the representations take the form 
+\be 
+\label{eqn:SLambdaChiralMatrix}
+    S[\Lambda_R] = \begin{pmatrix}
+        e^{i\vec{\varphi}\cdot \vec{\sig}/2 } & 0 \\
+        0 & e^{i\vec{\varphi}\cdot \vec{\sig}/2 }
+    \end{pmatrix}, \qand S[\Lambda_B] = \begin{pmatrix}
+        e^{\vec{\chi}\cdot \vec{\sig}/2 } & 0 \\
+        0 & e^{-\vec{\chi}\cdot \vec{\sig}/2 }
+    \end{pmatrix}
+\ee 
+where the R/B stand for rotations and boosts respctively, and where the notation $\vec{\varphi}\cdot \vec{\sig} = \varphi^1\sig^1 + \varphi^2\sig^2 + \varphi^3\sig^3$ and similarly for $\vec{\chi}\cdot \vec{\sig}$. The numbers $\varphi^i/\chi^i$ are the parameters that tell us how far to rotate/how fast to boost respectively. 
+
+So we see that our representations are in block diagonal form and so our representation is \textit{reducible},\footnote{For more info see, for example, my notes on Dr. Dorigoni's Group theory course.} and so we can write our $\psi(x)$s as 
+\be
+\label{eqn:WeylSpinor}
+    \psi(x) = \begin{pmatrix}
+        \psi_R \\
+        \psi_L
+    \end{pmatrix}.
+\ee
+where each $\psi_{R/L}$ is a $2$-component column matrix, we call these \textit{Weyl/Chiral spinors}. Note, from \Cref{eqn:SLambdaChiralMatrix} we see that $\psi_R$ and $\psi_L$ transform the same under rotations but \textit{oppositely} under boosts! 
+
+We can actually use $\g^5$ to project our the $\psi_R$/$\psi_L$ part of the field. We define 
+\mybox{
+\be 
+\label{eqn:PLPR}
+    P_L := \frac{1}{2}\big( \b1 - \g^5\big), \qand P_L := \frac{1}{2}\big( \b1 + \g^5\big),
+\ee 
+so that 
+\bse 
+    \psi_L = P_L\psi, \qand \psi_R=P_R\psi.
+\ese 
+}
+
+We can see this is true for the Weyl basis explicitly, but we can actually \textit{define} $\psi_{L/R}$ in a general representation by the above formulas. We call these the \textit{left-handed} and \textit{right-handed} spinors (hence the subscripts). We will see why this is the case in the following exercise.
+
+
+\br 
+    Again the understanding of the remaining part of this material was set as an exercise on the course, so I have just inserted the question here. 
+\er 
+
+\bbox 
+    \ben[label=(\alph*)]
+        \item Use \Cref{eqn:PLPR} to show that $P_L$ and $P_R$ are projection operators, e.g. $P_L^2 = P_L$, $P_R^2=P_R$ and $P_LP_R=0$.
+        \item Rewrite the Dirac Lagrangian \Cref{eqn:DiracLagrangian} in terms of $\psi_L$ and $\psi_R$.
+        \item Show how $\psi_L$ and $\psi_R$ look in the parity transformed world (see previous exercise). That is perform the transformation and then express everything in terms of $\psi'_L(x')$ and $\psi'_R(x)$. Show that the Lagrangian is invariant under parity transformation. 
+        \item Consider the Weyl spinor equation, \Cref{eqn:WeylSpinor}. Set $m=0$ and write out the explicit form of the Dirac equation in this basis.
+        \item Plug in plane wave solutions $\psi(x) = u(p)e^{-ip\cdot x}$ into the massless Dirac equation (note $p^0=|\Vec{p}|$ when $m=0$) and show that $u_L$ and $u_R$ are eigenvectors of the helicity operator
+        \bse 
+            h := \frac{1}{2}\begin{pmatrix}
+                \hat{p}\cdot \vec{\sig} & 0 \\
+                0 & \hat{p}\cdot\vec{\sig}
+            \end{pmatrix}.
+        \ese 
+        Here $\hat{p}$ is a unit vector in the direction of $p$, which you can always choose to be, say, in the z-direction. List the eigenvalues of the left and right-handed spinors. (After quantisation these correspond to the situation where the particle spin is either aligned or anti-aligned with the direction of motion.) 
+    \een 
+\ebox 
+
+\br 
+    Part (e) of the exercise above is the motivation for the names left/right-handed. The result should say that the helicity of $\psi_L$ and $\psi_R$ are opposite. Helicity basically tells you the projection of the spin of a massless particle onto its momentum, we call the two options left- and right-handed. These names come from our hands: make a thumbs up but don't curl your fingers all the way in, now imagine your thumb points in the direction of momentum, then your fingers tell you about the spin direction. A right-handed spinor has spin-momentum projection like your right hand looks, and similarly for a left-handed spinor. 
+    \begin{center}
+        \btik 
+            \draw[thick, ->] (-5,0) -- (-1,0) node [midway] {\AxisRotatorL};
+            \node at (-3,-1) {Left-Handed};
+            \draw[thick, ->] (1,0) -- (5,0) node [midway] {\AxisRotatorR};
+            \node at (3,-1) {Right-Handed};
+        \etik 
+    \end{center}
+\er 
+
+\br 
+    As a final remark to this lecture, we started it by saying that we were going to find quantum fields corresponding to spin-$1/2$ particles. To emphasise again, it is not trivial to see at this stage that this is what we have done. We will return to this next lecture and compute the angular momentum and show we do indeed have spin-$1/2$ particles.
+\er 

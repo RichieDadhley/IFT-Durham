@@ -56,6 +56,7 @@ Lorentz transformations are essentially spatial rotations and boosts, and we can
 \eex 
 
 \subsection{Active vs. Passive Transformations}
+\label{sec:ActiveVsPassive}
 
 There is a subtlety in taking transformations that can be wonderfully confusing the first time you hear it, and this is the difference between an active and passive transformation. This short section just aims to clear up the differences so that the notation that follows in these notes is not confusing. 
 
@@ -210,9 +211,10 @@ to be the total energy and the ($i$-th component of the) total momentum of the f
 So we have done spacetime translations, but recall that we have also restricted ourselves to Lagrangians that are Lorentz invariant. Given that Lorentz transformations are continuous, Noether's theorem tells us that we should have some conserved currents to go along with them. Keeping in line with the logic applied to the translations, what kind of conservation do we expect? Well in particle mechanics spatial rotations give rise to conservation of angular momentum, so we expect some generalisation of this. As we are considering the whole set of Lorentz transformations, we will also derive the symmetries corresponding to boosts, whatever these may be. 
 
 As always, we want to work infinitesimally, and its a fact that infinitesimal Lorentz transformations can be written as
-\bse 
+\be 
+\label{eqn:InfinitesimallyLorentz}
     {\Lambda^{\mu}}_{\nu} = {\del^{\mu}}_{\nu} + {\omega^{\mu}}_{\nu},
-\ese 
+\ee 
 for some infintesimal ${\omega^{\mu}}_{\nu}$, and where \Cref{eqn:LorentzTransformationsOnMetric} tells us 
 \be 
 \label{eqn:AntisymmetricOmega}

@@ -1,0 +1,389 @@
+\chapter{$\phi^4$ Theory \& Cross Sections}
+
+\section{$\phi^4$ Theory}
+
+So we have looked at scalar Yakawa theory in some detail and derived the full set of Feynman rules for this theory. We now want to do the other spin-$0$ theory we have been studying during this course, $\phi^4$ theory. Recall that here we have
+\bse 
+    H_I = \int d^3\Vec{x} \frac{\l}{4!} \phi^4(x),
+\ese 
+so we can use Dyson's formula and Wick's theorem to find the the S-matrix, or more correctly T-matrix, as mentioned before. Let's consider the scattering
+\bse 
+    \phi(p_1)\phi(p_2) \to \phi(p_3)\phi(p_4).
+\ese 
+
+\br 
+    With the LSZ theorem in mind, we shall only consider fully connected diagrams, which corresponds to only considering terms where everything is contracted. This should be reasonably clear, but if it is not, go back to the definition of what Wick contractions give us and convince yourself this is true.
+\er 
+
+\subsection{First Order}
+
+To first order in $\l$ we have
+\begin{equation*}
+    \begin{split}
+        T_{fi} = \bra{f} S-\b1 \ket{i} & = \bra{\vec(p_4)\vec(p_3)} \cT \bigg( -\frac{i\l}{4!}\int d^4 x \phi_x\phi_x\phi_x\phi_x \bigg)\ket{\vec{p}_1\vec{p}_2} \\
+        & =  -\frac{i\l}{4!}\int d^4 x \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x \ket{\vec{p}_1\vec{p}_2}
+    \end{split}
+\end{equation*}
+There is only one topologically distinct\footnote{I.e. the diagrams are indistinguishable. For those interested, I think the topology condition of `distinction' used here is the notion of homotopy, but I could be wrong.} contraction given by 
+\bse 
+    T_{fi} = -\frac{i\l}{4!}\int d^4 x \contraction{\ket{\vec{p}}}{\vec{p}_3}{}{\phi_x} \contraction[2ex]{\,\,}{\vec{p}_4}{\vec{p}_3\,\,\phi_x}{\phi_x}
+    \contraction[2ex]{\ket{\vec{p}_4\vec{p}_3}\phi_x\phi_x}{\phi_x}{\phi_x \,\vec{p}_1}{\ket{\vec{p}_2}}
+    \contraction{\ket{\vec{p}_4\vec{p}_3}\phi_x\phi_x\phi_x}{\phi_x}{\,\,}{\vec{p}_1}
+    \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x \ket{\vec{p}_1\vec{p}_2} + \text{permutations},
+\ese 
+where by permutations we mean simply things like contract that $\vec{p}_4$ with any of the other 3 $\phi_x$s etc. 
+
+\bbox 
+    Convince yourself that there are exactly $4!$ different permutations for the above contraction. \textit{Remark: As mentioned before, this result is exactly why we include the factor of $1/4!$ in the Lagrangian in the first place, i.e. it is a symmetry factor.}
+\ebox 
+
+\bbox 
+    Show that the Wick contractions above lead to 
+    \bse 
+        iM = -i\l. 
+    \ese 
+    \textit{Hint: Use the result from the previous exercise along with \Cref{eqn:WickContractionOnStates}.}
+\ebox 
+
+The Feynman rules rules are the same as before but now we have the vertex factor $-\l$. The above scatting corresponds to the diagram
+\begin{center}
+    \btik 
+        \draw[thick, dashed] (-1.2,-1.2) -- (1.2,1.2);
+        \draw[->] (-1,0.8) -- (-0.5,0.3) node [midway, below] {$p_1$};
+        \draw[->] (-1,-0.8) -- (-0.5,-0.3) node [midway, above] {$p_2$};
+        \draw[thick, dashed] (-1.2,1.2) -- (1.2,-1.2);
+        \draw[->] (0.5,0.3) -- (1,0.8) node [midway, below] {$p_3$};
+        \draw[->] (0.5,-0.3) -- (1,-0.8) node [midway, above] {$p_4$};
+        \draw[fill=black] (0,0) circle [radius=0.07];
+        \node at (0,-0.4) {$-\l$};
+    \etik 
+\end{center}
+
+\subsection{Second Order \& Symmetry Factors}
+
+At order $\l^2$ we get the following contractions 
+\bse 
+    T_{fi} = \frac{1}{2!}\bigg(-\frac{i\l}{4!}\bigg)^2 \int d^4x\, d^4y \contraction[2ex]{\,\,}{\vec{p}_4}{\vec{p}_3 \,\,  \phi_x}{\phi_x} \contraction{\bra{\vec{p}}}{\vec{p}_3}{\, \,}{\phi_x} \contraction[2ex]{\bra{\vec{p}_4\vec{p}_3}\phi_x\phi_x}{\phi_x}{\phi_x\phi_y}{\phi_y} \contraction{\bra{\vec{p}_4\vec{p}_3}\phi_x\phi_x\phi_x}{\phi_x}{}{\phi_y} \contraction[2ex]{\bra{\vec{p}_4\vec{p}_3}\phi_x\phi_x\phi_x\phi_x \phi_y\phi_y}{\phi_y}{\phi_y\,\, \vec{p}_1}{\vec{p}_2} \contraction{\bra{\vec{p}_4\vec{p}_3}\phi_x\phi_x\phi_x\phi_x \phi_y\phi_y\phi_y}{\phi_y}{\,\,}{\vec{p}_2}
+    \bra{\vec{p}_4\vec{p}_3}\phi_x\phi_x\phi_x\phi_x \phi_y\phi_y\phi_y\phi_y \ket{\vec{p}_1\vec{p}_2} + \text{permutations}
+\ese
+We also get the terms with $x \longleftrightarrow y$. Recall that the contraction between a $\phi_x$ and a $\phi_y$ means that we have a $\phi$ propagating between $x$ and $y$, so in position space the diagram looks like\footnote{We should label the momentum on the external states, but to save me doing some extra Tikz I've left them out. }
+\begin{center}
+    \btik 
+        \draw[thick,dashed] (-2.2,1.2) -- (-1,0);
+        \draw[thick, dashed] (-2.2,-1.2) -- (-1,0);
+        \draw[thick, dashed] (-1,0) .. controls (-0.5,0.7) and (0.5,0.7) .. (1,0);
+        \draw[thick, dashed] (-1,0) .. controls (-0.5,-0.7) and (0.5,-0.7) .. (1,0);
+        \draw[thick, dashed] (1,0) -- (2.2,1.2);
+        \draw[thick, dashed] (1,0) -- (2.2,-1.2);
+        \draw[fill=black] (-1,0) circle [radius=0.07] node [left] {$y$};
+        \draw[fill=black] (1,0) circle [radius=0.07] node [right] {$x$};
+    \etik 
+\end{center}
+
+How do we find the number of permutations for this diagram? Well let's just consider the diagram as above, i.e. don't consider switching $x\longleftrightarrow y$, and then at the end we can just double the answer at the end. So how do we find this? The answer is to go one Wick contraction at a time. Let's first considering the contractions with the final states: these contract with $\phi_x$s, of which there are $4$, so the first contraction (say with $\vec{p}_4$) has $4$ choices, and then the second contraction ($\vec{p}_3$ in this case, has $3$ left options. To be a bit more explicit, we have for the first contraction
+\bse 
+    \contraction{\,\,}{\vec{p}_4}{\vec{p}_3\,\,}{\phi_x} \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x + \contraction{\,\,}{\vec{p}_4}{\vec{p}_3\,\,\phi_x}{\phi_x} \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x  + \contraction{\,\,}{\vec{p}_4}{\vec{p}_3\,\,\phi_x\phi_x}{\phi_x} \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x + \contraction{\,\,}{\vec{p}_4}{\vec{p}_3\,\,\phi_x\phi_x\phi_x}{\phi_x} \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x,
+\ese
+and then for the second contraction each term above has three options, e.g. for the last term we have
+\bse 
+    \contraction[2ex]{\,\,}{\vec{p}_4}{\vec{p}_3\,\,\phi_x\phi_x\phi_x}{\phi_x} \contraction{\bra{\vec{p}}}{\vec{p}_3}{\,}{\phi_x} \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x + \contraction[2ex]{\,\,}{\vec{p}_4}{\vec{p}_3\,\,\phi_x\phi_x\phi_x}{\phi_x} \contraction{\bra{\vec{p}}}{\vec{p}_3}{\,\phi_x}{\phi_x} \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x + \contraction[2ex]{\,\,}{\vec{p}_4}{\vec{p}_3\,\,\phi_x\phi_x\phi_x}{\phi_x} \contraction{\bra{\vec{p}}}{\vec{p}_3}{\,\phi_x\phi_x}{\phi_x} \bra{\vec{p}_4\vec{p}_3} \phi_x\phi_x\phi_x\phi_x.
+\ese 
+So from this part we get $4\cdot 3$ perturbations. Similarly the contractions of the initial states with the $\phi_y$s give another $4\cdot 3$ perturbations. Then we have just left with the contractions between the two remaining $\phi_x$s and $\phi_y$s, of which there are only two choices\footnote{Note we cannot contract $\phi_x$ with $\phi_x$ and similarly for $\phi_y$s.}
+\bse 
+    \contraction[2ex]{}{\phi_x}{\phi_x\phi_y}{\phi_y} \contraction{\phi_x}{\phi_x}{}{\phi_y} \phi_x\phi_x\phi_y\phi_y + \contraction[2ex]{}{\phi_x}{\phi_x}{\phi_y} \contraction{\phi_x}{\phi_x}{\phi_y}{\phi_y} \phi_x\phi_x\phi_y\phi_y.
+\ese 
+So in total we have 
+\bse 
+    (4\cdot 3)\cdot (4\cdot 3) \cdot 2 \cdot 2 = 4!4!,
+\ese 
+where the second $2$ factor is the $x\longleftrightarrow y$ factor. So the numerical prefactor of the Wick contraction is 
+\bse 
+    \frac{1}{2}\frac{4!4!}{4!4!} = \frac{1}{2},
+\ese
+so we get a \textit{symmetry factor} of $1/2$. Symmetry factors arise when elements of the diagrams can be indistinguishably interchanged. 
+
+\section{Decay Rates \& Cross Sections}
+
+So far we have found the amplitude for an interaction to occur, but in quantum theory the amplitudes themselves aren't measurable. What we measure is the \textit{probability} for a process to occur, and that's what we want to talk about now. However there appears to be a problem: the probability is given by taking the absolute value squared of the amplitudes, 
+\be 
+\label{eqn:Probability}
+    P = \frac{|\bra{f}S-\b1\ket{i}|^2}{\braket{f}{f}\braket{i}{i}},
+\ee 
+but we've already seen that 
+\bse 
+    \bra{f}S-\b1\ket{i} \sim \del^{(4)}(p_I-p_F),
+\ese 
+where I/F stands for initial/final. So the probability is given by squaring a delta function... what does this even mean? The answer is related to what we discussed earlier in the course when we had delta functions popping up, its to do with the fact that our states are defined everywhere and are normalised to delta functions.\footnote{Note this also tells us that the denominator of \Cref{eqn:Probability} is also two delta functions!} This basically means they are not square-integrable states. The claim is that if we put the theory in a box of finite volume $V$ we will get square-integrable states, and this result will be smooth in the limit $V\to \infty$. This takes care of the spatial part of the delta function, but we need to also take care of the temporal delta function and so we consider the process happening in some finite time $T$, and then again take the limit $T\to \infty$. This will give us some formula for the probability, at which point we have to realise that we cannot measure the final state momentum perfectly, but that they will be smeared over some region in momentum space. To account for this, we must therefore integrate over this region. We call this part of the formula the \textit{Lorentz invariant phase space measure}, or LIPS for short, and it is given by 
+\be 
+\label{eqn:LIPS}
+    d\Pi = (2\pi)^4 \del^{(4)}(p_F-p_I) \prod_{\text{final states}} \frac{d^3\vec{p}_i}{(2\pi)^3} \frac{1}{2E_{\vec{p}_i}}.
+\ee 
+We get the result for the differential probability per unit time to be 
+\be 
+\label{eqn:DifferentialPropbability}
+    \frac{dP}{T} = |iM_{fi}|^2 V d \Pi \prod_{\text{initial states}} \frac{1}{2VE_{\vec{p}_i}}
+\ee 
+We refer to the product over initial states as the \textit{flux factor}.
+
+We do not provide a derivation of the proof here as little insight is gained from the steps and we just spent almost an entire lecture deriving the LSZ theorem. However a proof using the "put it in a box" argument can be found in Prof. Michael Luke's notes.\footnote{\textcolor{red}{Note to self: maybe come back later and do the proof. Just don't think its worth the time typing it out now.}}
+
+\subsection{Decay Rates}
+
+Ok so let's look at a decay process. Here we only have one initial particle, or energy $E$, and so we get 
+\bse 
+    d\Gamma := \frac{dP}{T}\bigg|_{1\text{ particle}} = \frac{1}{2E}|iM_{fi}|^2  d\Pi,
+\ese 
+where we note that the volume factors in \Cref{eqn:DifferentialPropbability} have cancelled out. This is very good because we want to take the limit $V\to\infty$ without hitting any problems. We call $d\Gamma$ the \textit{differential decay rate probability}.\footnote{Or maybe differential decay probability per unit time? Basically "rate" here means take it per unit time.} If we go to the particle's rest frame we can replace $E=m$ (where $m$ is the mass of our particle), giving 
+\bse 
+    d\Gamma = \frac{1}{2m}|iM_{fi}|^2  d\Pi
+\ese 
+To get the full decay probability, we need to consider the fact that our particle could decay into a multitude of different states with different numbers (and/or types) or particles. This gives us 
+\mybox{
+    \be 
+    \label{eqn:DecayWidth}
+        \Gamma = \frac{1}{2m} \sum_{\text{final states}} \int |iM_{fi}|^2 d\Pi,
+    \ee 
+}
+\noindent known as the \textit{decay width} of the particle. The decay width tells us the probability for the particle to decay in any way shape or form, and so it is clearly related to the lifetime of the particle by 
+\be 
+\label{eqn:Lifetime}
+    \tau =\frac{1}{\Gamma}
+\ee 
+
+\br 
+    We call $\Gamma$ the decay \textit{width} because of the uncertainty principle: there is an uncertainty in the energy of the particle, and so there is an uncertainty in the lifetime, and so we do not get an exact value for the decay probability but a spread, or width. 
+\er 
+
+\br 
+    As we stated it, the sum in \Cref{eqn:DecayWidth} only accounts for final states that are distinguishable (i.e. the number of particles and/or the type of particles change). However we just saw in the previous section that certain processes come with symmetry factors, and so we should slightly alter our expression to include these. That is we send 
+    \bse 
+        \Gamma \to S\cdot \Gamma,
+    \ese 
+    where $S$ is the symmetry factor.
+\er 
+
+\subsection{Cross Sections}
+
+Now let's consider the system with two initial particles. Obviously in this case we need them to collide. The way we do this experimentally is to send two beams of particles flying at each other and get them to collide. Obviously not every particle collides, and so we need some measure of the fraction that do. It is obvious that the cross sectional area of the beams will effect the number of measurements that occur, and so we define the \textit{flux}, $F$, to be the number of incoming particles per unit area per unit time. We can then characterise the number of scatterings per unit time via 
+\bse 
+    dN = F d\sig, 
+\ese 
+where $d\sig$ is called the \textit{differential cross section}, which is the probability for a scattering to happen in the solid angle $(\theta,\phi)$. It is given by 
+\be
+\label{eqn:DifferentialCrossSectionOne}
+    d\sig := \frac{\text{Differential Probability}}{\text{Unit Time}\times \text{Unit Area}} = \frac{1}{4E_1E_2V}\frac{1}{F} |iM_{fi}|^2 d\Pi,
+\ee 
+where $E_1/E_2$ are, of course, the energies of our two initial state particles.
+
+At first this looks a bit problematic because we still have a factor of $V$ on the right-hand side. However, we still need to insert the flux. So what is it? Well imagine that the beam is moving with $3$-velocity $\vec{v}$ perpendicular to some plane of area $A$. If the density of the particles in the beam if $\rho$, then the total number of particles passing through the plane in time $t$ is simply 
+\bse 
+    N = A|\vec{v}|\rho t, \qquad \implies \qquad F = \frac{N}{At} = |\vec{v}|\rho.
+\ese 
+In the procedure above when we put the theory in a box, we did it in a normalisation where there was exactly $1$ particle in each volume $V$ and so $\rho=1/V$. So if we go to the centre of mass frame of the collision, we have
+\bse 
+    F = \frac{|\vec{v}_1-\vec{v}_2|}{V},
+\ese 
+where $\vec{v}_1/\vec{v}_2$ are the $3$-velocities of our beams. Plugging this into \Cref{eqn:DifferentialCrossSectionOne}, we get 
+\mybox{
+\be 
+    d\sig = \frac{1}{4E_1E_2}\frac{1}{|\vec{v}_1-\vec{v}_2|}|iM_{fi}|^2 d\Pi.
+\ee 
+}
+\noindent Of course we get the full cross section by the same idea as for the decay rate: integrate of the LIPS, sum over all the different final states and then multiply by the symmetry factor. 
+
+\subsection{Two Particle Final States}
+
+As we have said, the above formulas hold for general final states, however there is a particularly nice final state, namely that with two particles in it. Why is this a nice final state? Well we can see this from our LIPS measure, \Cref{eqn:LIPS}, which becomes 
+\bse 
+    d\Pi_2 = (2\pi)^4 \del^{(4)}(p_1+p_2-p_I) \frac{d^3\vec{p}_1}{(2\pi)^3 2 E_{\vec{p}_1}} \frac{d^3\vec{p}_2}{(2\pi)^3 2 E_{\vec{p}_2}}.
+\ese 
+The two $d^3\vec{p}_i$s give us 6 degrees of freedom in the final state (i.e. the $3$ components of each final state particle), however the delta function kills $4$ of these degrees of freedom leaving us with just $2$. These two degrees of freedom can be made very simple by going to the centre of mass frame for the collision. Here we know that the final state particles must have equal and opposite momentum, and so we can categorise the whole phase space by simply specifying the modulus of the momentum and the angle at which these particles fly off relative to the collision axis. In the diagram below, the red arrows are meant to be the final state particles.
+\begin{center}
+    \btik 
+        \draw[thick, ->] (-2,0) -- (-0.1,0);
+        \draw[thick, ->] (2,0) -- (0.1,0);
+        \draw[thick, red, ->, rotate around={40:(0,0)}] (0.1,0) -- (2,0);
+        \draw[thick, red, ->, rotate around={40:(0,0)}] (-0.1,0) -- (-2,0);
+        \node at (1.5,1.6) {\textcolor{red}{$|\vec{p}|$}};
+        \draw[->] (0.8,0) arc (0:50:0.6);
+        \node at (0.5,0.2) {$\theta$};
+    \etik 
+\end{center}
+
+Doing this explictly, we have 
+\bse 
+    \begin{split}
+        \Pi_2 & = \frac{1}{(2\pi)^2} \int \frac{d^3\vec{p}_1}{2 E_{\vec{p}_1}} \frac{d^3\vec{p}_2}{2 E_{\vec{p}_2}} \del^{(4)}(p_1+p_2-p_I) \\
+        & = \frac{1}{(2\pi)^2} \int \frac{d^3\vec{p}_1}{ 2 E_{\vec{p}_1}} \frac{d^3\vec{p}_2}{ 2 E_{\vec{p}_2}} \del(E_1+E_2 - E_T) \del^{(3)}(\vec{p}_1+\vec{p}_2) \\
+        & = \frac{1}{(2\pi)^2} \int \frac{d^3\vec{p}_1}{ 4 E^2_{\vec{p}_1} } \del(E_1+E_2-E_T) \\
+        & = \int\frac{d\Omega}{(2\pi)^2} \int \frac{ d|\vec{p}_1|}{4E_{\vec{p}_1}E_{\vec{p}_2}} |\vec{p}_1|^2 \del \big(E_1+E_2 - E_T\big)
+    \end{split}
+\ese
+where $E_T$ is the total energy of the system. For clarity, we have gone to the centre of mass frame to split the delta function, done the $d^3\vec{p}_2$ integral and then gone to polar coordinates. 
+
+Now let's use the relationship
+\bse 
+    E_1 = \sqrt{\vec{p}_1^2 + m_1^2},
+\ese 
+so that the delta function contains a $|\vec{p}_1|$, and then we use the delta-function identity 
+\bse 
+    \del\big(f(x)\big) = \frac{1}{|f'(x_0)|} \del(x-x_0),
+\ese 
+where $f(x_0)=0$, which gives us a factor of 
+\bse 
+    \bigg| \frac{\p(E_1+E_2)}{\p |\vec{p}_1|}\bigg|^{-1}.
+\ese
+Now using $|\vec{p}_2|=|\vec{p}_1|$ we have 
+\bse 
+    \frac{\p E_1}{\p|\vec{p}_1|} = \frac{|\vec{p}_1|}{E_1}, \qand \frac{\p E_1}{\p|\vec{p}_1|} = \frac{|\vec{p}_1|}{E_2},
+\ese 
+and so 
+\bse 
+    \bigg| \frac{\p(E_1+E_2)}{\p |\vec{p}_1|}\bigg| = \frac{|\vec{p}_1|(E_1+E_2)}{E_1E_2} = \frac{|\vec{p}_1|E_T}{E_1E_2}.
+\ese 
+Putting this into our expression for the LIPS measure, we can conclude 
+\bse 
+    d\Pi_2 = \frac{1}{16\pi^2} \frac{|\vec{p}_1|d\Omega}{E_T}
+\ese 
+
+\br 
+    Note that this formula is valid for \textit{both} the decay process and the scattering process, and we have derived it for distinguishable particles. We can get the case of identical particles easily by setting $m_1=m_2$. Some authors, e.g. Prof. Michael Luke (where I got this proof from), say that if you take identical particles you need to include a factor of $1/2!$ to account for it. This is exactly the symmetry factor we have accounted for separately in our decay width/cross section and so we do not need to include it here. 
+\er 
+
+Let's use this to find the differential cross section for $2\to 2$ scattering, e.g. $\psi(p_1)\psi(p_2)\to\psi(p_3)\psi(p_4)$. Firstly note that we have to put $|\vec{p}_3|$ (or $|\vec{p}_4|$ in the place of $|\vec{p}_1|$ in the above formula, as it is the final state particle momentum we are talking about here.\footnote{I considered calling them $p_3/p_4$ from the beginning but that might suggest we are considering the scattering from the get go, but as the above remark says, this result also holds for the decay, so I decided against it.} We have 
+\be
+\label{eqn:2to2CorssSection}
+    \frac{d\sig}{d\Omega} = \frac{1}{4E_1E_2} \frac{1}{|\vec{v}_1-\vec{v}_2|} \frac{|\vec{p}_3|}{16\pi^2E_T} |iM_{fi}|^2.
+\ee 
+
+\subsection{Mandelstam Variables \& Virtual Particles}
+
+So now we need to find the matrix elements. We showed before that there are two diagrams: 
+\begin{center}
+    \btik 
+        \begin{scope}[xshift=-3.5cm]
+            \midarrow (-2,0) -- (0,0);
+            \draw[->] (-1.5,0.2) -- (-0.5,0.2) node [midway, above] {$p_1$};
+            \draw[fill=black] (0,0) circle [radius=0.07] node [above] {$x$};
+            \midarrow (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$p_3$};
+            \draw[thick, dashed] (0,0) -- (0,-2);
+            \midarrow (-2,-2) -- (0,-2);
+            \draw[->] (-1.5,-2.2) -- (-0.5,-2.2) node [midway, below] {$p_2$};
+            \draw[fill=black] (0,-2) circle [radius=0.07] node [below] {$y$};
+            \midarrow (0,-2) -- (2,-2);
+            \draw[->] (0.5,-2.2) -- (1.5,-2.2) node [midway, below] {$p_4$};
+            \node at (-2.3,0) {$\psi$};
+            \node at (-2.3,-2) {$\psi$};
+            \node at (2.3,0) {$\psi$};
+            \node at (2.3,-2) {$\psi$};
+            \node at (-0.3,-1) {$\phi$};
+        \end{scope}
+        \begin{scope}[xshift=3.5cm]
+            \midarrow (-2,0) -- (0,0);
+            \draw[->] (-1.5,0.2) -- (-0.5,0.2) node [midway, above] {$p_1$};
+            \draw[fill=black] (0,0) circle [radius=0.07] node [above] {$x$};
+            \aftermidarrow (0,0) -- (2,-2);
+            \draw[->, rotate around={-45:(0,0)}] (0.2,0.2) -- (1.2,0.2);
+            \node at (0.9,-0.2) {$p_3$};
+            \draw[thick, dashed] (0,0) -- (0,-2);
+            \midarrow (-2,-2) -- (0,-2);
+            \draw[->] (-1.5,-2.2) -- (-0.5,-2.2) node [midway, below] {$p_2$};
+            \draw[fill=black] (0,-2) circle [radius=0.07] node [below] {$y$};
+            \aftermidarrow (0,-2) -- (2,0);
+            \draw[->, rotate around={45:(0,-2)}] (0.2,-2.2) -- (1.2,-2.2);
+            \node at (0.9,-1.8) {$p_4$};
+            \node at (-2.3,0) {$\psi$};
+            \node at (-2.3,-2) {$\psi$};
+            \node at (2.3,0) {$\psi$};
+            \node at (2.3,-2) {$\psi$};
+            \node at (-0.3,-1) {$\phi$};
+        \end{scope}
+    \etik 
+\end{center}
+\noindent and these correspond to the matrix element terms 
+\bse 
+    (-ig)^2 \frac{i}{(p_1-p_3)^2- m^2+i\epsilon}, \qand (-ig)^2 \frac{i}{(p_1-p_4)^2- m^2+i\epsilon},
+\ese 
+respectively. These two diagrams are referred to as $t$ and $u$ diagrams, respectively. As we mentioned with the Feynman rules at the end of the last lecture, in $2\to 2$ scattering we can also have a diagram that looks like 
+\begin{center}
+    \btik 
+        \midarrow (-2,1.5) -- (-1,0);
+        \draw[->] (-1.8,1) -- (-1.4,0.4) node [midway, left] {$p_1$};
+        \midarrow (-1,0) -- (-2,-1.5);
+        \draw[->] (-1.8,-1) -- (-1.4,-0.4) node [midway, left] {$p_2$};
+        \draw[fill=black] (-1,0) circle [radius=0.07];
+        \draw[fill=black] (1,0) circle [radius=0.07];
+        \draw[thick, dashed] (-1,0) -- (1,0);
+        \midarrow (1,0) -- (2,1.5);
+        \draw[->] (1.4,0.4) -- (1.8,1) node [midway, right] {$p_4$};
+        \midarrow (2,-1.5) -- (1,0);
+        \draw[->] (1.4,-0.4) -- (1.8,-1) node [midway, right] {$p_3$};
+    \etik 
+\end{center}
+which is known as an \textit{s} diagram. Collectively these three types of diagrams describe all possible (tree level, i.e. no loops) $2\to 2$ scattering processes, and the variables \textit{s}, \textit{t}, \textit{u} are known as the \textit{Mandelstam variables}. They are given by the momentum that flows through the propagator, 
+\mybox{
+\be 
+\label{eqn:MandelstamVariables}
+    \begin{split}
+        s & := (p_1+p_2)^2 = (p_3+p_4)^2 \\
+        t & := (p_1-p_3)^2 = (p_2-p_4)^2 \\
+        u & := (p_1-p_4)^2 = (p_2-p_3)^2
+    \end{split}
+\ee 
+}
+
+\bbox 
+    Show that 
+    \be
+    \label{eqn:MandelstamVariablesSum}
+        s + u + t = \sum_{i=1}^4 m_i^2
+    \ee 
+    where the sum is done over all $4$ external particles. 
+\ebox 
+\noindent Note that \textit{s} tells us the centre of mass energy squared, i.e. 
+\be 
+\label{eqn:sECM2}
+    s = E_{CM}^2.
+\ee
+
+We can use the Mandelstam variables to study our $\psi\psi\to\psi\psi$ scattering a bit further. Firstly note that the matrix elements given above become 
+\be 
+\label{eqn:MatrixElementsMandelstam}
+    (-ig)^2 \frac{i}{t- m^2+i\epsilon}, \qand (-ig)^2 \frac{i}{u- m^2+i\epsilon}.
+\ee 
+Now we can go to the centre of mass frame to find two of the three variables in terms of our two free parameters $|\vec{p}_3|$ and $\theta$. In this frame we have 
+\bse 
+    \begin{split}
+        p_1 & = (E, 0,0, p) \\
+        p_2 & = (E, 0,0, -p)) \\
+        p_3 & = (E,0,p\sin\theta, p\cos\theta) \\
+        p_3 & = (E,0,-p\sin\theta, -p\cos\theta).
+    \end{split}
+\ese 
+We can re-express these using \Cref{eqn:sECM2} and 
+\bse 
+    \beta_M := \sqrt{1-\frac{4M^2}{s}},
+\ese 
+to give us
+\bse 
+    \begin{split}
+        p_1 & = \frac{\sqrt{s}}{2}(1,0,0,\beta_M) \\
+        p_2 & = \frac{\sqrt{s}}{2}(1,0,0,-\beta_M) \\
+        p_3 & = \frac{\sqrt{s}}{2}(1,0,\beta_M\sin\theta,\beta_M\cos\theta) \\
+        p_4 & = \frac{\sqrt{s}}{2}(1,0,-\beta_M\sin\theta,-\beta_M\cos\theta).
+    \end{split}
+\ese 
+So we conclude 
+\bse 
+    \begin{split}
+        t & = \frac{s}{2} \big(0,0,-\beta_M\sin\theta, \beta_M(1-\cos\theta)\big)^2 \\
+        & = -\frac{1}{2} s\beta_M^2 (1-\cos\theta)
+    \end{split}
+\ese 
+which is \textit{always} negative. 
+\bbox 
+    Show similarly that $u<0$ here.
+\ebox 
+
+So why have we bothered doing this? Well firstly we can substitute these expressions for $t$ and $u$ into our matrix elements and then take the complex norm squared to find our differential cross section, \Cref{eqn:2to2CorssSection}. However it allows us to see something else quite interesting: because both $t$ and $u$ are negative we see the denominators of \Cref{eqn:MatrixElementsMandelstam} never vanish. This is the statement that the propagator is never on shell (i.e. $p^2=m^2$ never occurs). We refer to such particles as \textit{virtual particles}.

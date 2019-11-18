@@ -1,0 +1,713 @@
+\chapter{Dirac Propagators \& Perturbation Theory}
+
+\section{Propagators}
+
+\subsection{Causality}
+
+So far we have quantised the Dirac equation and showed (or at least claimed it can be shown) that they correspond to spin-$1/2$ Fermions. The next thing we need to check is causality, that is we need the field operators to not communicate outside the lightcone. For the complex scalar field we saw that this boiled down to the condition 
+\bse 
+    [\psi(x),\psi^{\dagger}(y)] = 0, \qquad \forall (x-y)^2 <0.
+\ese 
+We therefore expect to have something like 
+\bse 
+    [\psi(x), \overline{\psi}(y)] = 0 \qquad \forall (x-y)^2 <0.
+\ese
+However there is a problem here: we can expand $\psi/\overline{\psi}$ in terms of the creation and annihilation operators $b,b^{\dagger},c$ and $c^{\dagger}$, however we do not know what they commutation relationships are. That is
+\bse 
+    [b_{\Vec{p},s},b^{\dagger}_{\Vec{q},r}] = ?
+\ese 
+Now we can relate these to the anticommutation relations using the identity 
+\be
+\label{eqn:CommutatorToAnticommutator}
+    [A,B] = \{A,B\} - 2BA,
+\ee 
+which is easily verified. However this raises a problem as, using \Cref{eqn:DiracFieldIntegral,eqn:DiracBarFieldIntegral}, we see that the commutator will contain terms that have creation operators to the right. For example
+\bse 
+    [c^{\dagger}_{\Vec{p},s} c_{\Vec{q},r}] = \{c^{\dagger}_{\Vec{p},s} c_{\Vec{q},r}\} - 2c_{\Vec{q},r}c^{\dagger}_{\Vec{q},s},
+\ese 
+and while the first term will just give us a delta function, as per \Cref{eqn:bcAnticommutator}, the second term will give a non-zero expectation value. Equally we will get terms arising containing both $b$ and $c$ operators, e.g. 
+\bse 
+    [c^{\dagger}_{\Vec{p},s},b^{\dagger}_{\Vec{q},r}] = -2b^{\dagger}_{\Vec{q},r}c^{\dagger}_{\Vec{p},s},
+\ese 
+where we have used the fact that the anticommutator vanishes. It is not trivial to see that all these contirbutions will somehow cancel and give us a vanishing commutator for spacelike separations. 
+
+So what do we do? Well we note that every single observable quantity we have written for the Dirac field has contained bilinears, $\overline{\psi}\Gamma\psi$. Note this is obviously true because what we measure are numbers but $\psi/\overline{\psi}$ are matrices, so we need to contract them to get a number. We therefore propose that what we need for our causality condition is 
+\be 
+\label{eqn:CommutatorBilinears}
+    \Big[\overline{\psi}(x)\psi(x), \overline{\psi}(y)\psi(y)\Big] = 0 \qquad \forall (x-y)^2 <0.
+\ee 
+
+\bcl 
+    We can satisfy \Cref{eqn:CommutatorBilinears} if
+    \be 
+    \label{eqn:AnticommutatorPsiPsiBar}
+        iS_{\a\beta}(x-y) := \big\{ \psi_{\a}(x),\overline{\psi}_{\beta}(y) \big\} = 0 \qquad \forall (x-y)^2 <0. 
+    \ee 
+\ecl 
+
+\bq 
+    We just need to show the two relations are related, and then of course they agree under the given conditions. That is we need to show 
+    \bse 
+        \Big[\overline{\psi}(x)\psi(x), \overline{\psi}(y)\psi(y)\Big] \sim  \big\{ \psi_{\a}(x),\overline{\psi}_{\beta}(y) \big\}.
+    \ese 
+    We do this by repeated use of \Cref{eqn:CommutatorToAnticommutator} along with 
+    \bse 
+        [AB,C] = A[B,C] + [A,C]B, \qand [A,CD] = C[A,D] + [A,C]D.
+    \ese 
+    We will also need to use the anticommutation relations \Cref{eqn:DiracFieldsAnticommutations} along with 
+    \bse 
+        \overline{\psi}\psi = \overline{\psi}_{\a}\psi_{\a},
+    \ese 
+    where there is an implicit sum. To save notation we shall use $\a$ for the fields as a function of $x$ and $\beta$ for the $y$ fields, we therefore have 
+    \bse 
+        \begin{split}
+            \Big[\overline{\psi}_{\a}\psi_{\a}, \overline{\psi}_{\beta}\psi_{\beta}\Big] & = \overline{\psi}_{\a}\Big[\psi_{\a}, \overline{\psi}_{\beta}\psi_{\beta}\Big] + \Big[\overline{\psi}_{\a}, \overline{\psi}_{\beta}\psi_{\beta}\Big]\psi_{\a} \\
+            & = \overline{\psi}_{\a}\Big[ \psi_{\a},\overline{\psi}_{\beta}\Big]\psi_{\beta} + \overline{\psi}_{\a}\overline{\psi}_{\beta} \Big[\psi_{\a},\psi_{\beta}\Big] + \Big[\overline{\psi}_{\a},\overline{\psi}_{\beta}\Big] \psi_{\beta}\psi_{\a} + \overline{\psi}_{\beta}\Big[ \overline{\psi}_{\a},\psi_{\beta}\Big]\psi_{\a} \\
+            & = \overline{\psi}_{\a} \big\{ \psi_{\a},\overline{\psi}_{\beta}\big\} \psi_{\beta} \textcolor{red}{-2\overline{\psi}_{\a}\overline{\psi}_{\beta}\psi_{\a}\psi_{\beta}} + \overline{\psi}_{\a}\overline{\psi}_{\beta} \big\{ \psi_{\a},\psi_{\beta}\big\} \textcolor{red}{-2\overline{\psi}_{\a}\overline{\psi}_{\beta}\psi_{\beta}\psi_{\a}}
+            \\
+            & \qquad + \big\{\overline{\psi}_{\a},\overline{\psi}_{\beta}\big\}\psi_{\beta}\psi_{\a} - 2\overline{\psi}_{\beta}\overline{\psi}_{\a}\psi_{\beta}\psi_{\a}  + \overline{\psi}_{\beta} \big\{ \overline{\psi}_{\a},\psi_{\beta}\big\} \psi_{\a} - 2\overline{\psi}_{\beta}\psi_{\beta}\overline{\psi}_{\a}\psi_{\a} \\ & = \overline{\psi}_{\a} \big\{ \psi_{\a},\overline{\psi}_{\beta}\big\} \psi_{\beta} + \overline{\psi}_{\beta}\big\{\overline{\psi}_{\a},\psi_{\beta}\big\}\psi_{\a} \textcolor{red}{-2\overline{\psi}_{\a}\overline{\psi}_{\beta} \big\{\psi_{\a},\psi_{\beta}\} } - 2\overline{\psi}_{\beta}\overline{\psi}_{\a}\psi_{\beta}\psi_{\a} \\
+            & \qquad  \textcolor{blue}{-2\overline{\psi}_{\beta}\psi_{\beta}\overline{\psi}_{\a}\psi_{\a}} \\
+            & = \overline{\psi}_{\a} \big\{ \psi_{\a},\overline{\psi}_{\beta}\big\} \psi_{\beta} + \overline{\psi}_{\beta}\big\{\overline{\psi}_{\a},\psi_{\beta}\big\}\psi_{\a} - 2\underline{\overline{\psi}_{\beta}\overline{\psi}_{\a}\psi_{\beta}\psi_{\a}} \textcolor{blue}{-2\overline{\psi}_{\beta} \big\{\psi_{\beta},\overline{\psi}_{\a}\big\}\psi_{\a}} \\
+            & \qquad \textcolor{blue}{+2 \underline{\overline{\psi}_{\beta}\overline{\psi}_{\a}\psi_{\beta}\psi_{\a}}}  \\
+            & = \overline{\psi}_{\a} \big\{ \psi_{\a},\overline{\psi}_{\beta}\big\} \psi_{\beta} + \overline{\psi}_{\beta}\big\{\psi_{\beta},\overline{\psi}_{\a}\big\}\psi_{\a}  -2\overline{\psi}_{\beta} \big\{\psi_{\beta},\overline{\psi}_{\a}\big\}\psi_{\a} \\
+            & = \overline{\psi}_{\a} \big\{ \psi_{\a},\overline{\psi}_{\beta}\big\} \psi_{\beta} - \overline{\psi}_{\beta}\big\{\psi_{\beta},\overline{\psi}_{\a}\big\}\psi_{\a},
+        \end{split}
+    \ese
+    where I have tried to colour/underline the terms that carry over from line to line. For clarity, we have used 
+    \bse 
+        \big\{\psi_{\a},\psi_{\beta}\} = 0 = \big\{\overline{\psi}_{\a},\overline{\psi}_{\beta}\}
+    \ese 
+    to drop all terms of that form. 
+\eq 
+
+Ok so we can impose our causality condition by requiring \Cref{eqn:AnticommutatorPsiPsiBar} holds. This is left as an exercise. 
+\bbox 
+    Show that 
+    \be 
+    \label{eqn:S(x-y)}
+        iS_{\a\beta}(x-y) = \big(i\slashed{\p}_x + m \big)_{\a\beta} \big( D(x-y) - D(y-x)\big),
+    \ee
+    where $D(x,y)$ is the propagator from the scalar theory, i.e. 
+    \bse 
+        D(x-y) = \int \frac{d^3 \Vec{p}}{(2\pi)^3} \frac{1}{2E_{\Vec{p}}} e^{-ip\cdot(x-y)}.
+    \ese 
+    \textit{Hint: You will want to use the spin sums, \Cref{eqn:SpinSums}. If you get stuck, Prof. Tong does this calculation on page 113.}
+\ebox  
+
+\br 
+\label{rem:SKernelDiracEquation}
+    Recall that the propagator $D(x-y)$ is in the kernel of the Klein-Gordan equation if we are on shell, $p^2=m^2$, that is
+    \bse 
+        (\p^2_x+m^2)D(x-y) \big|_{p^2=m^2} = 0.
+    \ese
+    From this we see that 
+    \bse 
+        (i\slashed{\p}_x-m)S(x-y)\big|_{p^2=m^2} = (\p^2_x+m^2)\big(D(x-y)-D(y-x)\big)\big|_{p^2=m^2} = 0
+    \ese 
+\er 
+
+\br  
+    For some of the expressions that follow, we shall drop the $\a\beta$ labels for the matrices, however it is important to remember that our results are matrices. This should generally be clear given that gamma matrices will appear. 
+\er
+
+\subsection{Time \& Normal Ordering For Fermions}
+
+So we have found the propagator for the theory, \Cref{eqn:S(x-y)}, now we want to find the Feynman propagator for the theory. As with the scalar field, we define this as the expectation value of the time ordered product of the fields $\psi(x)\overline{\psi}(y)$. However in order to write this expression down, we need to make a small correction to our formula for the time ordered product. We will also need this for Dyson's formula. Similarly we need to tweak the normal ordering operator for Wick's theorem. 
+
+The thing we need to account for is the fact that Fermion fields anticommute, and so we pick up minus signs when moving them past each other within $T$. We can, however, move \textit{pairs} of fields freely as they always come with a $(-1)^2=+1$, and because of this Dyson's formula is unaffected, as the Hamiltonian always contains bilinears. 
+
+\bex 
+    As usual let's denote $\psi_i := \psi(x_i)$. Then, for $x^0_3>x^0_1>x^0_4>x^0_2$, we have 
+    \bse 
+        \begin{split}
+            \cT \big[ \psi_1\psi_2\psi_3\psi_4 \big] & = \cT \big[ \psi_3\psi_4\psi_1\psi_2\big] \\
+            & = - \cT \big[ \psi_3\psi_1\psi_4\psi_2\big]  \\
+            & = -\psi_3\psi_1\psi_4\psi_2
+        \end{split}
+    \ese 
+\eex 
+
+We have to do a similar thing for normal ordering as the creation/annihilation operators now anticommute. 
+\bex 
+    For Fermions we have the following 
+    \bse 
+        \cl b_{\Vec{p},s} b_{\Vec{q},r} b_{\Vec{\ell},t}^{\dagger} \cl = (-1)^2 \cl  b_{\Vec{\ell},t}^{\dagger} b_{\Vec{p},s} b_{\Vec{q},r} \cl = b_{\Vec{\ell},t}^{\dagger} b_{\Vec{p},s} b_{\Vec{q},r}.
+    \ese 
+    A similar type of thing holds for $c$ operators.
+\eex 
+
+\subsection{Feynman Propagator For Fermions}
+
+We can now construct the Feynman propagator for Fermions:
+\mybox{
+\be 
+\label{eqn:FeynmanPropagatorFermions}
+    S_F(x-y) := \bra{0}\cT \psi(x)\overline{\psi}(y) \ket{0} = \begin{cases}
+        \bra{0}\psi(x)\overline{\psi}(y)\ket{0}  & x^0 > y^0 \\
+        \bra{0}-\overline{\psi}(y)\psi(x)\ket{0}  & y^0 > x^0
+    \end{cases} 
+\ee 
+}
+\noindent where we note the minus sign in the cases. This minus sign is necessary to preserve Lorentz invariance: recall that when $(x-y)^2<0$ there is no Lorentz invariant way to decided if $x^0>y^0$ or $y^0>x^0$, putting this together with \Cref{eqn:AnticommutatorPsiPsiBar} we see the minus sign is needed. That is, \Cref{eqn:AnticommutatorPsiPsiBar} tells us 
+\bse 
+    \psi(x)\overline{\psi}(y) = - \overline{\psi}(y)\psi(x),
+\ese 
+for spacelike separation, but in here we can transition from $x^0>y^0$ to $y^0>x^0$ using a Lorentz transformation, so we need a minus sign in the time ordering expression. 
+
+\bbox 
+    Use the Fourier expansions \Cref{eqn:DiracFieldIntegral,eqn:DiracBarFieldIntegral} to show that 
+    \bse 
+        \begin{split}
+            \bra{0}\psi_{\a}(x)\overline{\psi}_{\beta}(y) \ket{0} & = \int \frac{d^3 \Vec{p}}{(2\pi)^3} \frac{1}{2E_{\Vec{p}}} e^{-ip\cdot(x-y)} \big(\slashed{p}+m\big)_{\a\beta} \\
+            -\bra{0}\overline{\psi}_{\beta}(y) \psi_{\a}(x) \ket{0} & = -\int \frac{d^3 \Vec{p}}{(2\pi)^3} \frac{1}{2E_{\Vec{p}}} e^{ip\cdot(x-y)} \big(\slashed{p}-m\big)_{\a\beta}. 
+        \end{split}
+    \ese 
+    \textit{Hint: If you have done the previous exercise this one is basically done.}
+\ebox 
+
+\bcl 
+    We can combine the above two relations to write the Feynman propagator as a 4-momentum integral 
+    \mybox{
+        \be 
+        \label{eqn:FeynmanPropagatorFermionIntegral}
+            S_F(x-y) = \int \frac{d^4p}{(2\pi)^4} \frac{i(\slashed{p}+m)}{p^2-m^2+i\epsilon} e^{-ip\cdot(x-y)}.
+        \ee 
+    }
+\ecl 
+
+\bq 
+    You do a contour integral. The calculation is similar to the one we did for the Feynman propagator for the scalar field, \Cref{eqn:FeynmanPropagatorIntegral}. We `prove' it here by noting the similarity to that expression. 
+\eq 
+
+\br 
+    Note in extension of \Cref{rem:SKernelDiracEquation}, we see that the Feynman propagator for Ferimons is a Green's function of the Dirac equation, that is
+    \bse 
+        \big(i\slashed{\p}_x-m\big) S_F(x-y) = i\del^{(4)}(x-y).
+    \ese 
+\er 
+
+\section{Perturbation Theory}
+
+We now want to look at the interacting theory and derive the Feynman rules. As before we do this by using Wick's theorem and considering the contractions. As we mentioned above, we need to make a small tweak to Wick contractions in order to account for the anticommutation relations. 
+
+\subsection{Wicks Theorem For Fermions}
+
+The contractions actually adapt from the scalar case very straightforwardly.\footnote{See \Cref{sec:WicksTheorm} if you need a reminder on how we obtain this.} We have 
+\mybox{
+\be 
+    \contraction{}{\psi}{(x)}{\psi} \psi(x)\psi(y) = 0 = \contraction{}{\overline{\psi}}{(x)}{\overline{\psi}} \overline{\psi}(x)\overline{\psi}(y), \qand \contraction{}{\psi}{(x)}{\overline{\psi}} \psi(x)\overline{\psi}(y) = S_F(x-y).
+\ee 
+}
+\noindent Then if we are taking a contraction within a string of normal ordered objects we obtain the result by using the anticommutation relations to put the contracted fields next to each other and then normal ordering the rest. 
+
+\bex 
+    Let's say we want to contract $\psi_1$ with $\psi_5$ and $\psi_2$ with $\psi_3$ in the following normal ordering. Then we move the $\psi_5$ so that it's next to the $\psi_1$ and remove the two contractions. That is 
+    \bse
+        \begin{split}
+            \cl \contraction{\psi_1}{\psi_2}{}{\overline{\psi}} \contraction[2ex]{}{\psi_1}{\psi_2\psi_3\psi_4}{\overline{\psi}} \psi_1\psi_2\overline{\psi}_3\psi_4\overline{\psi}_5\psi_6 \cl  & = (-1)^3 \cl \contraction{}{\psi_1}{}{\psi} \contraction{\psi_1\psi_5}{\psi_2}{}{\psi} \psi_1\overline{\psi}_5\psi_2\overline{\psi}_3\psi_4 \psi_6\cl \\
+            & = -S_F(x_1-x_5)S_F(x_2-x_3) \cl \psi_4\psi_6 \cl 
+        \end{split}
+    \ese 
+\eex
+
+We then define the contraction of the operators on states. However we need to account for the fact that we have two different kinds of states, and so in total we have 4 kinds of contractions. These correspond to the two types of particle (i.e. particle and antiparticle) and whether they are ingoing or outgoing. We list them in the table below. 
+\mybox{
+\begin{center}
+	\begin{tabular}{@{} C{4cm} C{4cm} C{5cm} @{}}
+		\toprule
+		 Particle/Antiparticle & Ingoing/Outgoing & Contraction Expression \\
+		\midrule 
+	    Particle & Ingoing & $ \contraction{}{\psi}{(x)\,\,}{\Vec{p}} \psi(x)\ket{\Vec{p},s}_{\psi} = e^{-ip\cdot x} u(\vec{p},s) $ \\ \\
+	    Antiarticle & Ingoing & $ \contraction{}{\overline{\psi}}{(x)\,\,}{\Vec{p}} \overline{\psi}(x)\ket{\Vec{p},s}_{\overline{\psi}} = e^{-ip\cdot x} \overline{v}(\vec{p},s) $ \\ \\
+	    Particle & Outgoing & $ \contraction{\psi\,\,}{\vec{p}}{s\quad}{\overline{\psi}} {}_{\overline{\psi}}\bra{\vec{p},s}\overline{\psi} = e^{ip\cdot x} \overline{u}(\vec{p},s) $ \\ \\
+	    Antiarticle & Outgoing & $ \contraction{\psi\,\,}{\vec{p}}{s\quad}{\overline{\psi}} {}_{\psi}\bra{\vec{p},s}\psi = e^{ip\cdot x} v(\vec{p},s) $ \\ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+}
+
+There's four things to notice here, which we list in bullet points below. 
+\begin{itemize}
+    \item We only contract $\psi$ with the $\psi$ states (i.e. have a subscript $\psi$). Similarly for contracting $\overline{\psi}$. 
+    \item Incoming particles come with a factor of $e^{-ip\cdot x}$ while outgoing particles come with $e^{+ip\cdot x}$.
+    \item The particles are given by the letter $u$ while the antiparticles are given by $v$. 
+    \item If the contraction is obtained using a $\overline{\psi}$ then the resulting symbol has a bar over it, e.g. an outgoing particle has a $\overline{u}$.
+\end{itemize}
+
+Wick's theorem is then exactly the same, namely
+\bse 
+    \cT(\psi_1\overline{\psi}_2 ... ) = \cl \psi_1\overline{\psi}_2 ... \cl + \text{all contractions}
+\ese 
+Ok so let's do some examples to clear up any confusion and also derive some Feynman rules. 
+
+\subsection{Yakawa Theory}
+
+Yakawa theory carries over\footnote{In fact this is the actual Yakawa theory. The scalar Yakawa theory was just studied because its useful for the study now.} to the Dirac fields, and the Lagrangian is given by 
+\bse 
+    \cL = \overline{\psi}\big(i\slashed{\p} -m\big) \psi + \frac{1}{2} (\p\phi)^2 - \frac{1}{2} \mu^2 \phi^2 - g\overline{\psi}\psi\phi,
+\ese
+where $\mu^2$ is the mass term for the real scalar field $\phi$. 
+
+Before we even derive the Feynman rules we can sort of guess what the diagrams will look like. We see that we have three fields $\psi,\overline{\psi}$ and $\phi$ and the interaction term couples one of each together with coupling strength $g$. So we expect the diagram to have a vertex something like 
+\begin{center}
+    \btik 
+        \draw[thick,dashed] (0,0) -- (1.5,0);
+        \draw[->] (0.5,0.3) -- (1.2,0.3) node [midway,above] {$\vec{k}$};
+        \midarrow (-1,1) -- (0,0);
+        \draw[->] (-0.7,0.9) -- (-0.3,0.5);
+        \node at (-0.25,0.9) {$\vec{p}_1$};
+        \midarrow (0,0) -- (-1,-1);
+        \draw[->] (-0.7,-0.9) -- (-0.3,-0.5);
+        \node at (-0.3,-0.9) {$\vec{p}_2$};
+        \draw[fill=black] (0,0) circle [radius=0.07cm] node [left] {$x$};
+        \node at (-1.2,1.2) {$\psi$};
+        \node at (-1.2,-1.2) {$\overline{\psi}$};
+        \node at (0.75,-0.3) {$\phi$};
+    \etik 
+\end{center}
+This represents the process $\psi(p_1)\overline{\psi}(p_2)\to\phi(k)$, which is particle-antiparticle annihilation. 
+
+Now it follows from the fact that we can contract the $\overline{\psi}$ with an outgoing state and produce a particle, that we can rotate this Feynman diagram and obtain the following one:
+\begin{center}
+    \btik 
+        \draw[thick,dashed] (-1,1) -- (0,0);
+        \draw[->] (-0.7,0.9) -- (-0.3,0.5);
+        \node at (-0.25,0.9) {$\vec{p}_1$};
+        \midarrow (-1,-1) -- (0,0);
+        \draw[->] (-0.7,-0.9) -- (-0.3,-0.5);
+        \node at (-0.3,-0.9) {$\vec{p}_2$};
+        \midarrow (0,0) -- (1.5,0);
+        \draw[->] (0.5,0.3) -- (1.2,0.3) node [midway,above] {$\vec{k}$};
+        \node at (-1.2,1.2) {$\psi$};
+        \node at (-1.2,-1.2) {$\phi$};
+        \node at (0.75,-0.3) {$\psi$};
+        \draw[fill=black] (0,0) circle [radius=0.07cm] node [left] {$x$};
+    \etik 
+\end{center}
+which represents the scattering process $\phi(p_1)\psi(p_2)\to\psi(k)$. Note there are no antiparticles present here. Indeed it we can always rotate a Feynman diagram and obtain new ones, provided the particles in the new one are valid. That is, both of the above diagrams are fine because we have particles and antiparticles in this system.\footnote{I have never actually met a case where this doesn't work out, but I thought it was worth clarifying in case such cases do exist.} Note that we always have one Fermion arrow (i.e. the arrows on the lines) flowing into a vertex and one flowing out. This corresponds to our charge \Cref{eqn:DiracCharge} being conserved locally at the vertex. 
+
+Ok let's find some Feynman rules. We'll start by looking at the scattering process 
+\bse 
+    \psi(p_1)\phi(p_2) \to \psi(p_3)\phi(p_4). 
+\ese 
+There are two distinct types of contractions we can do here. We shall use our guess work above to draw these diagrams now for pictorial clarity, however it is important to note that it could be entirely possible that what we draw doesn't correspond to the Wick contraction result at all.\footnote{Of course it will, but I just mean to highlight that just because you think it should look like this, doesn't mean it has to.} The two diagrams are:
+\begin{center}
+    \btik 
+        \begin{scope}[xshift=-3.5cm]
+            \midarrow (-1,1) -- (0,0);
+            \draw[->] (-0.7,0.9) -- (-0.3,0.5);
+            \node at (-0.25,0.9) {$\vec{p}_1$};
+            \draw[thick,dashed] (-1,-1) -- (0,0);
+            \draw[->] (-0.7,-0.9) -- (-0.3,-0.5);
+            \node at (-0.3,-0.9) {$\vec{p}_2$};
+            \midarrow (0,0) -- (1.5,0);
+            \midarrow (1.5,0) -- (2.5,1);
+            \draw[->] (1.8,0.5) -- (2.2,0.9);
+            \node at (1.75,0.9) {$\vec{p}_3$};
+            \draw[thick,dashed] (1.5,0) -- (2.5,-1);
+            \draw[->] (1.8,-0.5) -- (2.2,-0.9);
+            \node at (1.75,-0.9) {$\vec{p}_4$};
+            \node at (-1.2,1.2) {$\psi$};
+            \node at (-1.2,-1.2) {$\phi$};
+            \node at (0.75,-0.3) {$\psi$};
+            \node at (1.2,1.2) {$\psi$};
+            \node at (1.2,-1.2) {$\phi$};
+            \draw[fill=black] (0,0) circle [radius=0.07cm] node [left] {$y$};
+            \draw[fill=black] (1.5,0) circle [radius=0.07cm] node [right] {$x$};
+        \end{scope}
+        %
+        \begin{scope}[xshift=3.5cm]
+            \midarrow (-1.5,1) -- (0,1);
+            \draw[->] (-1.2,1.2) -- (-0.3,1.2) node [midway,above] {$\vec{p}_1$};
+            \draw[thick,dashed] (-1.5,-1) -- (0,-1);
+            \draw[->] (-1.2,-1.2) -- (-0.3,-1.2) node [midway,below] {$\vec{p}_2$};
+            \midarrow (0,1) -- (0,-1);
+            \aftermidarrow (0,-1) -- (1.5,1);
+            \draw[->] (1,0.7) -- (1.3,1.1);
+            \node at (1,1.2) {$\vec{p}_3$};
+            \draw[thick,dashed] (0,1) -- (1.5,-1);
+            \draw[->] (1,-0.7) -- (1.3,-1.1);
+            \node at (1,-1) {$\vec{p}_4$};
+            \node at (-1.7,1) {$\psi$};
+            \node at (-1.7,-1) {$\phi$};
+            \node at (-0.3,0) {$\psi$};
+            \node at (1.7,1) {$\psi$};
+            \node at (1.7,-1) {$\phi$};
+            \draw[fill=black] (0,1) circle [radius=0.07cm] node [right, above] {$x$};
+            \draw[fill=black] (0,-1) circle [radius=0.07cm] node [right, below] {$y$};
+        \end{scope}
+    \etik 
+\end{center}
+
+Let's just focus on the left-hand one. This corresponds to a second order term in Dyson's formula and is given by the following contraction (note we have included a $\a/\beta$ index on the $\psi/\overline{\psi}$s to show how the matrices are contracted. Also note that we have used $\ket{\psi(p,s)}$ instead of $\ket{p,s}_{\psi}$ to help keep track of what comes from where.)
+\bse 
+    \frac{(-ig)^2}{2!} \int d^4 x d^4 y \contraction[1.5ex]{\bra{\phi(p_4)}}{\psi}{(p_3,s)\,\,}{\overline{\psi}} \contraction[1.5ex]{\bra{\phi(p_4)\psi(p_3,s)} \overline{\psi}^{\a}_x}{\psi}{\,\,\phi_x}{\overline{\psi}} \bcontraction[1.5ex]{\,\,\,}{\phi}{(p_4)\psi(p_3,s)\,\,\,\psi_x^{\a}\psi_x^{\a}}{\phi} \bra{\phi(p_4)\psi(p_3,s)} \overline{\psi}^{\a}_x\psi^{\a}_x\phi_x \overline{\psi}^{\beta}_y \contraction[1.5ex]{}{\psi}{\quad\phi_y\,}{\psi}
+    \bcontraction[1.5ex]{\phi_y^{\beta}}{\phi_y}{\,\,\psi(p_1,r)}{\psi} \psi^{\beta}_y\phi_y \ket{\psi(p_1,r)\phi(p_2)},
+\ese 
+which using our contraction rules gives us 
+\bse 
+    \frac{(-ig)^2}{2!}\int d^4x\, d^4y\, e^{i(p_3+p_4)\cdot x} \, \overline{u}(\vec{p}_3,s)_{\a} \, S_F(x-y)_{\a\beta} \, u(\vec{p}_1,r)_{\beta} \, e^{-i(p_1+p_2)\cdot y}.
+\ese 
+We can then insert the integral expression for $S_F(x-y)$, \Cref{eqn:FeynmanPropagatorFermionIntegral}, as 
+\bse 
+    S_F(x-y) = \int \frac{d^4q}{(2\pi)^4} \frac{i(\slashed{q}+m)}{q^2-m^2+i\epsilon} e^{-iq\cdot(x-y)},
+\ese
+and then do the integral over $y$ and $q$ to set $q=p_1+p_2$, and then the integral over $x$ gives a delta function $\del^{(4)}(p_1+p_2-p_3-p_4)$, which gives us the expression 
+\bse 
+    \frac{(-ig)^2}{2!} \del^{(4)}(p_1+p_2-p_3-p_4) \overline{u}(\vec{p}_3,s)_{\a} \frac{i\big[\slashed{p}_1+\slashed{p}_2 + m\big]_{\a\beta}}{(p_1+p_2)^2-m^2+i\epsilon} u(\vec{p}_1,r)_{\beta}. 
+\ese 
+Finally we cancel the factor of $2$ by the symmetry $x \longleftrightarrow y$. 
+
+\bbox 
+    Show that the leading order expression for the process 
+    \bse 
+        \overline{\psi}(p_1)\phi(p_2) \to \overline{\psi}(p_3)\phi(p_4)
+    \ese
+    is given by the final result (before the symmetry factor)
+    \bse 
+        \frac{(-ig)^2}{2!} \del^{(4)}(p_1+p_2-p_3-p_4) \overline{v}(\vec{p}_1,r)_{\a} \frac{i\big[-(\slashed{p}_1+\slashed{p}_2) + m\big]_{\a\beta}}{(p_1+p_2)^2-m^2+i\epsilon} v(\vec{p}_3,s)_{\beta}.
+    \ese 
+    \textit{Hint: Note the minus sign in the numerator, this should come from a delta function.} 
+\ebox 
+
+
+The results of the above exercises suggest the following \textit{momentum space} Feynman rules.
+\mybox{
+All the usual stuff for the scalar field $\phi$ and then:
+\begin{center}
+	\begin{tabular}{@{} C{4cm} C{4cm} C{4cm} @{}}
+		\toprule
+		 Type & Diagram & Maths Expression \\
+		\midrule 
+		Incoming Fermion & \btik 
+            \midarrow (0,0) -- (2,0);
+            \node at (-0.3,0) {$\psi$};
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$(p,s)$};
+            \draw[fill=black] (2,0) circle [radius=0.07];
+        \etik & $u(\vec{p},s)$ \\
+        Incoming Antiermion & \btik 
+            \midarrow (2,0) -- (0,0);
+            \node at (-0.3,0) {$\overline{\psi}$};
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$(p,s)$};
+            \draw[fill=black] (2,0) circle [radius=0.07];
+        \etik & $\overline{v}(\vec{p},s)$ \\
+        %%%%%%
+    	Outgoing Fermion & \btik 
+            \midarrow (0,0) -- (2,0);
+            \node at (-0.3,0) {$\psi$};
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$(p,s)$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+        \etik & $\overline{u}(\vec{p},s)$ \\
+        Outgoing Antifermion & \btik 
+            \midarrow (2,0) -- (0,0);
+            \node at (-0.3,0) {$\psi$};
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$(p,s)$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+        \etik & $v(\vec{p},s)$ \\
+        %%%%%%
+        Fermion Propagator & \btik 
+            \midarrow (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$q$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw[fill=black] (2,0) circle [radius=0.07];
+        \etik & \bse \int \frac{d^4q}{(2\pi)^4} \frac{i(\slashed{q}+m)}{q^2 - m^2 +i\epsilon}\ese  \\ 
+        Antifermion Propagator & \btik 
+            \midarrow (2,0) -- (0,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$q$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw[fill=black] (2,0) circle [radius=0.07];
+        \etik & \bse \int \frac{d^4q}{(2\pi)^4} \frac{i(-\slashed{q}+m)}{q^2 - m^2 +i\epsilon}\ese  \\ 
+        %%%%%%
+        Vertex & \btik 
+            \midarrow (0,0) -- (1,0);
+            \midarrow (1,0) -- (2,0);
+            \draw[thick, dashed] (1,0) -- (1,-0.8);
+            \draw[fill=black] (1,0) circle [radius=0.07] node [above] {$-ig$};
+        \etik & $-(ig)$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+}
+
+\noindent Note that we also label the spin $s$ on the momentum arrow, and note again that the antifermion propagator comes with a $-\slashed{q}$ in the fraction. 
+
+\bbox 
+    Draw the corresponding Feynman diagram to the previous exercise. 
+\ebox 
+
+\subsection{Following The Arrows}
+
+It takes some practice to get used to obtaining the mathematical expressions from the Feynman diagrams for Fermionic fields. This is because the $u/\overline{u}/v/\overline{v}$ are matrices and obviously we have to write them in certain order if we want to get a number as the answer. To clarify, the unbarred $u$ and $v$ are 4-component column matrices and the barred $\overline{u}$ and $\overline{v}$ are 4-component row matrices (as the bar contains a Hermitian conjugate). So if we want to get a number out at the end, then we have to put all the barred elements to the left, as we did in the two expressions above. 
+
+So how do you ensure that you always get this from the Feynman diagram? the answer is you start at the \textit{end} of the Fermion flow and work backwards. That is, you work backwards along the arrows that appear on the Fermion lines:\footnote{Note I have tried to colour coordinate the momentum/spin to make it more clear.}
+\begin{center}
+    \btik 
+        \begin{scope}
+            \draw[->] (0.3,0.2) -- (1.3,0.2) node [midway, above] {\textcolor{orange}{$\vec{p}_1,s$}};
+            \draw[->] (6.7,0.2) -- (7.7,0.2) node [midway, above] {\textcolor{blue}{$\vec{p}_n,r$}};
+            \midarrow (0,0) -- (2,0);
+            \midarrow (2,0) -- (4,0);
+            \midarrow (4,0) -- (6,0);
+            \midarrow (6,0) -- (8,0);
+            \draw[thick, dashed] (2,0) -- (2,1);
+            \draw[thick, dashed] (4,0) -- (4,1);
+            \draw[thick, dashed] (6,0) -- (6,1);
+            \draw[ultra thick, red, ->] (8,-0.5) -- (6,-0.5) node [midway, below] {\textcolor{red}{Read This Way}};
+            \node at (10,0.5) {\large{$= \overline{u}(\textcolor{blue}{\vec{p}_n,r}) ... u(\textcolor{orange}{\vec{p}_1,s})$}};
+        \end{scope}
+        \begin{scope}[yshift=-3cm]
+            \draw[->] (0.3,0.2) -- (1.3,0.2) node [midway, above] {\textcolor{orange}{$\vec{p}_1,s$}};
+            \draw[->] (6.7,0.2) -- (7.7,0.2) node [midway, above] {\textcolor{blue}{$\vec{p}_n,r$}};
+            \midarrow (2,0) -- (0,0);
+            \midarrow (4,0) -- (2,0);
+            \midarrow (6,0) -- (4,0);
+            \midarrow (8,0) -- (6,0);
+            \draw[thick, dashed] (2,0) -- (2,1);
+            \draw[thick, dashed] (4,0) -- (4,1);
+            \draw[thick, dashed] (6,0) -- (6,1);
+            \draw[ultra thick, red, ->] (0,-0.5) -- (2,-0.5) node [midway, below] {\textcolor{red}{Read This Way}};
+            \node at (10,0.5) {\large{$= \overline{v}(\textcolor{orange}{\vec{p}_1,s}) ... u(\textcolor{blue}{\vec{p}_n,r})$}};
+        \end{scope}
+    \etik 
+\end{center}
+
+\subsection{A Fermionic Field Theorists New Best/Worst Friend: Minus Signs}
+
+As we have tried to stress multiple times, when dealing with Fermionic fields, we cannot exchange particles willy-nilly to obtain new expressions. Of course we can do it, we just have to be careful about minus signs. These are both good and bad. They're bad because who likes to keep track of relative minus signs, but they're good because they lead to terms cancelling in our expressions that would otherwise cause problems.\footnote{See QED lectures for more information.} 
+
+So what do we do? Well clearly if the particles are distinguishable then there is no problem just switching them, however when considering processes that have identical particles in the final state, we need to include a minus sign for every switch. For example, for $\psi\psi\to\psi\psi$ scattering, the following two Feynman diagrams 
+\begin{center}
+    \btik 
+        \begin{scope}[xshift=-3.5cm]
+            \midarrow (-2,1) -- (0,1);
+            \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
+            \midarrow (0,1) -- (2,1);
+            \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
+            \draw[thick, dashed] (0,-1) -- (0,1);
+            \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
+            \midarrow (-2,-1) -- (0,-1);
+            \draw[->] (0.8,1.2) -- (1.7,1.2) node [midway,above] {$\vec{p}_3,s_3$};
+            \midarrow (0,-1) -- (2,-1);
+            \draw[->] (0.8,-1.2) -- (1.7,-1.2) node [midway,below] {$\vec{p}_4,s_4$};
+            \node at (-2.2,1) {$\psi$};
+            \node at (-2.2,-1) {$\psi$};
+            \node at (2.2,1) {$\psi$};
+            \node at (2.2,-1) {$\psi$};
+            \draw[fill=black] (0,1) circle [radius=0.07cm] node [above] {$-ig$};
+            \draw[fill=black] (0,-1) circle [radius=0.07cm] node [below] {$-ig$};
+        \end{scope}
+        \node at (0,0) {and};
+        \begin{scope}[xshift=3.5cm]
+            \midarrow (-2,1) -- (0,1);
+            \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
+            \midarrow (-2,-1) -- (0,-1);
+            \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
+            \draw[thick, dashed] (0,1) -- (0,-1);
+            \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
+            \aftermidarrow (0,-1) -- (1.5,1);
+            \draw[->] (1,0.7) -- (1.3,1.1);
+            \node at (1,1.4) {$\vec{p}_3,s_3$};
+            \aftermidarrow (0,1) -- (1.5,-1);
+            \draw[->] (1,-0.7) -- (1.3,-1.1);
+            \node at (1,-1.2) {$\vec{p}_4,s_4$};
+            \node at (-2.2,1) {$\psi$};
+            \node at (-2.2,-1) {$\psi$};
+            \node at (1.7,1) {$\psi$};
+            \node at (1.7,-1) {$\psi$};
+            \draw[fill=black] (0,1) circle [radius=0.07cm] node [right, above] {$-ig$};
+            \draw[fill=black] (0,-1) circle [radius=0.07cm] node [right, below] {$-ig$};
+        \end{scope}
+    \etik  
+\end{center}
+correspond to the two expressions 
+\bse 
+    \text{left} = \frac{i(-ig)^2 \overline{u}(\vec{p}_3,s_3)_{\a} u(\vec{p}_1,s_1)_{\a} \overline{u}(\vec{p}_4,s_4)_{\beta} u(\vec{p}_2,s_2)_{\beta}}{(p_1-p_3)^2-\mu^2 +i\epsilon}
+\ese 
+and 
+\bse
+    \text{right} = -\frac{i(-ig)^2 \overline{u}(\vec{p}_4,s_4)_{\a} u(\vec{p}_1,s_1)_{\a} \overline{u}(\vec{p}_3,s_3)_{\beta} u(\vec{p}_2,s_2)_{\beta}}{(p_1-p_4)^2-\mu^2 +i\epsilon}
+\ese 
+respectively. So we don't just swap $p_3\to p_4$ in the denominator, but we also include the minus sign infront of the second expression for the Fermion statistics. 
+
+\br 
+    Note that we have introduced labels $\a/\beta$ on the matrices so we can see what is contracted with what, e.g. for the first expression the incoming $\psi(\vec{p}_1,s_1)$ couples to the outgoing $\psi(\vec{p}_3,s_3)$.
+\er 
+
+\br 
+    Note it doesn't matter which term we put the minus sign in front of, as long as there is a relative minus sign between the two expressions. This is because these are just terms in the matrix elements, and all we can measure is the absolute value squared so an \textit{overall} minus sign is completely redundant. That is 
+    \bse 
+        |\text{left} - \text{right}|^2 = |\text{right} - \text{left}|^2.
+    \ese 
+\er 
+
+\section{QED}
+
+We end the course with a very brief discussion of QED. We do not have the time here to discuss it in detail, but there is a separate QED course which will expand much further on the theory. The aim here is basically just to introduce the Lagrangian and state the Feynman rules. 
+
+\br 
+    I have tried to expand on some of the equations/ideas presented in the course, however there is still a significant amount of information that would be useful to know. As always, basically all of this information can be found in Prof. Tong's notes, chapter 6.
+\er 
+
+Ok so here's the information we need but don't derive: 
+\begin{itemize}
+    \item The photon field is denoted by $A^{\mu}$.\footnote{Note physical photons only have 2 polarisations, so we should only have 2 degrees of freedom in $A^{\mu}$, however we na\"{i}vely have $4$ (one for each $\mu=0,..,3$. It turns out you can remove two of these leaving only $2$ degrees of freedom. We obtain this using gauge fixing, see Prof. Tong's notes for more details.}
+    \item The Lagrangian for the photon field is given by 
+    \be 
+    \label{eqn:MaxwellLagrangian}
+        \cL_{\text{Maxwell}} = -\frac{1}{4}F_{\mu\nu}F^{\mu\nu} 
+    \ee 
+    where 
+    \bse 
+        F_{\mu\nu} = \p_{\mu}A_{\nu} - \p_{\nu}A_{\mu}. 
+    \ese 
+    \item The photon couples to electric charge, by which we mean the conserved charge for QED is given by local conservation of electric charge. So things like electrons participate in QED reactions, and, as the photon is electrically neutral, the only acceptable vertices for an electron in QED is scattering (i.e. one electron in one electron out) or annihilation (i.e. electron and positron in, photon out). 
+\end{itemize}
+
+\br 
+    Note that the fact that the photon is electrically neutral means that we cannot have any photon-photon interactions. This is contrast to, say, $\phi^4$ theory where we had a vertex with more than one $\phi$. A better comparison to make would be to QCD (the QFT of the strong force) where the gauge boson,\footnote{Basically this just means the particle that describes the force. So the gauge boson for QED is the photon.} called a \textit{gluon}, is charged under the QCD charge (called colour). This means that we \textit{can} get gluon self interactions. This is not discussed at all in this course, but just mentioned for interest. 
+\er 
+
+Ok so let's couple the Maxwell theory to some Fermions. The Lagrangian is given by putting together the Maxwell Lagrangian, \Cref{eqn:MaxwellLagrangian}, and the Dirac Lagrangian, \Cref{eqn:DiracLagrangian}, and then include a coupling between the fields. The result is 
+\be 
+\label{eqn:QEDLagrangian}
+    \cL = - \frac{1}{4}F_{\mu\nu}F^{\mu\nu} + \overline{\psi}\big(i\slashed{D} - m)\psi \qquad D_{\mu} := \p_{\mu} +ie A_{\mu}.
+\ee 
+where we recall that $\slashed{D} := \g^{\mu}D_{\mu}$. We see that our coupling constant is $-ie\g^{\mu}$, and so we have 
+\be 
+\label{eqn:HIQED}
+    H_I = ie \int d^3 \vec{x} \, \overline{\psi}\slashed{A}\psi
+\ee 
+
+\br 
+    The definition of $D_{\mu}$ in \Cref{eqn:QEDLagrangian} might seem a bit strange, however we can show that this definition is required to preserve our internal symmetries. For an outline of this, we set the following exercise.
+\er 
+
+\bbox 
+    Show that \Cref{eqn:QEDLagrangian} is invariant under the transformation 
+    \bse 
+        A_{\mu} \to A_{\mu} + \p_{\mu}\a, \qand \psi \to e^{-ie\a}\psi
+    \ese
+    for some function $\a(x)$. \textit{Hint: Show that}
+    \bse 
+        D_{\mu}\psi \to e^{-ie\a}D_{\mu}\psi
+    \ese 
+    \textit{to argue that $\overline{\psi}D_{\mu}\psi$ is invariant.}
+\ebox  
+
+\subsection{Feynman Rules}
+
+We already have all the Feynman rules for the Fermion fields, so all we need to include here are the vertex factor and the photon rules. We derive these by considering the quantisation of gauge fields, however there was no time in this course to cover that, so we just state the momentum space Feynman rules in the table below. 
+\mybox{
+\begin{center}
+	\begin{tabular}{@{} C{4cm} C{4cm} C{4cm} @{}}
+		\toprule
+		 Type & Diagram & Maths Expression \\
+		\midrule 
+		Incoming Photon & \btik 
+            \wavey (0,0) -- (2,0);
+            \draw[->] (0.5,0.3) -- (1.5,0.3) node [midway, above] {$\vec{p}$};
+            \draw[fill=black] (2,0) circle [radius=0.07cm];
+        \etik & $ \varepsilon_{\mu}(p) =  \contraction{}{A}{\quad \,\,  \vec{p}}{\varepsilon} A_{\mu}\ket{\vec{p},\varepsilon} $ \\ \\
+        Outgoing Photon & \btik 
+            \wavey (0,0) -- (2,0);
+            \draw[->] (0.5,0.3) -- (1.5,0.3) node [midway, above] {$\vec{p}$};
+            \draw[fill=black] (0,0) circle [radius=0.07cm];
+        \etik & $ \varepsilon^*_{\mu}(p) =  \contraction{\bra{\vec{p}}}{\varepsilon}{\,\,\,}{A} \bra{\vec{p},\varepsilon}A_{\mu} $ \\ \\
+        Vertex & \btik 
+            \midarrow (-0.5,0.5) -- (0,0);
+            \midarrow (-0.5,-0.5) -- (0,0);
+            \wavey (0,0) -- (1,0);
+            \draw[fill=black] (0,0) circle [radius=0.07cm];
+        \etik & $ -ie\g^{\mu} $ \\
+        Photon Propagator\footnote{In the Feynman gauge. We give a more general expression in the QED course.} & \btik 
+            \wavey (0,0) -- (2,0);
+            \draw[->] (0.5,0.3) -- (1.5,0.3) node [midway, above] {$\vec{k}$};
+            \draw[fill=black] (0,0) circle [radius=0.07cm];
+            \draw[fill=black] (2,0) circle [radius=0.07cm];
+        \etik & \bse \frac{-i\eta_{\mu\nu}}{k^2 + i\epsilon} \ese \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+}
+
+We use these rules in the same way as for the previous theories to convert Feynman diagrams into mathematical expressions. Note that we are considering couplings to Ferimions (i.e. the Dirac fields) and so we have to include the factors of $-1$ between diagrams as per the end of the last section. 
+
+\br 
+    Note there is no mass term in the denominator of the propagator term. This is because the photon is massless. 
+\er 
+
+
+
+We end the course by giving one example of a Feynman diagram in QED and its corresponding mathmatical expression. 
+
+
+
+\bex 
+    As we stated in the bullet points above, photons couple to electric charge, and so the scattering process $e^-e^-\to e^-e^-$ is valid. The only two valid diagrams are the $t$ channel and $u$ channel, i.e.\footnote{The right diagram is a bit cramped, apologies. I just wanted to save time drawing a whole new diagram so copied the previous one and made some small edits. I think its clear what labels what so decided not to spend ages tweaking it.}
+    \begin{center}
+    \btik 
+        \begin{scope}[xshift=-3.5cm]
+            \midarrow (-2,1) -- (0,1);
+            \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
+            \midarrow (0,1) -- (2,1);
+            \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
+            \wavey (0,-1) -- (0,1);
+            \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
+            \midarrow (-2,-1) -- (0,-1);
+            \draw[->] (0.8,1.2) -- (1.7,1.2) node [midway,above] {$\vec{p}_3,s_3$};
+            \midarrow (0,-1) -- (2,-1);
+            \draw[->] (0.8,-1.2) -- (1.7,-1.2) node [midway,below] {$\vec{p}_4,s_4$};
+            \node at (-2.2,1) {$e^-$};
+            \node at (-2.2,-1) {$e^-$};
+            \node at (2.2,1) {$e^-$};
+            \node at (2.2,-1) {$e^-$};
+            \draw[fill=black] (0,1) circle [radius=0.07cm] node [above] {$-ie\g^{\mu}$};
+            \draw[fill=black] (0,-1) circle [radius=0.07cm] node [below] {$-ie\g^{\mu}$};
+        \end{scope}
+        \node at (0,0) {and};
+        \begin{scope}[xshift=3.5cm]
+            \midarrow (-2,1) -- (0,1);
+            \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
+            \midarrow (-2,-1) -- (0,-1);
+            \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
+            \wavey (0,1) -- (0,-1);
+            \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
+            \aftermidarrow (0,-1) -- (1.5,1);
+            \draw[->] (1,0.7) -- (1.3,1.1);
+            \node at (1.1,1.4) {$\vec{p}_3,s_3$};
+            \aftermidarrow (0,1) -- (1.5,-1);
+            \draw[->] (1,-0.7) -- (1.3,-1.1);
+            \node at (1,-1.2) {$\vec{p}_4,s_4$};
+            \node at (-2.2,1) {$e^-$};
+            \node at (-2.2,-1) {$e^-$};
+            \node at (1.7,1) {$e^-$};
+            \node at (1.7,-1) {$e^-$};
+            \draw[fill=black] (0,1) circle [radius=0.07cm] node [right, above] {$-ie\g^{\mu}$};
+            \draw[fill=black] (0,-1) circle [radius=0.07cm] node [right, below] {$-ie\g^{\mu}$};
+        \end{scope}
+    \etik  
+\end{center}
+These two diagrams correspond to the expressions 
+\bse 
+    \overline{u}(\vec{p}_3,s_3)_{\a} (-ie\g^{\mu}) u(\vec{p}_1,s_1)_{\a} \frac{(-i\eta_{\mu\nu}) }{(p_1-p_3)^2+i\epsilon} \overline{u}(\vec{p}_4,s_4)_{\beta} (-ie\g^{\mu}) u(\vec{p}_2,s_2)_{\beta} 
+\ese 
+and 
+\bse 
+    -\overline{u}(\vec{p}_4,s_4)_{\a} (-ie\g^{\mu}) u(\vec{p}_1,s_1)_{\a} \frac{(-i\eta_{\mu\nu}) }{(p_1-p_4)^2+i\epsilon} \overline{u}(\vec{p}_3,s_3)_{\beta} (-ie\g^{\mu}) u(\vec{p}_2,s_2)_{\beta}
+\ese 
+respectively. Note the minus sign in front of the second expression. This comes from the exchange of the end state particles.
+\eex 
+
+For more experience with QED we end with some exercises.
+
+\bbox 
+    Explain why we don't get a $s$ channel. \textit{Hint: The answer to this is essentially given at the start of this section, so if you've properly read everything this is done...}
+\ebox  
+
+\bbox 
+    Draw the Feynman diagram and obtain the corresponding mathematical expression for the QED process $e^-e^+\to e^-e^+$. \textit{Hint: Note the wording of the question about how many diagrams to expect...}
+\ebox 
+
+\bbox 
+    There is something called a muon, which is roughly speaking just a heavier version of the electron. We denote it by $\mu^-$. Importantly it is also electrically charged, and so couples to the photon. Draw the Feynman diagrams for the scattering process $e^-\mu^-\to e^-\mu^-$, and write down their mathematical expressions. If you like you can distinguish between electron and muon type particles by denoting electrons with $u/v$s and muons with an $a/b$. \textit{Hint: Note that the final state no longer contains identical particles.}
+\ebox 

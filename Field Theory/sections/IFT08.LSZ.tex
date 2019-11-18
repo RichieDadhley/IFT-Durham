@@ -61,7 +61,7 @@ Intuitively, we would say these don't really correspond to scattering as the ini
 \ed 
 
 \br 
-    What \Cref{eqn:ZDefinition} does is it allows us to turn an asymptotic field $\phi(t=\pm\infty,\Vec{x})$ into a field at a general time under a limit. The factor of $\sqrt{Z}$ is included just to normalise the result, hence the name. \textcolor{red}{For Michael: Is this the correct interpretation of $Z$?}
+    What \Cref{eqn:ZDefinition} does is it allows us to turn an asymptotic field $\phi(t=\pm\infty,\Vec{x})$ into a field at a general time under a limit. The factor of $\sqrt{Z}$ is included just to normalise the result, hence the name. %\textcolor{red}{For Michael: Is this the correct interpretation of $Z$?}
 \er 
 
 \bd[Left-Right Derivative Action]\footnote{This might not be a technical name, it's just what I've decided to call it.}
@@ -83,6 +83,10 @@ Intuitively, we would say these don't really correspond to scattering as the ini
     \ee 
 \ep 
 
+\br 
+    Note that because we only integrate over space but $\phi(x)$ is a function of spacetime, our creation and annihilation operators are functions of time! This will prove crucial in the proof of the LSZ theorem below. 
+\er 
+
 \bbox 
     Prove \Cref{eqn:aaDaggerLeftRightDerivativeAction}. \textit{Hint: You will want to use the constraint $p_0=E_{\vec{p}}$ present in \Cref{eqn:HeisenbergPhi} along with $E_{\vec{p}} = \sqrt{\vec{p}^2+m^2} = E_{-\vec{p}}$ at the end.}
 \ebox 
@@ -90,11 +94,11 @@ Intuitively, we would say these don't really correspond to scattering as the ini
 We choose here to first state the result of the LSZ theorem and then derive it, as this way the heavy manipulations that follow have some guiding light. 
 
 \bt[LSZ Reduction Formula]
-    We can express the S-matrix between an initial $m$-particle state and a $n$-particle final particle state in terms of the $(n+m)$-point Green's function as follows:
+    We can express the S-matrix\footnote{Again we are really interested in the Transition matrix. I have tried to use Ts here, but I might have missed some, and written S by accident. Apologies for that, please feel free to point these out to me.} between an initial $m$-particle state and a $n$-particle final particle state in terms of the $(n+m)$-point Green's function as follows:
     \be 
     \label{eqn:LSZ}
         \begin{split}
-            S_{fi} = & \big(iZ^{-1/2}\big)^{n+m} \int dy_1...dy_n \int dx_1...dx_m \, e^{i(p_j\cdot y_j - q_i\cdot x_i)} \\
+            T_{fi} = & \big(iZ^{-1/2}\big)^{n+m} \int dy_1...dy_n \int dx_1...dx_m \, e^{i(p_j\cdot y_j - q_i\cdot x_i)} \\
             & \times \bigg(\prod_{i=1}^m (\p_{x_i}^2+m^2)\bigg) \bigg(\prod_{j=1}^n (\p_{y_j} +m^2) \bigg) G_{n+m}(y_1,...,y_n,x_1,...,x_m) \\
             & + \text{all non-fully connected stuff},
         \end{split}
@@ -114,7 +118,7 @@ Before proving this theorem it is worth stating what it allows us to do. Basical
     We therefore have 
     \bse 
         \begin{split}
-            S_{fi} & = \braket{p_1...p_n;out}{q_1...q_m;in} \\
+            T_{fi} & = \braket{p_1...p_n;out}{q_1...q_m;in} \\
             & = \sqrt{2E_{\vec{q}_1}}\bra{p_1...p_n;out} a^{\dagger}_{\vec{q}_1} \ket{q_2...q_m;in} \\
             & = \frac{1}{i} \int d^3\vec{x}_1 \bra{p_1...p_n;out} e^{-iq_1\cdot x_1} \lra{\p}_0 \, \phi(t=-\infty,\vec{x}) \ket{q_2...q_m;in} \\
             & = \frac{1}{i} \lim_{t\to-\infty} Z^{-1/2} \, \int d^3\vec{x}_1 \bra{p_1...p_n;out} e^{-iq_1\cdot x_1} \lra{\p}_0 \, \phi(x) \ket{q_2...q_m;in} \\
@@ -134,7 +138,7 @@ Before proving this theorem it is worth stating what it allows us to do. Basical
     so our S-matrix splits into two terms:
     \bse 
         \begin{split}
-            S_{fi} = & \frac{1}{i\sqrt{Z}} \lim_{t\to+\infty} \, \int d^3\vec{x}_1 e^{-iq_1\cdot x_1} \lra{\p}_0 \bra{p_1...p_n;out} \phi(x) \ket{q_2...q_m;in} \\
+            T_{fi} = & \frac{1}{i\sqrt{Z}} \lim_{t\to+\infty} \, \int d^3\vec{x}_1 e^{-iq_1\cdot x_1} \lra{\p}_0 \bra{p_1...p_n;out} \phi(x) \ket{q_2...q_m;in} \\
             & \qquad + \frac{1}{i\sqrt{Z}} \, \int d^4x_1 \, \p_0\Big( e^{-iq_1\cdot x_1} \lra{\p}_0 \bra{p_1...p_n;out} \phi(x) \ket{q_2...q_m;in}\Big),
         \end{split}
     \ese
@@ -220,7 +224,7 @@ Ok so we have that the fully connected part of the scattering process is given b
 \ee
 where $\Delta_F$ is the Feynman propagator and $\widetilde{G}_{n+m}$ is our truncated $(n+m)$-point Green's functions. Essentially what we're doing is saying is propagate our initial states to the points $\{z_1,...,z_m\}$ and similarly the final states with $\{z_{m+1},...,z_{m+n}\}$, and characterise all the interaction stuff in the middle using some Green's function, $\widetilde{G}$, as we've tried to indicate below diagrammatically. 
 \begin{center}
-    \btik[scale=0.8]
+    \btik[scale=0.7]
         \draw[thick, fill = gray!40, opacity = 0.8] (0,0) circle [radius=2cm];
         \node at (0,0) {\Large{$\widetilde{G}_{5+4}$}};
         \node at (-6.3,0) {$x_3$};
@@ -285,7 +289,7 @@ so in the LSZ formula all of the Klein-Gordan operators will just give us delta 
 \be
 \label{eqn:SMatrixTruncatedGreensFunction}
     \begin{split}
-        S_{if}^{F.C.} & = \big(iZ^{-1/2}\big)^{n+m} \int dy_1...dy_n\int dx_1...dx_m e^{i(p_j\cdot y_j - q_i\cdot x_i)} \widetilde{G}_{n+m}(x_1...,x_m, y_1,...,y_n) \\
+        T_{fi}^{F.C.} & = \big(iZ^{-1/2}\big)^{n+m} \int dy_1...dy_n\int dx_1...dx_m e^{i(p_j\cdot y_j - q_i\cdot x_i)} \widetilde{G}_{n+m}(x_1...,x_m, y_1,...,y_n) \\
         & = \big(iZ^{-1/2}\big)^{n+m} \widetilde{G}_{n+m} (q_1,...,q_m, p_1, ... , p_n),
     \end{split}
 \ee 
@@ -422,3 +426,94 @@ The reason we have never considered these is because what we've been drawing are
     \etik 
 \end{center}
 The reason we amputate diagrams is because the LSZ theorem tells us to consider only amputated diagrams. This is seen from the truncated Greens function expression: we consider just propagating our initial and final states in/out without any interactions and then only consider the interactions that happen between all the particles in the internal parts, see the truncated $\widetilde{G}$ picture above. 
+
+\section{Full Feynman Rules For Scalar Yakawa}
+
+For completeness/have it all in one place, the table below gives the full set of (momentum space) Feynman rules for Scalar Yakawa theory, the only real change to the table given before is that we can now have antiparticle states $\overline{\psi}$ and we can have internal $\psi/\overline{\psi}$ states and external $\phi$ states. 
+
+Here are some notes to go along with the table:
+\begin{itemize}
+    \item As before, multiply all the factors from each part of the diagram together, and include a factor of $(-ig)(2\pi)^4\del^{(4)}\big(\sum_ik_i\big)$ where $k_i$ is positive if it flows into the vertex and negative if it flows out. Then integrate over all the delta functions, which imposes momentum conservation at every vertex. 
+    \item As mentioned above, if you have a loop in the diagram, you will not have enough delta functions to remove all the integrals, and so you will be left with an integral over the \textit{loop momenta}. 
+    \item Note that for the antiparticle $\overline{\psi}$ the charge flow and the momentum flow point in \textit{opposite} directions. This is how we distinguish particle from antiparticle in Feynman diagrams.
+    \item Note that for the internal $\psi$ propagator we don't label the flow of charge (i.e. the arrow on the line itself). This is because there is no way for us to test to see if it is a `particle going forward in time'\footnote{Recall time flows left to right in our diagrams.} or an `antiparticle going backwards in time'. Obviously this is just lingo to mean there is no way we can test to see which way the arrow points. In either case we get the same result, and so we can just leave it as is. There is no harm in putting the arrow, of course, just if you do you then have to make sure all the other arrows internally agree, i.e. you must always have one arrow in and one arrow out at every vertex.
+    \item As mentioned at the end of the last bullet point, we always need one charge arrow in and one charge arrow out of every vertex. In the $\psi\psi\to\psi\psi$ process this meant we could not annihilated the two initial $\psi$s (i.e. they didn't meet at a vertex) as we would then have two charge arrows into the vertex and zero out. However the $\overline{\psi}$s charge arrow points oppositely to $\psi$s, and so now they \textit{can} annihilate. We draw this diagramatically at the bottom of the table. 
+\end{itemize}
+
+\mybox{
+\begin{center}
+	\begin{tabular}{@{} C{4cm} C{4cm} C{4cm} @{}}
+		\toprule
+		 Type & Diagram & Maths Expression \\
+		\midrule 
+		Incoming External Lines & \btik 
+            \midarrow (0,0) -- (2,0);
+            \node at (-0.3,0) {$\psi$};
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$p$};
+            \draw[fill=black] (2,0) circle [radius=0.07];
+            %
+            \midarrow (2,-1) -- (0,-1);
+            \node at (-0.3,-1) {${\overline{\psi}}$};
+            \draw[->] (0.5,-0.8) -- (1.5,-0.8) node [midway, above] {$p$};
+            \draw[fill=black] (2,-1) circle [radius=0.07];
+            %
+            \draw[thick, dashed] (2,-2) -- (0,-2);
+            \node at (-0.3,-2) {$\phi$};
+            \draw[->] (0.5,-1.8) -- (1.5,-1.8) node [midway, above] {$p$};
+            \draw[fill=black] (2,-2) circle [radius=0.07];
+        \etik & $1$ \\
+        %%%%%%
+        \midrule
+        %%%%%%
+    	Outgoing External Lines & \btik 
+            \midarrow (0,0) -- (2,0);
+            \node at (-0.3,0) {$\psi$};
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$p$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            %
+            \midarrow (2,-1) -- (0,-1);
+            \node at (-0.3,-1) {${\overline{\psi}}$};
+            \draw[->] (0.5,-0.8) -- (1.5,-0.8) node [midway, above] {$p$};
+            \draw[fill=black] (0,-1) circle [radius=0.07];
+            %
+            \draw[thick, dashed] (2,-2) -- (0,-2);
+            \node at (-0.3,-2) {$\phi$};
+            \draw[->] (0.5,-1.8) -- (1.5,-1.8) node [midway, above] {$p$};
+            \draw[fill=black] (0,-2) circle [radius=0.07];
+        \etik & $1$ \\
+        %%%%%%
+        \midrule
+        %%%%%%
+        $\phi$ Propagator & \btik 
+            \draw[thick, dashed] (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$k$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw[fill=black] (2,0) circle [radius=0.07];
+        \etik & \bse \int \frac{d^4k}{(2\pi)^4} \frac{i}{k^2 - m^2 +i\epsilon}\ese  \\ 
+        %%%%%%
+        \midrule
+        %%%%%%
+        $\psi$ Propagator & \btik 
+            \draw[thick] (0,0) -- (2,0);
+            \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$k$};
+            \draw[fill=black] (0,0) circle [radius=0.07];
+            \draw[fill=black] (2,0) circle [radius=0.07];
+        \etik & \bse \int \frac{d^4k}{(2\pi)^4} \frac{i}{k^2 - M^2 +i\epsilon}\ese  \\ 
+        %%%%%%
+        \midrule
+        %%%%%%
+        Vertices & \btik 
+            \midarrow (0,0) -- (1,0);
+            \midarrow (1,0) -- (2,0);
+            \draw[thick, dashed] (1,0) -- (1,-0.8);
+            \draw[fill=black] (1,0) circle [radius=0.07] node [above] {$-ig$};
+            \midarrow (0,-1) -- (1,-1.5);
+            \midarrow (1,-1.5) -- (0,-2);
+            \draw[thick, dashed] (1,-1.5) -- (2,-1.5);
+            \draw[fill=black] (1,-1.5) circle [radius=0.07];
+            \node at (1.2,-1.8) {$-ig$};
+        \etik & $-(ig)$ \\
+		\bottomrule
+	\end{tabular}
+\end{center}
+}

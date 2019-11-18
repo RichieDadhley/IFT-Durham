@@ -1,0 +1,429 @@
+\chapter{Quantising The Dirac Field}
+
+We now want to proceed and try and quantise our Dirac Lagrangian and arrive at some QFT. In order to do this, we are going to draw comparisons to the complex scalar field and use the results from that to guide us. 
+
+\section{Preparing For Quantisation}
+
+For the complex scalar field we could expand the classical theory as an integral over Fourier modes:
+\bse 
+    \phi(x) = \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{E_{\vec{p}}}} \Big( b_{\vec{p}} \, e^{-ip\cdot x}  + c_{\vec{p}}^{\dagger} \, e^{ip\cdot x} \Big)\Big|_{p^0=E_{\vec{p}}}.
+\ese 
+When we quantised this, promoting $\phi(x)$ to an operator, we saw it was built out of the classical plane wave solutions to the Klein-Gordan equation with the creation/annihilation operators being the Fourier coefficients. We now want to start from a similar anstaz for the Dirac field, but now we need to take into account the fact that the Dirac equation is a matrix equation (it has gamma matrices in it) and so we need to include some $4$-component column matrices in there too. So we propose the anstaz 
+\be 
+\label{eqn:DiracFieldIntegral}
+    \psi(x) \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{E_{\vec{p}}}} \Big( u(\vec{p},s) b_{\vec{p}} \, e^{-ip\cdot x}  + v(\vec{p},s)c_{\vec{p}}^{\dagger} \, e^{ip\cdot x} \Big)\Big|_{p^0=E_{\vec{p}}}.
+\ee 
+where, as we will see, the $s$ will label the different spin states, i.e. $s=1,2$. We then define $\overline{\psi}(x)$ from this, giving us 
+\be 
+\label{eqn:DiracBarFieldIntegral}
+    \overline{\psi}(x) \int \frac{d^3\Vec{p}}{(2\pi)^3} \frac{1}{\sqrt{E_{\vec{p}}}} \Big( \overline{u}(\vec{p},s) c_{\vec{p}} \, e^{-ip\cdot x}  + \overline{v}(\vec{p},s)b_{\vec{p}}^{\dagger} \, e^{ip\cdot x} \Big)\Big|_{p^0=E_{\vec{p}}}.
+\ee 
+
+
+\subsection{Positive/Negative Frequency Modes}
+
+\bbox 
+    Use the Dirac equation, \Cref{eqn:DiracEquation}, to show that 
+    \be 
+    \label{eqn:DiracEquationForUV}
+        (\slashed{p} - m)u(\vec{p},s) = 0, \qand (\slashed{p} + m)v(\vec{p},s) = 0
+    \ee 
+    where we note the difference in sign of the $m$ term. 
+\ebox 
+
+We can use the result of this exercise to obtain the explicit form of $u(\vec{p},s)$ and $v(\vec{p},s)$ in a given representation. We will choose to use the Dirac basis. We also note that the Dirac equation is Lorentz invariant and so we can pick whichever frame we like, and so we choose the rest frame. We therefore get 
+\bse 
+    \slashed{p} = \big(m\g^0,0,0,0),
+\ese 
+and so 
+\bse 
+    0 = m\big(\g^0-\b1_{4\times 4}\big)u(\vec{p},s) = \begin{pmatrix}
+        0 & 0 \\
+        0 & \b1_{2\times 2}
+    \end{pmatrix}
+\ese 
+so we get two independent solutions, i.e. the two $s$ values:
+\bse 
+    u(\vec{p},1) = \sqrt{2m}\begin{pmatrix}
+        1 \\
+        0 \\
+        0 \\
+        0
+    \end{pmatrix}, \qand u(\vec{p},2) = \sqrt{2m}\begin{pmatrix}
+        0 \\
+        1 \\
+        0 \\
+        0
+    \end{pmatrix}.
+\ese 
+where we have normalised the states with $\sqrt{2m}$. Similarly we get 
+\bse 
+    v(\vec{p},1) = \sqrt{2m}\begin{pmatrix}
+        0 \\
+        0 \\
+        1 \\
+        0
+    \end{pmatrix}, \qand u(\vec{p},2) = \sqrt{2m}\begin{pmatrix}
+        0 \\
+        0 \\
+        0 \\
+        1
+    \end{pmatrix}.
+\ese 
+
+\br 
+    A nice justification for the fact that we normalised the states with a $\sqrt{2m}$ above can be found in Prof. Tong's notes on page 100-102. However, it is important to note that he is using (and so does Peskin and Schroeder) the Weyl basis. This is related to the Dirac basis via the similarity transformation 
+    \bse 
+        S = \frac{1}{\sqrt{2}}\begin{pmatrix}
+            \b1_{2\times 2} & -\b1_{2\times 2} \\
+            \b1_{2\times 2} & \b1_{2\times 2} \\
+        \end{pmatrix},
+    \ese 
+    and so the expressions he obtains (once you set $\vec{p}=0$) are 
+    \bse 
+        u^{\text{Tong}}(\vec{p},1) = S u^{\text{Us}}(\vec{p},1) = \sqrt{m}\begin{pmatrix}
+        1 \\
+        0 \\
+        1 \\
+        0
+    \end{pmatrix}, \qand u^{\text{Tong}}(\vec{p},2) = S u^{\text{Us}}(\vec{p},2) = \sqrt{m}\begin{pmatrix}
+        0 \\
+        1 \\
+        0 \\
+        1
+    \end{pmatrix}.
+    \ese 
+\er 
+
+\bcl 
+    The normalisation given for our $u/v$ results in the normalisation 
+    \bse 
+        \overline{u}(\vec{p},s)u(\vec{p},s) = 2m, \qand \overline{v}(\vec{p},s)v(\vec{p},s) = -2m
+    \ese 
+\ecl 
+
+\bq 
+    We do this by noting that $u(\vec{p},s)$ transforms the same as $\psi(x)$ and so we know that the products $\overline{u}(\vec{p},s)u(\vec{p},s)$ and $\overline{u}(\vec{p},s)\g^{\mu}p_{\mu} u(\vec{p},s)$ are Lorentz invariant so for the following expression
+    \bse 
+        \overline{u}(\vec{p},s) \slashed{p} u(\vec{p},s) - m\overline{u}(\vec{p},s) = 0
+    \ese
+    we can use the rest frame again, which tells us 
+    \bse 
+        \begin{split}
+            m \overline{u}(\vec{p},s)u(\vec{p},s) & = m u^{\dagger}(\vec{p},s)\big(\g^0\big)^2 u(\vec{p},s) \\
+            & = m u^{\dagger}(\vec{p},s)u(\vec{p},s) \\
+            & = 2m^2 \\
+            \implies \overline{u}(\vec{p},s)u(\vec{p},s) & = 2m,
+        \end{split}
+    \ese 
+    where we have used $(\g^0)^2=\b1$ and $u^{\dagger}(\vec{p},s)u(\vec{p},s)=2m$. The result for $\overline{v}(\vec{p},s)u(\vec{p},s)$ follows similarly. We can also easily show that $\overline{v}(\vec{p},s)u(\vec{p},s)=0$.
+\eq 
+
+The result of a above claim generalises to the following relation
+\mybox{
+\be 
+\label{eqn:UbarUVbarVRelations}
+    \overline{u}(\vec{p},s)u(\vec{p},r) = 2m\del^{rs}, \qand \overline{v}(\vec{p},s)v(\vec{p},r) = -2m\del^{rs}.
+\ee 
+}
+\noindent It is important to note that this result is Lorentz invariant and basis independent and so will hold in general.
+
+\subsection{Spin Sums}
+
+Recall that when we were talking about cross sections we said we needed to consider all the different possible final states and sum over them. Here this will correspond to summing over the different spin values, i.e. over the $s,r$ values, in the final states. We will also need to average over the initial spins. So we need to know what the result of the summing is, the answer is its a $4\times 4$ matrix given by the following claim. 
+
+\bcl
+    The spin sums satisfy
+    \mybox{
+    \be 
+    \label{eqn:SpinSums}
+        \sum_{s=1}^{2} u(\vec{p},s) \overline{u}(\vec{p},s) = \slashed{p} + m, \qand \sum_{s=1}^{2} v(\vec{p},s) \overline{v}(\vec{p},s) = \slashed{p} - m,
+    \ee 
+    }
+    \noindent where the two spinors are not contracted but placed back to back to give a $4\times 4$ matrix.
+\ecl 
+
+\bq 
+    The easiest way to prove this, we would be to go back and look at the solution of \Cref{eqn:DiracEquationForUV} in the Weyl basis and obtain an expression for $u(\vec{p},s)$ and $v(\vec{p},s)$ and then use these results to show \Cref{eqn:SpinSums}. These are done in Prof. Tong's notes on pages 100-101 ad 104-105, respectively, and I don't see the point in just copying this out when I can just point the reader there.
+\eq 
+
+\section{The Quantisation}
+
+\subsection{Fermions}
+
+The study of the atomic spectra of fermions showed that fermionic wavefunctions are antisymmetric under exchange of quantum numbers. It was shown by Jordan and Wigner that this is equivalent to creation/annihilation operators obeying \textit{anti}commutator relations, in contrast to the commutator relations in the case of bosons. Let's say this matematically.
+
+Our states are defined in the same way to the bosonic case, i.e.
+\bse 
+    \ket{\a} := b_{\a}^{\dagger}\ket{0},
+\ese 
+where $\a$ is some general quantum number, with multiparticle states then given by 
+\bse 
+    \ket{\a,\beta} = b_{\a}^{\dagger}b_{\beta}^{\dagger}\ket{0}.
+\ese
+In the bosonic case it didn't matter what way we ordered the creation operators as they commuted, however, as we have just said, Fermi statistics tell us that the wavefunction changes sign if we switch the quantum numbers $\a \leftrightarrow \beta$, i.e. we require
+\bse 
+    \ket{\a,\beta} = - \ket{\beta,\a}. 
+\ese 
+This tells us that we require 
+\bse 
+    \{b_{\a}^{\dagger},b_{\beta}^{\dagger}\} := b_{\a}^{\dagger}b_{\beta}^{\dagger} + b_{\beta}^{\dagger}b_{\a}^{\dagger} = 0.
+\ese 
+Taking the complex conjugate of this tells us that we also require 
+\bse 
+    \{b_{\a},b_{\beta}\} = 0.
+\ese 
+Now note that the antisymmetric nature tells us that we cannot create two particles with the same quantum numbers, and the same for annihiliations i.e. 
+\bse 
+    b_{\a}^{\dagger}b_{\a}^{\dagger} = 0, \qand b_{\a}b_{\a} = 0.
+\ese
+This essentially tells us we can label the elements of our Hilbert space by stating whether the slot is filled or not, e.g. $\ket{0,0}$ and $\ket{1,0}$ etc. From this we can write the action of the creation/annihilation operators as 
+\bse 
+    \begin{split}
+        b_{\a}^{\dagger}\ket{...,0,...} & = \ket{...,1,...} \qand b_{\a}^{\dagger}\ket{...,1,...} = 0 \\
+        b_{\a}\ket{...,1,...} & = \ket{...,0,...} \qand b_{\a}\ket{...,0,...} = 0,
+    \end{split}
+\ese 
+where the shown slot is the $\a$-th slot. 
+
+We can use this to show that for Fermionic creation/annihilation operators we also require 
+\bse 
+    \{ b_{\a}, b_{\beta}^{\dagger} \} = \del_{\a\beta}. 
+\ese 
+The fact that this is true is meant to be motivated by the next exercise. 
+
+\bbox 
+    Show that for a system that only contains two particles, i.e. the only states available are $\ket{0,0}, \ket{0,1}, \ket{1,0}$ and $\ket{1,1}$, that $\{b_{\a},b_{\beta}^{\dagger}\}=\del_{\a\beta}$ for $\a,\beta=1,2$. \textit{Hint: You will want to use the antisymmetric property of the states to make statements like $\ket{0,1}+\ket{1,0} =0$.}
+\ebox  
+
+\subsection{Quantising The Fields}
+
+So we now promote the classical expressions \Cref{eqn:DiracFieldIntegral,eqn:DiracBarFieldIntegral} into operator equations, and we interpret $b_{\vec{p},s}^{\dagger}$ as an operator which creates the particles associated to the spinor $u(\vec{p},s)$ and similarly for $c_{\vec{p},s}^{\dagger}$ with $v(\vec{p},s)$. With the scalar field in mind, we can anticipate that these will correspond to particle and antiparticles, respectively. However it is important to note that we have no proof of this statement at this point. 
+
+For a reason we will explain shortly (see \Cref{rem:DiracCommutationRelations}), it turns out we need to consider anticommutation relations for our Dirac fields, not commutation relations like we did for the scalar fields. That is we want the \textit{equal time} anticommutation relations
+\mybox{
+\be 
+\label{eqn:DiracFieldsAnticommutations}
+    \begin{split}
+        \{\psi_{\a}(\vec{x}), \psi_{\beta}(\vec{y})\} = 0 = \{\psi_{\a}^{\dagger}(\vec{x}), \psi_{\beta}^{\dagger}(\vec{y})\} \\
+        \{\psi_{\a}(\vec{x}), \psi_{\beta}^{\dagger}(\vec{y})\} = \del_{\a\beta}\del^{(3)}\big(\vec{x}-\vec{y}\big) 
+    \end{split}
+\ee 
+}
+
+\bbox 
+    Show that \Cref{eqn:DiracFieldsAnticommutations} is equivalent to 
+    \be 
+    \label{eqn:bcAnticommutator}
+        \begin{split}
+            \{ b_{\vec{p},r}, b_{\vec{q},s}^{\dagger}\} & = (2\pi)^3 \del_{rs} \del^{(3)}\big(\vec{p}-\vec{q}\big) \\
+            \{ c_{\vec{p},r}, c_{\vec{q},s}^{\dagger}\} & = (2\pi)^3 \del_{rs} \del^{(3)}\big(\vec{p}-\vec{q}\big)
+        \end{split}
+    \ee
+    and all other anticommutators vanishing. \textit{Hint: Use \Cref{eqn:DiracFieldIntegral,eqn:DiracBarFieldIntegral} and then use $(\g^0)^2=\b1$ so that you can use the spin sums \Cref{eqn:SpinSums}. If you cant work it out, Prof. Tong does it for commutation relations in his notes on page 107 which should give you the outline of the proof.}
+\ebox 
+
+\br 
+    Note it is easy to see from the above exercise that 
+    \bse 
+        \big\{ \overline{\psi}_{\a}(\vec{x}), \overline{\psi}_{\beta}(\vec{y})\big\} = 0
+    \ese 
+    as we see in \Cref{eqn:DiracBarFieldIntegral} that we will only get anticommutators between $c$ and $b^{\dagger}$.
+\er 
+
+\br 
+    Note it is not a fully convincing argument to say "the quantisation of Dirac fields are spin-$1/2$ particles and we know spin-$1/2$ particles are Fermions so we should use Fermi statistics." Firstly, we haven't yet shown that Dirac fields correspond to spin-$1/2$ particles. We actually could have done this already, but even still I don't believe its a convincing argument to say we therefore use Fermi statistics for the fields. As we will see there is a much more physically crucial\footnote{As a `spoiler' its because otherwise the energy is unbounded from below.} reason why we have to use anticommutation relations.
+\er 
+
+\subsection{The Hamiltonian}
+
+As before, we are ultimately interested in the spectrum of the theorem, that is the eigenvalues of the Hamiltonian. In order to do that, of course we need to know what the Hamiltonian actually is. Recall that the Hamiltonian density is given by 
+\bse 
+    \cH = \pi \dot{\psi} - \cL, \qquad \text{with} \qquad \pi := \frac{\p\cL}{\p\dot{\psi}}. 
+\ese 
+Using the Lagrangian \Cref{eqn:DiracLagrangian} we get 
+\be 
+    \pi = i\overline{\psi} \g^0 = i \psi^{\dagger} \g^0\g^0 = i\psi^{\dagger},
+\ee 
+from which we get that the Hamiltonian density is 
+\bse 
+    \cH = \overline{\psi} \big(-i\g^i\p_i + m\big)\psi.
+\ese 
+Integrating over space will give us the Hamiltonian, 
+\bse 
+    H = \int d^3 \vec{x} \, \overline{\psi} \big(-i\g^i\p_i + m\big) \psi.
+\ese 
+This is the classical result, we get the quantum version by promoting everything to operators and inserting our operator expressions \Cref{eqn:DiracFieldIntegral,eqn:DiracBarFieldIntegral}. Doing this we obtain\footnote{To show this we need the same relations we need for the proof of the spin sums, \Cref{eqn:SpinSums}. Seeing as these aren't presented here, we do not prove this formula. Again it is done in Prof. Tong's notes, page 108. \textcolor{red}{Note to self: Maybe after the courses are finished and you have more time come back and include all this stuff.}}
+\be 
+\label{eqn:DiracHamiltonian}
+    \begin{split}
+        H & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \sum_{s=1}^2 \Big( b_{\vec{p},s}^{\dagger} b_{\vec{p},s} - c_{\vec{p},s} c_{\vec{p},s}^{\dagger} \Big) E_{\vec{p}} \\
+        & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \sum_{s=1}^2 \Big( b_{\vec{p},s}^{\dagger} b_{\vec{p},s} + c_{\vec{p},s}^{\dagger} c_{\vec{p},s} - (2\pi)^3\del^{(3)}(0)\Big) E_{\vec{p}} \\
+        \therefore \, H & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \sum_{s=1}^2 \Big( b_{\vec{p},s}^{\dagger} b_{\vec{p},s} + c_{\vec{p},s}^{\dagger} c_{\vec{p},s}\Big)E_{\vec{p}}
+    \end{split}
+\ee 
+where we have used the anticommutation relation \Cref{eqn:bcAnticommutator}, and where the therefore symbol contains the information about us dropping the infinity term by a redefinition of the ground state energy, as we did for the scalar case.
+
+So we see that the theory contains two types of particles, one created by $b^{\dagger}$ and the other by $c^{\dagger}$. These particles have the same mass (as they give the same energy contribution, $E_{\vec{p}}$, and each carry one of two spins. This is exactly what we expect of spin-$1/2$ Fermions, and we shall indeed provide further support of this claim. We use this interpration to write the Hamiltonian in terms of the number operators
+\bse 
+    H = \int \frac{d^3\vec{p}}{(2\pi)^3} \sum_{s=1}^2 \big(N_{b,s} + N_{c,s}\big) E_{\vec{p}}.
+\ese 
+
+\br 
+    Notice that in \Cref{eqn:DiracHamiltonian} the ground state energy has the opposite sign to the scalar case. That is for the scalar field we have the ground state energy being $+\infty$ while here we have it being $-\infty$.
+\er 
+
+\br
+\label{rem:DiracCommutationRelations}
+    We can now wee why we needed to consider anticommutation relations and not commutation relations. If we had used the commutation relation 
+    \bse 
+        [c_{\vec{p},s},c^{\dagger}_{\vec{q},r}] = \del_{sr}\del^{(3)}\big(\vec{p}-\vec{q}\big),
+    \ese
+    then when we switched the $c_{\vec{p},s}c^{\dagger}_{\vec{p},s}$ term in the first line of \Cref{eqn:DiracHamiltonian} we would obtain 
+    \bse 
+        H = \int \frac{d^3 \vec{p}}{(2\pi)^3} \sum_{s=1}^2 \Big( b_{\vec{p},s}^{\dagger} b_{\vec{p},s} - c_{\vec{p},s}^{\dagger} c_{\vec{p},s} + (2\pi)^3\del^{(3)}(0)\Big) E_{\vec{p}}.
+    \ese 
+    Again we can drop the delta function however the negative sign infront of the $cc^{\dagger}$ term is a dagger\footnote{Awful pun, I know...} to the heart of our theory; it tells us that we our spectrum is unbounded from below! That is we could continually lower the energy of our system by repeated creation of $c^{\dagger}$ particles. This is obviously not good, and it is for this reason that we had to use anticommutation relations for our fields.
+\er 
+
+\subsection{Conserved Currents/Charges}
+
+Let's look at the Noether currents for this theory. The first obvious one to consider is the stress tensor, which we recall is given by 
+\bse 
+    {T^{\mu}}_{\nu} = \frac{\p \cL}{\p\p_{\mu}\psi} \p_{\nu} \psi - {\del^{\mu}}_{\nu} \cL. 
+\ese 
+Using the Dirac Lagrangian, \Cref{eqn:DiracLagrangian}, we get 
+\bse
+    \begin{split}
+        T^{\mu\nu} & = i \overline{\psi}\g^{\mu}\p^{\nu}\psi - \eta^{\mu\nu}\cL \\
+        & = i \overline{\psi}\g^{\mu}\p^{\nu}\psi - \eta^{\mu\nu}\overline{\psi}(i\slashed{\p} - m)\psi.
+    \end{split}
+\ese 
+This doesn't look particularly nice because of the second term. However we can make this much nicer by noting that the a current is conserved only when the equations of motion are satisfied, so we can freely impose \Cref{eqn:DiracEquation} to set the second term to zero. We therefore have 
+\be 
+\label{eqn:DiracStressTensor}
+    T^{\mu\nu} = i\overline{\psi}\g^{\mu}\p^{\nu}\psi. 
+\ee 
+From this we can find the physical momentum via 
+\bse 
+    \begin{split}
+        P^i & := \int d^3 \vec{x} \, T^{0i} \\
+        & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \sum_{s=1}^2 \vec{p} \, \Big( b_{\vec{p},s}^{\dagger} b_{\vec{p},s} + c_{\vec{p},s}^{\dagger} c_{\vec{p},s}\Big) \\
+        & = \int \frac{d^3 \vec{p}}{(2\pi)^3} \sum_{s=1}^2 \vec{p} \, \big( N_{b,s} + N_{c,s}\big),
+    \end{split}
+\ese 
+which just tells us that the total momentum (not including spin!) in the system is given by the sum of momentum from the $b^{\dagger}$ particles and the $c^{\dagger}$ particles. 
+
+\br 
+    Note that we could have also used the equations of motion when considering the scalar fields earlier in the course, however they weren't really any help because the stress-tensor was linear in derivatives whereas the equations of motion were quadratic. This is one of the beauties of the Dirac equation being linear in derivatives. 
+\er 
+
+Now let's look for the conserved charge corresponding to the internal $U(1)$ symmetry:
+\bse 
+    \psi \to e^{-i\a}\psi
+\ese 
+for some fixed $\a\in\R$. For the scalar field case this gave rise to conservation of particle number for the real scalar field and conservation of the difference of particle numbers for the complex scalar field. We can show this gives rise to the current 
+\bse 
+    j^{\mu} = \overline{\psi}\g^{\mu}\psi,
+\ese
+and so \Cref{eqn:NoetherCharge} tells us our conserved charge is 
+\be 
+\label{eqn:DiracCharge}
+    \begin{split}
+        Q & = \int d^3 \vec{x} \, \overline{\psi}\g^0\psi \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3} \sum_{s=1}^2  \Big( b_{\vec{p},s}^{\dagger} b_{\vec{p},s} - c_{\vec{p},s}^{\dagger} c_{\vec{p},s}\Big) \\
+        & = \int \frac{d^3\vec{p}}{(2\pi)^3} \sum_{s=1}^2 \big( N_{b,s} - N_{c,s}\big).
+    \end{split}
+\ee 
+It is at \textit{this point} that we get our particle antiparticle interpretation. This is because of the relative minus sign above which tells us that the $c^{\dagger}$ particle carries the opposite charge to the $b^{\dagger}$ particle. 
+
+\bbox 
+    Show that the conserved current $j^{\mu} = \overline{\psi}\g^{\mu}\psi$ is indeed conserved. That is show 
+    \bse 
+        \nabla_{\mu}j^{\mu} = 0.
+    \ese 
+\ebox 
+
+\subsection{Spectrum}
+
+We can now look at the spectrum of the system. As always we define the vacuum to be the state that is annihilated by all annihilation operators, 
+\bse 
+    b_{\vec{p},s}\ket{0} = 0 = c_{\vec{p},s}\ket{0}
+\ese 
+for all $\vec{p}$ and $s$. It follows immediately from the previous expressions that the vacuum obeys 
+\bse 
+    H\ket{0} = \vec{P}\ket{0} = Q\ket{0} = 0,
+\ese 
+which tells us the vacuum has zero energy, zero momentum and no particles.\footnote{Note the condition $Q\ket{0}=0$ only tells us that there is an equal number of particles and antiparticles, but because the momentum and energy are zero, it follows that we cannot have any particles.}
+
+We have two types of one particle state, we label these by 
+\be 
+\label{eqn:DiracOneParticleStates}
+    \ket{\vec{p},s}_{\psi} := \sqrt{2E_{\vec{p}}} \, b^{\dagger}_{\vec{p},s}\ket{0}, \qand \ket{\vec{p},s}_{\overline{\psi}} := \sqrt{2E_{\vec{p}}} \, c^{\dagger}_{\vec{p},s}\ket{0}
+\ee 
+These have energy, momentum and charge given by
+\bse 
+    \begin{split}
+        H\ket{\vec{p},s}_{\psi} & = E_{\vec{p}} \ket{\vec{p},s}_{\psi} \qand H\ket{\vec{p},s}_{\overline{\psi}} = E_{\vec{p}} \ket{\vec{p},s}_{\overline{\psi}} \\
+        \vec{P}\ket{\vec{p},s}_{\psi} & = \vec{p} \ket{\vec{p},s}_{\psi} \qand \vec{P}\ket{\vec{p},s}_{\overline{\psi}} = \vec{p} \ket{\vec{p},s}_{\overline{\psi}} \\
+        Q\ket{\vec{p},s}_{\psi} & = + \ket{\vec{p},s}_{\psi} \qand Q\ket{\vec{p},s}_{\overline{\psi}} = - \ket{\vec{p},s}_{\overline{\psi}},
+    \end{split}
+\ese 
+which again supports our statement that $b^{\dagger}$ makes particles while $c^{\dagger}$ makes antiparticles. 
+
+\bbox 
+    Find the energy, momentum and charge of multiparticle states. \textit{Hint: Be careful about the states you allow, as we have Fermions so $\ket{\vec{p},s;\vec{p},s}_{\psi} = 0$ by antisymmetry, and similarly for the antiparticle states.}
+\ebox  
+
+
+\subsection{Spin}
+
+So what about the spin? Well, recalling what we did in lectures 2 and 3, we get this by considering an infinitesimal Lorentz transformation on our system. We have already seen, \Cref{eqn:DiracSpinorLorentzTransformation}, that the Dirac spinor transforms under the Lorentz group as
+\bse 
+    \psi^{\a}(x) \to {S[\Lambda]^{\a}}_{\beta} \psi^{\beta}\big(\Lambda^{-1}x\big),
+\ese 
+so we just need to consider the infinitesimal version of this. We have already seen 
+\bse 
+    {\Lambda^{\mu}}_{\nu} \approx {\del^{\mu}}_{\nu} + {\omega^{\mu}}_{\nu}
+\ese 
+and from \Cref{eqn:SLambdaExp} we have 
+\bse 
+    {S[\Lambda]^{\a}}_{\beta} \approx {\del^{\a}}_{\beta} + \frac{1}{2}\Omega_{\rho\sig} {\big(S^{\rho\sig}\big)^{\a}}_{\beta},
+\ese
+which gives us 
+\bse 
+    \del \psi^{\a}(x) = -{\omega^{\mu}}_{\nu} x^{\nu} \p_{\mu}\psi^{\a}(x) + \frac{1}{2}\Omega_{\rho\sig} {\big(S^{\rho\sig}\big)^{\a}}_{\beta} \psi^{\beta}(x),
+\ese 
+where the minus sign on the first term comes from the fact that we have $\Lambda^{-1}$.\footnote{See \Cref{sec:ActiveVsPassive} if this doesn't make sense.} Now we use \Cref{eqn:LittleOmegaBigOmega}, which says 
+\bse 
+    \omega^{\mu\nu} = \Omega^{\mu\nu},
+\ese 
+to obtain 
+\bse 
+    \del \psi^{\a}(x) = -\omega^{\mu\nu} \Big[x_{\nu} \p_{\mu}\psi^{\a}(x) - \frac{1}{2}{\big(S^{\mu\nu}\big)^{\a}}_{\beta} \psi^{\beta}(x)\Big].
+\ese 
+If we compare this to the derivation of \Cref{eqn:LorentzCurrents} we see that the first term above is exactly the same, while the second term above is new so will give an additional contribution to the Lorentz current. In total we have 
+\bse 
+    (\cJ^{\mu})^{\rho\sig} = x^{\rho} T^{\mu\sig} - x^{\sig}T^{\mu\rho} - i\overline{\psi}\g^{\mu} S^{\rho\sig}\psi. 
+\ese 
+So we have the angular momentum operator 
+\be
+\label{eqn:DiracAngularMomentum}
+    J^i := \epsilon^{ijk} \int d^3\vec{x} \, (\cJ^0)^{jk},
+\ee 
+which, using our expressions for the stress tensor, gives 
+\bse 
+    \vec{J} = \int d^3\vec{x} \, \psi^{\dagger} \Big[ \vec{x}\times (-i\vec{\nabla}) + \frac{1}{2} \vec{S}\, \Big]  \psi,
+\ese 
+where\footnote{I think the entries for $\vec{S}$ are correct. If you disagree please feel free to email me a correction.}
+\bse 
+    \vec{S} = \big(S^{23}, S^{31}, S^{12}\big), \qquad S^{ij} = -\frac{i}{2}\epsilon^{ijk} \begin{pmatrix}
+        \sig^k & 0 \\
+        0 & \sig^k
+    \end{pmatrix},
+\ese 
+where $\sig^k$ are the Pauli matrices. This expression can be used to show that our particles do indeed have spin-$1/2$. We do not do the calculation here but instead point the interested reader to pages 60-61 of Peskin and Schroeder. 
+
+\bbox 
+    Show the \Cref{eqn:DiracAngularMomentum} holds. \textit{Hint: Do it for one component $J^i$ and notice how it extends to this formula.}
+\ebox 

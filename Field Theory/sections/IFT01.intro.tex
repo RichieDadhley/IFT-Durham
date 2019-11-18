@@ -165,7 +165,7 @@ The procedure is as follows: we obtain the \textit{Lagrangian} $L$ for our syste
         \del S & = \int_{t_i}^{t_f} dt \del L\big(q_a(t),\dot{q}_a(t)\big) \\
         & = \int_{t_i}^{t_f} dt \bigg( \frac{\p L}{\p q_a} \del q_a + \frac{\p L}{\p \dot{q}_a} \del \dot{q}_a \bigg) \\
         & = \int_{t_i}^{t_f} dt \bigg[ \frac{\p L}{\p q_a} - \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\bigg)\bigg] \del q_a + \bigg[\frac{\p L}{\p \dot{q}_a} \del q_a\bigg]^{t_f}_{t_i} \\
-        & = \int_{t_i}^{t_f} dt \bigg[ \frac{\p L}{\p q_a} + \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\bigg)\bigg] \del q_a,
+        & = \int_{t_i}^{t_f} dt \bigg[ \frac{\p L}{\p q_a} - \frac{d}{dt}\bigg(\frac{\p L}{\p \dot{q}_a}\bigg)\bigg] \del q_a,
     \end{split}
 \ese 
 where we have used 
@@ -203,7 +203,7 @@ The first change we need to make is to the generalised coordinates. For the part
 \ese 
 where $\vec{x}$ is a treated as a label. Note that for the field, we are dealing with a system with an infinite number of degrees of freedom: one for each value of $\vec{x}$.
 
-We can also show by considering a chain of connected springs \textcolor{red}{(Do this later from his notes)} that we must also replace the Lagrangian with a Lagrangian \textit{density}, $\cL$, related by 
+We can also show by considering a chain of connected springs \textcolor{red}{(Do this later from his notes)}\footnote{I plan to come back and fill this in later. Just right now don't think it's worth the time when I have so many other courses to be focusing on.} that we must also replace the Lagrangian with a Lagrangian \textit{density}, $\cL$, related by 
 \be 
 \label{eqn:LtocL}
     L(t) = \int d^3\vec{x} \, \cL\big(\phi_a(x),\p_{\mu}\phi_a(x)\big).
