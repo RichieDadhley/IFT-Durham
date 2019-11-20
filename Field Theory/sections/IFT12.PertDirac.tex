@@ -234,6 +234,18 @@ There's four things to notice here, which we list in bullet points below.
     \item If the contraction is obtained using a $\overline{\psi}$ then the resulting symbol has a bar over it, e.g. an outgoing particle has a $\overline{u}$.
 \end{itemize}
 
+\br 
+\label{rem:FermionContractionsMultiparticleStates}
+    Note that if we had a multiparticle state, as per the method of putting the contracted objects next to each other, we need to switch the ordering of the ket so that we contract the field with the first entry. With the Fermion states discussion above, we see this gives us potential minus signs. For clarity, if we want to contract $\psi(x)$ with the second entry in a two particle state, we have 
+    \bse 
+        \contraction{}{\psi}{(x)\,\,\vec{p},s;}{\vec{q}} \psi(x)\ket{\vec{p},s;\vec{q},r} = - \contraction{}{\psi}{(x)\,\,\vec{p},s;}{\vec{q}} \psi(x)\ket{\vec{q},r;\vec{p},s} = - e^{-iq\cdot x} u(\vec{q},r) \ket{\vec{p},s}.
+    \ese 
+    Note that if we then contracted this result with another field operator, say $\psi(y)$, we wouldn't get any more minus signs as the prefactor on the right-hand side expression doesn't have the anticommutation relation with $\psi(y)$. Recalling that the operators $\psi(x)$ and $\psi(y)$ anticommute, allows us to reformulate this procedure by saying "put the operator with the $(\vec{p},s)$ closest to the ket-vector", i.e. 
+    \bse 
+        \contraction{}{\psi}{(y)\psi(x)\,\,}{\vec{q}} \bcontraction{\psi(y)}{\psi}{(x)\,\,\vec{p},s;}{\vec{q}} \psi(y)\psi(x) \ket{\vec{p},s;\vec{q},r} = - \bcontraction{}{\psi}{(x)\psi(y)\quad \vec{p},s}{\vec{q}} \contraction{\psi(y)}{\psi}{(x)\,\,}{\vec{q}} \psi(x)\psi(y) \ket{\vec{p},s;\vec{q},r}
+    \ese 
+\er 
+
 Wick's theorem is then exactly the same, namely
 \bse 
     \cT(\psi_1\overline{\psi}_2 ... ) = \cl \psi_1\overline{\psi}_2 ... \cl + \text{all contractions}
@@ -475,70 +487,93 @@ So how do you ensure that you always get this from the Feynman diagram? the answ
 
 As we have tried to stress multiple times, when dealing with Fermionic fields, we cannot exchange particles willy-nilly to obtain new expressions. Of course we can do it, we just have to be careful about minus signs. These are both good and bad. They're bad because who likes to keep track of relative minus signs, but they're good because they lead to terms cancelling in our expressions that would otherwise cause problems.\footnote{See QED lectures for more information.} 
 
-So what do we do? Well we just need to include a minus sign for every switch. For example, for $\psi\psi\to\psi\psi$ scattering, the following two Feynman diagrams 
-\begin{center}
-    \btik 
-        \begin{scope}[xshift=-3.5cm]
-            \midarrow (-2,1) -- (0,1);
-            \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
-            \midarrow (0,1) -- (2,1);
-            \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
-            \draw[thick, dashed] (0,-1) -- (0,1);
-            \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
-            \midarrow (-2,-1) -- (0,-1);
-            \draw[->] (0.8,1.2) -- (1.7,1.2) node [midway,above] {$\vec{p}_3,s_3$};
-            \midarrow (0,-1) -- (2,-1);
-            \draw[->] (0.8,-1.2) -- (1.7,-1.2) node [midway,below] {$\vec{p}_4,s_4$};
-            \node at (-2.2,1) {$\psi$};
-            \node at (-2.2,-1) {$\psi$};
-            \node at (2.2,1) {$\psi$};
-            \node at (2.2,-1) {$\psi$};
-            \draw[fill=black] (0,1) circle [radius=0.07cm] node [above] {$-ig$};
-            \draw[fill=black] (0,-1) circle [radius=0.07cm] node [below] {$-ig$};
-        \end{scope}
-        \node at (0,0) {and};
-        \begin{scope}[xshift=3.5cm]
-            \midarrow (-2,1) -- (0,1);
-            \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
-            \midarrow (-2,-1) -- (0,-1);
-            \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
-            \draw[thick, dashed] (0,1) -- (0,-1);
-            \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
-            \aftermidarrow (0,-1) -- (1.5,1);
-            \draw[->] (1,0.7) -- (1.3,1.1);
-            \node at (1,1.4) {$\vec{p}_3,s_3$};
-            \aftermidarrow (0,1) -- (1.5,-1);
-            \draw[->] (1,-0.7) -- (1.3,-1.1);
-            \node at (1,-1.2) {$\vec{p}_4,s_4$};
-            \node at (-2.2,1) {$\psi$};
-            \node at (-2.2,-1) {$\psi$};
-            \node at (1.7,1) {$\psi$};
-            \node at (1.7,-1) {$\psi$};
-            \draw[fill=black] (0,1) circle [radius=0.07cm] node [right, above] {$-ig$};
-            \draw[fill=black] (0,-1) circle [radius=0.07cm] node [right, below] {$-ig$};
-        \end{scope}
-    \etik  
-\end{center}
-correspond to the two expressions 
-\bse 
-    \text{left} = \frac{i(-ig)^2 \overline{u}(\vec{p}_3,s_3)_{\a} u(\vec{p}_1,s_1)_{\a} \overline{u}(\vec{p}_4,s_4)_{\beta} u(\vec{p}_2,s_2)_{\beta}}{(p_1-p_3)^2-\mu^2 +i\epsilon}
-\ese 
-and 
-\bse
-    \text{right} = -\frac{i(-ig)^2 \overline{u}(\vec{p}_4,s_4)_{\a} u(\vec{p}_1,s_1)_{\a} \overline{u}(\vec{p}_3,s_3)_{\beta} u(\vec{p}_2,s_2)_{\beta}}{(p_1-p_4)^2-\mu^2 +i\epsilon}
-\ese 
-respectively. So we don't just swap $p_3\to p_4$ in the denominator, but we also include the minus sign infront of the second expression for the Fermion statistics. 
+So what do we do? Let's look at where these minus signs manifest from Dyson's formula and Wick's theorem. As we explained above, the way you do the Wick contractions with Fermions is to move everything so that the contracted fields are next to each other, picking up the minus signs as you go, and then do the contractions. If we switch two outgoing particles, essentially what we're doing is swapping which vertices they come from (i.e. $t$ channel vs. $u$ channel), and so we need to move them so that they contract with the relevant propagator vertex point. Putting this together with \Cref{rem:FermionContractionsMultiparticleStates} we can see where these minus signs come from. This is perhaps easiest to see with an example. 
+
+\bex 
+    Let's consider the contractions for a $t$ channel vs. a $u$ channel for $\psi\psi\to\psi\psi$. The two diagrams are drawn below:
+    \begin{center}
+        \btik 
+            \begin{scope}[xshift=-3.5cm]
+                \midarrow (-2,1) -- (0,1);
+                \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
+                \midarrow (0,1) -- (2,1);
+                \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
+                \draw[thick, dashed] (0,-1) -- (0,1);
+                \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
+                \midarrow (-2,-1) -- (0,-1);
+                \draw[->] (0.8,1.2) -- (1.7,1.2) node [midway,above] {$\vec{p}_3,s_3$};
+                \midarrow (0,-1) -- (2,-1);
+                \draw[->] (0.8,-1.2) -- (1.7,-1.2) node [midway,below] {$\vec{p}_4,s_4$};
+                \node at (-2.2,1) {$\psi$};
+                \node at (-2.2,-1) {$\psi$};
+                \node at (2.2,1) {$\psi$};
+                \node at (2.2,-1) {$\psi$};
+                \draw[fill=black] (0,1) circle [radius=0.07cm] node [above] {$x$};
+                \draw[fill=black] (0,-1) circle [radius=0.07cm] node [below] {$y$};
+            \end{scope}
+            \node at (0,0) {and};
+            \begin{scope}[xshift=3.5cm]
+                \midarrow (-2,1) -- (0,1);
+                \draw[->] (-1.7,1.2) -- (-0.8,1.2) node [midway,above] {$\vec{p}_1,s_1$};
+                \midarrow (-2,-1) -- (0,-1);
+                \draw[->] (-1.7,-1.2) -- (-0.8,-1.2) node [midway,below] {$\vec{p}_2,s_2$};
+                \draw[thick, dashed] (0,1) -- (0,-1);
+                \draw[->] (-0.3,0.5) -- (-0.3,-0.5) node [midway, left] {$k$};
+                \aftermidarrow (0,-1) -- (1.5,1);
+                \draw[->] (1,0.7) -- (1.3,1.1);
+                \node at (1,1.4) {$\vec{p}_3,s_3$};
+                \aftermidarrow (0,1) -- (1.5,-1);
+                \draw[->] (1,-0.7) -- (1.3,-1.1);
+                \node at (1,-1.2) {$\vec{p}_4,s_4$};
+                \node at (-2.2,1) {$\psi$};
+                \node at (-2.2,-1) {$\psi$};
+                \node at (1.7,1) {$\psi$};
+                \node at (1.7,-1) {$\psi$};
+                \draw[fill=black] (0,1) circle [radius=0.07cm] node [right, above] {$x$};
+                \draw[fill=black] (0,-1) circle [radius=0.07cm] node [right, below] {$y$};
+            \end{scope}
+        \etik  
+    \end{center}
+    The relevant term from Dyson's formula is (forgetting about the integrals etc, its just the contractions we care about here)
+    \bse 
+        \bra{\psi(\vec{p}_4,s_4)\psi(\vec{p}_3,s_3)} \overline{\psi}_x\psi_x\phi_x \overline{\psi}_y\psi_y\phi_y \ket{\psi(\vec{p}_1,s_1)\psi(\vec{p}_2,s_2)}
+    \ese
+    Now if we want to only have Fermions and no antifermions, we will need to contract the $\overline{\psi}$s with the bra vectors and the $\psi$s with the ket vector. So firstly we move them, picking up the minus signs. Step by step, this gives us 
+    \bse 
+        \begin{split}
+            -\bra{\psi(\vec{p}_4,s_4)\psi(\vec{p}_3,s_3)} \overline{\psi}_x \overline{\psi}_y \psi_x\phi_x \psi_y\phi_y \ket{\psi(\vec{p}_1,s_1)\psi(\vec{p}_2,s_2)} \\
+            = -\bra{\psi(\vec{p}_4,s_4)\psi(\vec{p}_3,s_3)} \overline{\psi}_x \overline{\psi}_y \phi_x\phi_y \psi_x\psi_y \ket{\psi(\vec{p}_1,s_1)\psi(\vec{p}_2,s_2)}
+        \end{split}
+    \ese 
+    were we have use the fact that we can move the $\psi$ through the $\phi$s with no problems. We now use \Cref{rem:FermionContractionsMultiparticleStates}, which basically tells us that we have to order our $\psi_x\psi_y/\overline{\psi}_x\overline{\psi}_y$ so that we have the correct momenta/spin going to the correct vertex, i.e. $x$ or $y$. The convention is we fix what we call $x$ and what we call $y$ by where the initial momentum flows.\footnote{More accurately, we include a term $x\leftrightarrow y$ in our expressions, so we fix the $x$ and $y$ and just calculate the answer for this, then add the symmetry factors at the end.} This means we essentially don't have a choice for the $\psi_x\psi_y$ contractions. As per the diagrams above, we choose to have $\psi(\vec{p}_1,s_1)$ flowing into vertex $x$,\footnote{Note we do this so that we cancel the minus factor in our expression above.} so we need to move the $\psi_x$ closest to the ket vector. Clearly we also have to contract the $\phi_x$ and the $\phi_y$ to get the propagator between the vertices. So we get 
+    \bse 
+        \bra{\psi(\vec{p}_4,s_4)\psi(\vec{p}_3,s_3)} \overline{\psi}_x \overline{\psi}_y \contraction{}{\phi_x}{}{\phi} \phi_x\phi_y  \bcontraction{}{\psi_y}{\psi_x \,\, \psi(\vec{p}_1,s_1)}{\psi} \contraction{\psi_y}{\psi_x}{\,\,}{\psi} \psi_y\psi_x \ket{\psi(\vec{p}_1,s_1)\psi(\vec{p}_2,s_2)}
+    \ese 
+    for both the $t$ and $u$ channel. Seeing as this is the same for both we can drop it here and just look at the contractions between the $\overline{\psi}$s and the bra-vector. For the $t$ channel we need to contract the $\overline{\psi}_x$ with the $\psi(\vec{p}_3,s_3)$ and the $\overline{\psi}_y$ with the $\psi(\vec{p}_4,s_4)$ (see the left diagram above). So, as per \Cref{rem:FermionContractionsMultiparticleStates}, we want the $\overline{\psi}_x$ closest to the bra-vector, which is how our expression is already written. So for the $t$ channel we don't pick up any more minus signs. However for the $u$ channel we need flip the above contractions, that is contract $\overline{\psi}_x$ with $\psi(\vec{p}_4,s_4)$ and $\overline{\psi}_y$ with $\psi(\vec{p}_3,s_3)$. This means we need to place the $\overline{\psi}_y$ closest to the bra-vector and so we have to anticommute it past the $\overline{\psi}_x$. This is where our sign comes from! 
+    
+    For completeness, the full expressions for the $t$ and $u$ channel are \bse 
+         \frac{i(-ig)^2 \overline{u}(\vec{p}_3,s_3)_{\a} u(\vec{p}_1,s_1)_{\a} \overline{u}(\vec{p}_4,s_4)_{\beta} u(\vec{p}_2,s_2)_{\beta}}{(p_1-p_3)^2-\mu^2 +i\epsilon}
+    \ese 
+    and 
+    \bse
+        -\frac{i(-ig)^2 \overline{u}(\vec{p}_4,s_4)_{\a} u(\vec{p}_1,s_1)_{\a} \overline{u}(\vec{p}_3,s_3)_{\beta} u(\vec{p}_2,s_2)_{\beta}}{(p_1-p_4)^2-\mu^2 +i\epsilon}
+    \ese 
+    respectively. So we don't just swap $p_3\to p_4$ in the denominator, but we also include the minus sign in front of the second expression for the Fermion statistics. 
+\eex 
+
 
 \br 
     Note that we have introduced labels $\a/\beta$ on the matrices so we can see what is contracted with what, e.g. for the first expression the incoming $\psi(\vec{p}_1,s_1)$ couples to the outgoing $\psi(\vec{p}_3,s_3)$.
 \er 
 
 \br 
-    Note it doesn't matter which term we put the minus sign in front of, as long as there is a relative minus sign between the two expressions. This is because these are just terms in the matrix elements, and all we can measure is the absolute value squared so an \textit{overall} minus sign is completely redundant. That is 
+    Note it doesn't matter which term we put the minus sign in front of, as long as there is a relative minus sign between the two expressions. This is just because the matrix element for a given process is given by a sum over all the different contributions (this just comes from the fact that each diagrams corresponds to a different contraction type, and we sum over the contractions). Now the two expressions above are just the individual contributions to the matrix element, but the individual terms are not measurable; all we can measure is the absolute value of the full matrix element squared. The difference between $\cM_t - \cM_u$ and $\cM_u - \cM_t$ is clearly just an \textit{overall} minus sign, and which is completely redundant. That is 
     \bse 
-        |\text{left} - \text{right}|^2 = |\text{right} - \text{left}|^2.
+        |\cM_t - \cM_u|^2 = |\cM_u - \cM_t|^2.
     \ese 
 \er 
+
+
 
 \section{QED}
 
