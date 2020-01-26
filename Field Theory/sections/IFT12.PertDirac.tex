@@ -290,8 +290,8 @@ Now it follows from the fact that we can contract the $\overline{\psi}$ with an 
         \node at (-0.3,-0.9) {$\vec{p}_2$};
         \midarrow (0,0) -- (1.5,0);
         \draw[->] (0.5,0.3) -- (1.2,0.3) node [midway,above] {$\vec{k}$};
-        \node at (-1.2,1.2) {$\psi$};
-        \node at (-1.2,-1.2) {$\phi$};
+        \node at (-1.2,1.2) {$\phi$};
+        \node at (-1.2,-1.2) {$\psi$};
         \node at (0.75,-0.3) {$\psi$};
         \draw[fill=black] (0,0) circle [radius=0.07cm] node [left] {$x$};
     \etik 
@@ -406,13 +406,13 @@ All the usual stuff for the scalar field $\phi$ and then:
         %%%%%%
     	Outgoing Fermion & \btik 
             \midarrow (0,0) -- (2,0);
-            \node at (-0.3,0) {$\psi$};
+            \node at (2.3,0) {$\psi$};
             \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$(p,s)$};
             \draw[fill=black] (0,0) circle [radius=0.07];
         \etik & $\overline{u}(\vec{p},s)$ \\
         Outgoing Antifermion & \btik 
             \midarrow (2,0) -- (0,0);
-            \node at (-0.3,0) {$\psi$};
+            \node at (2.3,0) {$\overline{\psi}$};
             \draw[->] (0.5,0.2) -- (1.5,0.2) node [midway, above] {$(p,s)$};
             \draw[fill=black] (0,0) circle [radius=0.07];
         \etik & $v(\vec{p},s)$ \\
@@ -478,7 +478,7 @@ So how do you ensure that you always get this from the Feynman diagram? the answ
             \draw[thick, dashed] (4,0) -- (4,1);
             \draw[thick, dashed] (6,0) -- (6,1);
             \draw[ultra thick, red, ->] (0,-0.5) -- (2,-0.5) node [midway, below] {\textcolor{red}{Read This Way}};
-            \node at (10,0.5) {\large{$= \overline{v}(\textcolor{orange}{\vec{p}_1,s}) ... u(\textcolor{blue}{\vec{p}_n,r})$}};
+            \node at (10,0.5) {\large{$= \overline{v}(\textcolor{orange}{\vec{p}_1,s}) ... v(\textcolor{blue}{\vec{p}_n,r})$}};
         \end{scope}
     \etik 
 \end{center}
